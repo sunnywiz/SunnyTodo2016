@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BurndownConsole2016
+namespace SunnyTodo2016
 {
     class Program
     {
@@ -41,30 +40,7 @@ namespace BurndownConsole2016
             }
 
             var lines = File.ReadAllLines(fileName);
-            foreach (var line in lines)
-            {
-                try
-                {
-                    // @"(?:(?<done>[xX] (?:(?<completeddate>[0-9]{4}-[0-9]{2}-[0-9]{2}) )))?(?:\((?<priority>[A-Z])\) )?(?:(?<createddate>[0-9]{4}-[0-9]{2}-[0-9]{2}) )?(?<todo>.+)$");
-
-                    var task = new todotxtlib.net.Task(line);
-                    Console.WriteLine(task.Body);
-                    Console.WriteLine($"  Priority: {task.Priority}");
-                    Console.WriteLine($"  Created: {task.CreatedDate}");
-                    Console.WriteLine($"  Completed: {task.CompletedDate}");
-                    Console.WriteLine($"  Projects: {String.Join("|",task.Projects)}");
-                    Console.WriteLine($"  Contexts: {String.Join("|",task.Contexts)}");
-                    foreach (var meta in task.Metadata)
-                    {
-                        Console.WriteLine($"  Meta: {meta.Key}:{meta.Value}");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Could not parse line: "+line);
-                }
-            }
-            Console.ReadLine(); 
+            var htasks = HierarchicalTasks.LoadFromFileContents(lines);
         }
     }
 }

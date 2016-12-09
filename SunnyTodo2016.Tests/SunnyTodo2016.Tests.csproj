@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{41598E69-C9A7-4D70-B08E-B2358994F6F4}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{E908EA07-0D6F-4B75-B936-6F1381980A80}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SunnyTodo2016</RootNamespace>
-    <AssemblyName>SunnyTodo2016</AssemblyName>
+    <RootNamespace>SunnyTodo2016.Tests</RootNamespace>
+    <AssemblyName>SunnyTodo2016.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -45,25 +42,19 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="todotxtlib.net, Version=1.2.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\todotxtlib.net.1.2.8\lib\net35\todotxtlib.net.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HierarchicalTasks.cs" />
-    <Compile Include="HTask.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="HierarchicalTasksTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="testinput.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <ProjectReference Include="..\SunnyTodo2016\SunnyTodo2016.csproj">
+      <Project>{41598E69-C9A7-4D70-B08E-B2358994F6F4}</Project>
+      <Name>SunnyTodo2016</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

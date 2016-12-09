@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunnyTodo2016", "SunnyTodo2016\SunnyTodo2016.csproj", "{41598E69-C9A7-4D70-B08E-B2358994F6F4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunnyTodo2016.Tests", "SunnyTodo2016.Tests\SunnyTodo2016.Tests.csproj", "{E908EA07-0D6F-4B75-B936-6F1381980A80}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{41598E69-C9A7-4D70-B08E-B2358994F6F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41598E69-C9A7-4D70-B08E-B2358994F6F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41598E69-C9A7-4D70-B08E-B2358994F6F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E908EA07-0D6F-4B75-B936-6F1381980A80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E908EA07-0D6F-4B75-B936-6F1381980A80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E908EA07-0D6F-4B75-B936-6F1381980A80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E908EA07-0D6F-4B75-B936-6F1381980A80}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
