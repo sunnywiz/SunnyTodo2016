@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BurndownConsole2016", "BurndownConsole2016\BurndownConsole2016.csproj", "{41598E69-C9A7-4D70-B08E-B2358994F6F4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunnyTodo2016", "SunnyTodo2016\SunnyTodo2016.csproj", "{41598E69-C9A7-4D70-B08E-B2358994F6F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
