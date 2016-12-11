@@ -1,9 +1,25 @@
-﻿namespace SunnyTodo2016
+﻿using System;
+
+namespace SunnyTodo2016
 {
     public class HTask
     {
-        public string Line { get; set; }
-        public todotxtlib.net.Task TodoTask { get; set; }
+        public HTask (string originalLine)
+        {
+            if (string.IsNullOrWhiteSpace(originalLine)) throw new ArgumentNullException("hey man need a line");
+            OriginalLine = originalLine;
+            _trimmedAtStartLine = originalLine.TrimStart();
+            TodoTask = new todotxtlib.net.Task(originalLine);
+
+        }
+
+        public string OriginalLine { get; private set; }
+
+        private readonly string _trimmedAtStartLine; 
+
+        public todotxtlib.net.Task TodoTask { get; private set; }
+
+        public int IndentLevel => OriginalLine.Length - _trimmedAtStartLine.Length;
 
         public int? Id
         {
@@ -11,23 +27,38 @@
             {
                 if (TodoTask == null) return null;
                 string id;
-                if (TodoTask.Metadata.TryGetValue("id", out id))
+                if (!TodoTask.Metadata.TryGetValue("id", out id)) return null;
+                int numberid;
+                if (int.TryParse(id, out numberid))
                 {
-                    int numberid;
-                    if (int.TryParse(id, out numberid))
-                    {
-                        return numberid;
-                    }
+                    return numberid;
                 }
                 return null;
             }
             set
             {
-                if (TodoTask == null) return;
-                TodoTask.Append(" id:"+value.ToString());
+                TodoTask?.Append(" id:" + value.ToString());
             }
         }
 
-        public int? ParentId { get; set; }
+        public int? ParentId
+        {
+            get
+            {
+                if (TodoTask == null) return null;
+                string id;
+                if (!TodoTask.Metadata.TryGetValue("pid", out id)) return null;
+                int numberid;
+                if (int.TryParse(id, out numberid))
+                {
+                    return numberid;
+                }
+                return null;
+            }
+            set
+            {
+                TodoTask?.Append(" pid:" + value.ToString());
+            }
+        }
     }
 }

@@ -52,11 +52,19 @@ A1 id:1
  B4 id:6";
 
         [Test]
-        public void LoadFileFromContents_ParentalAssignment_roots_get_self()
+        [TestCase("root node gets self",1,1)]
+        [TestCase("B1 gets A1",2,1)]
+        [TestCase("B2 skips B1 and gets A1",3, 1)]
+        [TestCase("C1 gets B2", 4, 3)]
+        [TestCase("B3 skips all the way back to A1", 5, 1)]
+        [TestCase("B4 though indented wierd gets A1", 6, 1)]
+        public void LoadFileFromContents_ParentalAssignment(string description, int id, int parentid)
         {
             var htasks = HierarchicalTasks.LoadFromFileContents(
                 SplitContents(PARENTTEST));
-            Assert.AreEqual(1, htasks[0].ParentId);
+            var task = htasks.FirstOrDefault(t => t.Id == id);
+            if (task == null) Assert.Fail("could not find the task");
+            Assert.AreEqual(parentid, task.ParentId, description);
         }
 
 
