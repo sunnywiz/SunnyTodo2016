@@ -19,6 +19,7 @@ namespace SunnyTodo2016
 
         public todotxtlib.net.Task TodoTask { get; private set; }
 
+        // TODO: could modify IndentLevel to be tab-as-8-spaces aware.
         public int IndentLevel => OriginalLine.Length - _trimmedAtStartLine.Length;
 
         public int? Id

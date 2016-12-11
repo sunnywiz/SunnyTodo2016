@@ -47,6 +47,8 @@ namespace SunnyTodo2016
             //    if no row found, then root -- parent = self. 
             //    if row found, then that's my parent. 
 
+            // TODO: probably should verify that we don't create any loops. 
+
             // for all the things that don't have parents
             for (int i = 0; i < this.Count; i++)
             {
