@@ -52,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HierarchicalTaskEngine.cs" />
-    <Compile Include="HTask.cs" />
+    <Compile Include="HierarchicalTask.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

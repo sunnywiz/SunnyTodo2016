@@ -3,9 +3,11 @@ using NUnit.Framework;
 
 namespace SunnyTodo2016
 {
-    public class HTask
+    public class HierarchicalTask
     {
-        public HTask (string originalLine)
+        // TODO: need to track comments and blank lines as well. 
+
+        public HierarchicalTask (string originalLine)
         {
             if (string.IsNullOrWhiteSpace(originalLine)) throw new ArgumentNullException("hey man need a line");
             OriginalLine = originalLine;
@@ -22,8 +24,6 @@ namespace SunnyTodo2016
 
         // TODO: could modify IndentLevel to be tab-as-8-spaces aware.
         public int IndentLevel => OriginalLine.Length - _trimmedAtStartLine.Length;
-
-        public string Indent => "".PadRight(IndentLevel);
 
         public int? Id
         {
@@ -63,6 +63,11 @@ namespace SunnyTodo2016
             {
                 TodoTask?.Append(" pid:" + value.ToString());
             }
+        }
+
+        public override string ToString()
+        {
+            return "".PadRight(this.IndentLevel) + TodoTask.ToString(); 
         }
     }
 }

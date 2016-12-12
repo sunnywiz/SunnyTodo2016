@@ -8,16 +8,16 @@ namespace SunnyTodo2016
 {
     public class HierarchicalTaskEngine 
     {
-        public List<HTask> InputList { get; private set; }
-        public List<HTask> OutputList { get; private set; }
-        public List<HTask> FilledOutList { get; private set; }
+        public List<HierarchicalTask> InputList { get; private set; }
+        public List<HierarchicalTask> OutputList { get; private set; }
+        public List<HierarchicalTask> FilledOutList { get; private set; }
         // later: InputHistory and OutputHistory
 
         public HierarchicalTaskEngine()
         {
-            InputList = new List<HTask>();
-            OutputList = new List<HTask>();
-            FilledOutList = new List<HTask>();
+            InputList = new List<HierarchicalTask>();
+            OutputList = new List<HierarchicalTask>();
+            FilledOutList = new List<HierarchicalTask>();
         }
 
         public void LoadFromFileContents(string[] contents)
@@ -26,7 +26,7 @@ namespace SunnyTodo2016
             foreach (var line in contents)
             {
                 if (String.IsNullOrWhiteSpace(line)) continue;
-                var hTask = new HTask(line);
+                var hTask = new HierarchicalTask(line);
                 InputList.Add(hTask);
             }
 
@@ -37,14 +37,14 @@ namespace SunnyTodo2016
             OutputList.Clear();
 
             OutputList.AddRange(
-                InputList.Select(x=>new HTask(x.OriginalLine)));
+                InputList.Select(x=>new HierarchicalTask(x.OriginalLine)));
 
             AssignOutputListIds();
 
             FilledOutList.Clear(); 
 
             FilledOutList.AddRange(
-                OutputList.Select(x=>new HTask(x.Indent + x.TodoTask.ToString())));
+                OutputList.Select(x=>new HierarchicalTask(x.ToString())));
 
             AssignFilledOutListParents();
         }

@@ -46,9 +46,14 @@ namespace SunnyTodo2016
             logic.LoadFromFileContents(lines);
             logic.Process();
 
+
             foreach (var task in logic.OutputList)
             {
-                Console.WriteLine(task.Indent + task.TodoTask.ToString());
+                Console.WriteLine(task.ToString());
+            }
+            foreach (var task in logic.FilledOutList)
+            {
+                Console.WriteLine(task.ToString());
             }
             Console.WriteLine("press return to continue");
             Console.ReadLine();
