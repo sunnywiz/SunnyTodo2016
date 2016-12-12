@@ -20,27 +20,39 @@ TestA
   Test D
 ";
 
+        HierarchicalTaskEngine TestTarget = new HierarchicalTaskEngine();
+
+        [SetUp]
+        public void SetUp()
+        {
+           TestTarget = new HierarchicalTaskEngine();   
+        }
+
+
         [Test]
         public void LoadFileFromContents_Empty_lines_are_skipped()
         {
-            var htasks = HierarchicalTasks.LoadFromFileContents(SplitContents(SAMPLETESTS1));
-            Assert.AreEqual(4, htasks.Count, "Should find 3 tests");
+            TestTarget.LoadFromFileContents(SplitContents(SAMPLETESTS1));
+            Assert.AreEqual(4, TestTarget.InputList.Count, "Should find 4 tests");
         }
 
         [Test]
-        public void LoadFileFromContents_Items_with_existing_ids_keep_their_ids()
+        public void Process_OutputItems_with_existing_ids_keep_their_ids()
         {
-            var htasks = HierarchicalTasks.LoadFromFileContents(SplitContents(SAMPLETESTS1));
-            Assert.AreEqual(1, htasks[2].Id);
+            TestTarget.LoadFromFileContents(SplitContents(SAMPLETESTS1));
+            TestTarget.Process();
+            Assert.AreEqual(1, TestTarget.OutputList[2].Id);
         }
 
         [Test]
-        public void LoadFileFromContents_Items_without_ids_get_new_ids()
+        public void Process_OutputItems_without_ids_get_new_ids()
         {
-            var htasks = HierarchicalTasks.LoadFromFileContents(SplitContents(SAMPLETESTS1));
+            TestTarget.LoadFromFileContents(SplitContents(SAMPLETESTS1));
 
-            Assert.AreEqual(2, htasks[0].Id);
-            Assert.AreEqual(3, htasks[1].Id);
+            TestTarget.Process();
+
+            Assert.AreEqual(2, TestTarget.OutputList[0].Id);
+            Assert.AreEqual(3, TestTarget.OutputList[1].Id);
         }
 
         private const string PARENTTEST = @"
@@ -58,11 +70,14 @@ A1 id:1
         [TestCase("C1 gets B2", 4, 3)]
         [TestCase("B3 skips all the way back to A1", 5, 1)]
         [TestCase("B4 though indented wierd gets A1", 6, 1)]
-        public void LoadFileFromContents_ParentalAssignment(string description, int id, int parentid)
+        public void Process_FilledOutList_gets_parental_assignment(string description, int id, int parentid)
         {
-            var htasks = HierarchicalTasks.LoadFromFileContents(
+            TestTarget.LoadFromFileContents(
                 SplitContents(PARENTTEST));
-            var task = htasks.FirstOrDefault(t => t.Id == id);
+
+            TestTarget.Process(); 
+
+            var task = TestTarget.FilledOutList.FirstOrDefault(t => t.Id == id);
             if (task == null) Assert.Fail("could not find the task");
             Assert.AreEqual(parentid, task.ParentId, description);
         }

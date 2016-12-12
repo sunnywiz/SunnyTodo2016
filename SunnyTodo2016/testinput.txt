@@ -2,3 +2,7 @@
    1971-10-01 This is a hello:world test id:6
    (A) higher priority item +popups est:5
 
+Hierarchical Tasks Program
+  Switch engine to allow for 2 inputes and 2 outputs and a detail level
+  Write out the 1st output to a file
+  Calculate est: x numbers (if not supplied, assume 1)

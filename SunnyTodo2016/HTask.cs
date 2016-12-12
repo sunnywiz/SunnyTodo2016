@@ -1,4 +1,5 @@
 ﻿using System;
+using NUnit.Framework;
 
 namespace SunnyTodo2016
 {
@@ -21,6 +22,8 @@ namespace SunnyTodo2016
 
         // TODO: could modify IndentLevel to be tab-as-8-spaces aware.
         public int IndentLevel => OriginalLine.Length - _trimmedAtStartLine.Length;
+
+        public string Indent => "".PadRight(IndentLevel);
 
         public int? Id
         {

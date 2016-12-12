@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace SunnyTodo2016
 {
@@ -43,12 +41,16 @@ namespace SunnyTodo2016
             }
 
             var lines = File.ReadAllLines(fileName);
-            var htasks = HierarchicalTasks.LoadFromFileContents(lines);
 
-            foreach (var task in htasks)
+            var logic = new HierarchicalTaskEngine();
+            logic.LoadFromFileContents(lines);
+            logic.Process();
+
+            foreach (var task in logic.OutputList)
             {
-                Console.WriteLine(task.TodoTask.ToString());
+                Console.WriteLine(task.Indent + task.TodoTask.ToString());
             }
+            Console.WriteLine("press return to continue");
             Console.ReadLine();
         }
     }
