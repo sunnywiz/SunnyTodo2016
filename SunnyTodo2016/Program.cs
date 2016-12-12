@@ -46,11 +46,17 @@ namespace SunnyTodo2016
             logic.LoadFromFileContents(lines);
             logic.Process();
 
-
+            Console.WriteLine("What would get written:");
+            Console.WriteLine();
             foreach (var task in logic.OutputList)
             {
                 Console.WriteLine(task.ToString());
             }
+
+            Console.WriteLine();
+            Console.WriteLine("Internal Structure:");
+            Console.WriteLine();
+
             foreach (var task in logic.FilledOutList)
             {
                 Console.WriteLine(task.ToString());
