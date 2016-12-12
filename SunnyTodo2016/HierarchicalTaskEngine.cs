@@ -60,7 +60,18 @@ namespace SunnyTodo2016
                     {
                         task.Estimate = 1.0; 
                     }
-                }
+                    if (task.Remaining == null)
+                    {
+                        if (task.TodoTask.Completed)
+                        {
+                            task.Remaining = 0.0;
+                        }
+                        else
+                        {
+                            task.Remaining = task.Estimate; 
+                        }
+                    }
+                 }
             }
         }
 

@@ -101,18 +101,26 @@ A1 id:1
             Assert.IsTrue(String.IsNullOrWhiteSpace(TestTarget.OutputList[1].ToString()),"Whitespace is preserved");
         }
 
+        [Test]
+        public void UnderlyingLibrary_understands_x()
+        {
+            var task = new todotxtlib.net.Task("X 2005-06-03 Test");
+            Assert.IsTrue(task.Completed,"should be marked as completed");
+        }
+
+        // TODO: make it so that we can just do "x . " and today's date is filled in
         private const string ESTTEST = @"
-A id:1 est:3
-B id:2
-C id:3 est:2.5
+Task one id:1 est:3 rem:1
+Task two id:2
+x 2005-06-03 Task three id:3 est:2.5
 ";
 
 
         [Test]
-        [TestCase("Given estimate is preserved",1,3.0)]
-        [TestCase("If no estimate given, uses 1.0",2,1.0)]
-        [TestCase("Decimal estimate is ok", 3, 2.5)]
-        public void Process_assings_estimates(string description, int id, double est)
+        [TestCase("Given estimate and remaining are preserved",1,3.0, 1.0)]
+        [TestCase("If no estimate given, uses 1.0, copy to rem",2,1.0, 1.0)]
+        [TestCase("Decimal estimate is ok, and completed task has no remaining", 3, 2.5, 0.0)]
+        public void Process_assings_estimates(string description, int id, double est, double rem)
         {
             TestTarget.LoadFromFileContents(SplitContents(ESTTEST));
             TestTarget.Process();
@@ -121,6 +129,7 @@ C id:3 est:2.5
             if (task == null) Assert.Fail("Could not find line with id "+id);
 
             Assert.AreEqual(est, task.Estimate, description);
+            Assert.AreEqual(rem, task.Remaining, description);
         }
 
 

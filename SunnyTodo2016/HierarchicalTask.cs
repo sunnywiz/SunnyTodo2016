@@ -100,6 +100,30 @@ namespace SunnyTodo2016
             }
         }
 
+        public double? Remaining
+        {
+            get
+            {
+                if (TodoTask == null) return null;
+                string xx;
+                if (!TodoTask.Metadata.TryGetValue("rem", out xx)) return null;
+                double remaining;
+                if (double.TryParse(xx, out remaining))
+                {
+                    return remaining;
+                }
+                return 0.0;
+            }
+            set
+            {
+                // bugs: case of replace, and case of remove
+                if (value.HasValue)
+                {
+                    TodoTask?.Append(" rem:" + value.Value.ToString("N"));
+                }
+            }
+        }
+
         public override string ToString()
         {
             if (WasParsed)
