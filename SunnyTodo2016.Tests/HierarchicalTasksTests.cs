@@ -101,6 +101,29 @@ A1 id:1
             Assert.IsTrue(String.IsNullOrWhiteSpace(TestTarget.OutputList[1].ToString()),"Whitespace is preserved");
         }
 
+        private const string ESTTEST = @"
+A id:1 est:3
+B id:2
+C id:3 est:2.5
+";
+
+
+        [Test]
+        [TestCase("Given estimate is preserved",1,3.0)]
+        [TestCase("If no estimate given, uses 1.0",2,1.0)]
+        [TestCase("Decimal estimate is ok", 3, 2.5)]
+        public void Process_assings_estimates(string description, int id, double est)
+        {
+            TestTarget.LoadFromFileContents(SplitContents(ESTTEST));
+            TestTarget.Process();
+
+            var task = TestTarget.FilledOutList.FirstOrDefault(x => x.Id == id);
+            if (task == null) Assert.Fail("Could not find line with id "+id);
+
+            Assert.AreEqual(est, task.Estimate, description);
+        }
+
+
         private string[] SplitContents(string multiLineString)
         {
             List<string> result = new List<string>();

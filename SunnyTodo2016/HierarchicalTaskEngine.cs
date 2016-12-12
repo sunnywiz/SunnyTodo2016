@@ -46,8 +46,23 @@ namespace SunnyTodo2016
                 OutputList.Select(x=>new HierarchicalTask(x.ToString())));
 
             AssignFilledOutListParents();
+
+            AssignFilledOutEstimatesIfMissing(); 
         }
 
+        private void AssignFilledOutEstimatesIfMissing()
+        {
+            foreach (var task in FilledOutList)
+            {
+                if (task.TodoTask != null)
+                {
+                    if (task.Estimate == null)
+                    {
+                        task.Estimate = 1.0; 
+                    }
+                }
+            }
+        }
 
         private void AssignOutputListIds()
         {

@@ -71,7 +71,32 @@ namespace SunnyTodo2016
             }
             set
             {
+                // bugs: case of replace, and case of remove
                 TodoTask?.Append(" pid:" + value.ToString());
+            }
+        }
+
+        public double? Estimate
+        {
+            get
+            {
+                if (TodoTask == null) return null;
+                string xx;
+                if (!TodoTask.Metadata.TryGetValue("est", out xx)) return null;
+                double estimate;
+                if (double.TryParse(xx, out estimate))
+                {
+                    return estimate;
+                }
+                return 0.0;
+            }
+            set
+            {
+                // bugs: case of replace, and case of remove
+                if (value.HasValue)
+                {
+                    TodoTask?.Append(" est:" + value.Value.ToString("N"));
+                }
             }
         }
 
