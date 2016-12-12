@@ -12,12 +12,13 @@ namespace SunnyTodo2016.Tests
     [TestFixture]
     public class HierarchicalTasksTests
     {
-        private const string SAMPLETESTS1 = @"
-
-TestA 
+        private const string SAMPLETESTS1 = @"TestA 
    TestB 
    TEST C  id:1
   Test D
+
+
+
 ";
 
         HierarchicalTaskEngine TestTarget = new HierarchicalTaskEngine();
@@ -25,15 +26,15 @@ TestA
         [SetUp]
         public void SetUp()
         {
-           TestTarget = new HierarchicalTaskEngine();   
+            TestTarget = new HierarchicalTaskEngine();
         }
 
 
         [Test]
-        public void LoadFileFromContents_Empty_lines_are_skipped()
+        public void LoadFileFromContents_loads_some_lines()
         {
             TestTarget.LoadFromFileContents(SplitContents(SAMPLETESTS1));
-            Assert.AreEqual(4, TestTarget.InputList.Count, "Should find 4 tests");
+            Assert.AreEqual(4, TestTarget.InputList.Count(x => x.TodoTask != null), "Should find 4 filled out tasks");
         }
 
         [Test]
@@ -64,9 +65,9 @@ A1 id:1
  B4 id:6";
 
         [Test]
-        [TestCase("root node gets self",1,1)]
-        [TestCase("B1 gets A1",2,1)]
-        [TestCase("B2 skips B1 and gets A1",3, 1)]
+        [TestCase("root node gets self", 1, 1)]
+        [TestCase("B1 gets A1", 2, 1)]
+        [TestCase("B2 skips B1 and gets A1", 3, 1)]
         [TestCase("C1 gets B2", 4, 3)]
         [TestCase("B3 skips all the way back to A1", 5, 1)]
         [TestCase("B4 though indented wierd gets A1", 6, 1)]
@@ -75,13 +76,30 @@ A1 id:1
             TestTarget.LoadFromFileContents(
                 SplitContents(PARENTTEST));
 
-            TestTarget.Process(); 
+            TestTarget.Process();
 
             var task = TestTarget.FilledOutList.FirstOrDefault(t => t.Id == id);
             if (task == null) Assert.Fail("could not find the task");
             Assert.AreEqual(parentid, task.ParentId, description);
         }
 
+
+        private const string IGNOREDLINETEST =
+            @"# This is a comment
+
+# there was a blank line above this comment";
+
+        [Test]
+        public void LoadFromFileContents_does_keep_track_of_blank_lines_and_comment_lines()
+        {
+            TestTarget.LoadFromFileContents(SplitContents(IGNOREDLINETEST));
+
+            TestTarget.Process();
+
+            Assert.AreEqual(3, TestTarget.OutputList.Count);
+            Assert.IsTrue(TestTarget.OutputList[0].ToString().StartsWith("#"), "Comment is preserved");
+            Assert.IsTrue(String.IsNullOrWhiteSpace(TestTarget.OutputList[1].ToString()),"Whitespace is preserved");
+        }
 
         private string[] SplitContents(string multiLineString)
         {

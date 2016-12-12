@@ -7,23 +7,33 @@ namespace SunnyTodo2016
     {
         // TODO: need to track comments and blank lines as well. 
 
-        public HierarchicalTask (string originalLine)
-        {
-            if (string.IsNullOrWhiteSpace(originalLine)) throw new ArgumentNullException("hey man need a line");
-            OriginalLine = originalLine;
-            _trimmedAtStartLine = originalLine.TrimStart();
-            TodoTask = new todotxtlib.net.Task(originalLine);
+        public bool WasParsed { get; set; }
 
+        public HierarchicalTask(string originalLine)
+        {
+            TodoTask = null; 
+            _originalLine = originalLine;
+            _trimmedAtStartLine = originalLine.TrimStart();
+            if (string.IsNullOrWhiteSpace(originalLine))
+            {
+                WasParsed = false;
+                return;
+            }
+            if (_trimmedAtStartLine.StartsWith("#"))
+            {
+                WasParsed = false;
+                return;
+            }
+            TodoTask = new todotxtlib.net.Task(originalLine);
+            WasParsed = true;
         }
 
-        public string OriginalLine { get; private set; }
-
+        private readonly string _originalLine;
         private readonly string _trimmedAtStartLine; 
-
         public todotxtlib.net.Task TodoTask { get; private set; }
 
         // TODO: could modify IndentLevel to be tab-as-8-spaces aware.
-        public int IndentLevel => OriginalLine.Length - _trimmedAtStartLine.Length;
+        public int IndentLevel => _originalLine.Length - _trimmedAtStartLine.Length;
 
         public int? Id
         {
@@ -67,7 +77,14 @@ namespace SunnyTodo2016
 
         public override string ToString()
         {
-            return "".PadRight(this.IndentLevel) + TodoTask.ToString(); 
+            if (WasParsed)
+            {
+                return "".PadRight(this.IndentLevel) + TodoTask.ToString();
+            }
+            else
+            {
+                return _originalLine;
+            }
         }
     }
 }

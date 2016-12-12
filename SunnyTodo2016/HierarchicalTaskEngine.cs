@@ -25,7 +25,6 @@ namespace SunnyTodo2016
             InputList.Clear();
             foreach (var line in contents)
             {
-                if (String.IsNullOrWhiteSpace(line)) continue;
                 var hTask = new HierarchicalTask(line);
                 InputList.Add(hTask);
             }
@@ -37,7 +36,7 @@ namespace SunnyTodo2016
             OutputList.Clear();
 
             OutputList.AddRange(
-                InputList.Select(x=>new HierarchicalTask(x.OriginalLine)));
+                InputList.Select(x=>new HierarchicalTask(x.ToString())));
 
             AssignOutputListIds();
 
