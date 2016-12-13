@@ -48,6 +48,42 @@ namespace SunnyTodo2016
 
             AssignFilledOutEstimatesIfMissing();
 
+            foreach (var task in FilledOutList)
+            {
+                if (!task.WasParsed) continue; 
+                if (task.Children.Count>0)
+                RecursiveAddToDeepChildren(task, task.Children);
+            }
+
+            AssignFilledOutTotalEstimates();
+        }
+
+        private void AssignFilledOutTotalEstimates()
+        {
+            foreach (var task in FilledOutList)
+            {
+                double totalEst = task.Estimate ?? 0.0;
+                double totalRem = task.Remaining ?? 0.0;
+
+                foreach (var deepchild in task.DeepChildren)
+                {
+                    totalEst += deepchild.Estimate ?? 0.0;
+                    totalRem += deepchild.Remaining ?? 0.0;
+                }
+
+                task.TotalEstimate = totalEst;
+                task.TotalRemaining = totalRem;
+            }
+        }
+
+        private void RecursiveAddToDeepChildren(HierarchicalTask task, List<HierarchicalTask> taskChildren)
+        {
+            task.DeepChildren.AddRange(taskChildren);
+            foreach (var childTask in taskChildren)
+            {
+                if (childTask.Children.Count>0)
+                RecursiveAddToDeepChildren(task,childTask.Children);
+            }
         }
 
         private void AssignFilledOutEstimatesIfMissing()

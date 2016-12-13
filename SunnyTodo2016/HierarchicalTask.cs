@@ -21,9 +21,13 @@ namespace SunnyTodo2016
         public bool WasParsed { get; set; }
 
         public List<HierarchicalTask> Children { get; private set; }
+        public List<HierarchicalTask> DeepChildren { get; private set; }
 
         public HierarchicalTask(string originalLine)
         {
+            Children = new List<HierarchicalTask>();
+            DeepChildren = new List<HierarchicalTask>();
+
             TodoTask = null; 
             _originalLine = originalLine;
             _trimmedAtStartLine = originalLine.TrimStart();
@@ -39,7 +43,6 @@ namespace SunnyTodo2016
             }
             TodoTask = new todotxtlib.net.Task(originalLine);
             WasParsed = true;
-            Children = new List<HierarchicalTask>();
         }
 
         private readonly string _originalLine;

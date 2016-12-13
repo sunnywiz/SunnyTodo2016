@@ -135,7 +135,7 @@ x 2005-06-03 Task three id:3 est:2.5
         private const string TOTALTEST = @"
 A id:1
   B id:2 rem:1
-  x 2012-12-12 C est:2 rem:1 id:3
+  x 2012-12-12 C est:2 id:3
   D id:4
     E id:5
 ";
