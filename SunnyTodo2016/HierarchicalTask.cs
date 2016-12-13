@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace SunnyTodo2016
@@ -19,6 +20,8 @@ namespace SunnyTodo2016
 
         public bool WasParsed { get; set; }
 
+        public List<HierarchicalTask> Children { get; private set; }
+
         public HierarchicalTask(string originalLine)
         {
             TodoTask = null; 
@@ -36,6 +39,7 @@ namespace SunnyTodo2016
             }
             TodoTask = new todotxtlib.net.Task(originalLine);
             WasParsed = true;
+            Children = new List<HierarchicalTask>();
         }
 
         private readonly string _originalLine;

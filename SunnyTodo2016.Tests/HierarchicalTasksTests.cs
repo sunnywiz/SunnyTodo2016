@@ -65,13 +65,13 @@ A1 id:1
  B4 id:6";
 
         [Test]
-        [TestCase("root node gets self", 1, 1)]
+        [TestCase("root node gets null", 1, null)]
         [TestCase("B1 gets A1", 2, 1)]
         [TestCase("B2 skips B1 and gets A1", 3, 1)]
         [TestCase("C1 gets B2", 4, 3)]
         [TestCase("B3 skips all the way back to A1", 5, 1)]
         [TestCase("B4 though indented wierd gets A1", 6, 1)]
-        public void Process_FilledOutList_gets_parental_assignment(string description, int id, int parentid)
+        public void Process_FilledOutList_gets_parental_assignment(string description, int id, int? parentid)
         {
             TestTarget.LoadFromFileContents(
                 SplitContents(PARENTTEST));

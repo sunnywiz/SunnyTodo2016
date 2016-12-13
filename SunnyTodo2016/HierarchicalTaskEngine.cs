@@ -28,7 +28,6 @@ namespace SunnyTodo2016
                 var hTask = new HierarchicalTask(line);
                 InputList.Add(hTask);
             }
-
         }
 
         public void Process()
@@ -47,7 +46,8 @@ namespace SunnyTodo2016
 
             AssignFilledOutListParents();
 
-            AssignFilledOutEstimatesIfMissing(); 
+            AssignFilledOutEstimatesIfMissing();
+
         }
 
         private void AssignFilledOutEstimatesIfMissing()
@@ -99,6 +99,7 @@ namespace SunnyTodo2016
             //    if row found, then that's my parent. 
 
             // TODO: probably should verify that we don't create any loops. 
+            // this is probably already done as we only look backwards for a parent
 
             // for all the things that don't have parents
             for (int i = 0; i < FilledOutList.Count; i++)
@@ -113,12 +114,11 @@ namespace SunnyTodo2016
                     if (ptask.IndentLevel >= task.IndentLevel) continue;
 
                     task.ParentId = ptask.Id;
+                    ptask.Children.Add(task);
                     goto outer;
                 }
                 // if we get here, didn't find anything that would work
-                // so we'll assign ourselves
-                if (!task.Id.HasValue) continue;
-                task.ParentId = task.Id;
+                // no big deal, leave as null. 
 
                 outer:
                 ;
