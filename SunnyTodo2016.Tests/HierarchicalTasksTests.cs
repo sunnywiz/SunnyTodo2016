@@ -132,6 +132,31 @@ x 2005-06-03 Task three id:3 est:2.5
             Assert.AreEqual(rem, task.Remaining, description);
         }
 
+        private const string TOTALTEST = @"
+A id:1
+  B id:2 rem:1
+  x 2012-12-12 C est:2 rem:1 id:3
+  D id:4
+    E id:5
+";
+
+        [Test]
+        [TestCase("Leaf Node E only has self numbers",5,1.0, 1.0)]
+        [TestCase("D has both D and E numbers", 4, 2.0, 2.0)]
+        [TestCase("C only counts self but rem is modified due to x", 3, 2.0, 0.0)]
+        [TestCase("B only counts self", 2, 1.0, 1.0)]
+        [TestCase("A has all including self", 1, 6.0, 4.0)]
+        public void Process_calculates_tree_totals(string description, int id, double totalEstimate, double totalRemaining)
+        {
+            TestTarget.LoadFromFileContents(SplitContents(TOTALTEST));
+            TestTarget.Process();
+
+            var task = TestTarget.FilledOutList.FirstOrDefault(x => x.Id == id);
+            if (task == null) Assert.Fail("Could not find line with id " + id);
+
+            Assert.AreEqual(totalEstimate, task.TotalEstimate, description);
+            Assert.AreEqual(totalRemaining, task.TotalRemaining, description);
+        }
 
         private string[] SplitContents(string multiLineString)
         {

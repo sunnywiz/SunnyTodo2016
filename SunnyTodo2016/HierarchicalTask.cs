@@ -5,6 +5,16 @@ namespace SunnyTodo2016
 {
     public class HierarchicalTask
     {
+        // these are only stored in the detail so they can be long
+        private const string KEY_PARENTID = "parentid";
+        private const string KEY_TOTALESTIMATE = "totalestimate";
+        private const string KEY_TOTALREMAINING = "totalremaining";
+
+        // these are saved back to the original so they need to be short
+        private const string KEY_ID = "id";
+        private const string KEY_ESTIMATE = "est";
+        private const string KEY_REMAINING = "rem";
+
         // TODO: need to track comments and blank lines as well. 
 
         public bool WasParsed { get; set; }
@@ -41,7 +51,7 @@ namespace SunnyTodo2016
             {
                 if (TodoTask == null) return null;
                 string id;
-                if (!TodoTask.Metadata.TryGetValue("id", out id)) return null;
+                if (!TodoTask.Metadata.TryGetValue(KEY_ID, out id)) return null;
                 int numberid;
                 if (int.TryParse(id, out numberid))
                 {
@@ -51,7 +61,7 @@ namespace SunnyTodo2016
             }
             set
             {
-                TodoTask?.Append(" id:" + value.ToString());
+                TodoTask?.Append($" {KEY_ID}:{value}");
             }
         }
 
@@ -61,7 +71,7 @@ namespace SunnyTodo2016
             {
                 if (TodoTask == null) return null;
                 string id;
-                if (!TodoTask.Metadata.TryGetValue("pid", out id)) return null;
+                if (!TodoTask.Metadata.TryGetValue(KEY_PARENTID, out id)) return null;
                 int numberid;
                 if (int.TryParse(id, out numberid))
                 {
@@ -72,7 +82,7 @@ namespace SunnyTodo2016
             set
             {
                 // bugs: case of replace, and case of remove
-                TodoTask?.Append(" pid:" + value.ToString());
+                TodoTask?.Append($" {KEY_PARENTID}:{value}");
             }
         }
 
@@ -80,23 +90,11 @@ namespace SunnyTodo2016
         {
             get
             {
-                if (TodoTask == null) return null;
-                string xx;
-                if (!TodoTask.Metadata.TryGetValue("est", out xx)) return null;
-                double estimate;
-                if (double.TryParse(xx, out estimate))
-                {
-                    return estimate;
-                }
-                return 0.0;
+                return GetDouble(KEY_ESTIMATE);
             }
             set
             {
-                // bugs: case of replace, and case of remove
-                if (value.HasValue)
-                {
-                    TodoTask?.Append(" est:" + value.Value.ToString("N"));
-                }
+                SetDouble(KEY_ESTIMATE, value);
             }
         }
 
@@ -104,23 +102,35 @@ namespace SunnyTodo2016
         {
             get
             {
-                if (TodoTask == null) return null;
-                string xx;
-                if (!TodoTask.Metadata.TryGetValue("rem", out xx)) return null;
-                double remaining;
-                if (double.TryParse(xx, out remaining))
-                {
-                    return remaining;
-                }
-                return 0.0;
+                return GetDouble(KEY_REMAINING);
             }
             set
             {
-                // bugs: case of replace, and case of remove
-                if (value.HasValue)
-                {
-                    TodoTask?.Append(" rem:" + value.Value.ToString("N"));
-                }
+                SetDouble(KEY_REMAINING, value);
+            }
+        }
+
+        public double? TotalEstimate
+        {
+            get
+            {
+                return GetDouble(KEY_TOTALESTIMATE);
+            }
+            set
+            {
+                SetDouble(KEY_TOTALESTIMATE, value);
+            }
+        }
+
+        public double? TotalRemaining
+        {
+            get
+            {
+                return GetDouble(KEY_TOTALREMAINING);
+            }
+            set
+            {
+                SetDouble(KEY_TOTALREMAINING, value);
             }
         }
 
@@ -134,6 +144,28 @@ namespace SunnyTodo2016
             {
                 return _originalLine;
             }
+        }
+
+        private void SetDouble(string key, double? value)
+        {
+// bugs: case of replace, and case of remove
+            if (value.HasValue)
+            {
+                TodoTask?.Append(" " + key + ":" + value.Value.ToString("N"));
+            }
+        }
+
+        private double? GetDouble(string key)
+        {
+            if (TodoTask == null) return null;
+            string xx;
+            if (!TodoTask.Metadata.TryGetValue(key, out xx)) return null;
+            double estimate;
+            if (double.TryParse(xx, out estimate))
+            {
+                return estimate;
+            }
+            return 0.0;
         }
     }
 }
