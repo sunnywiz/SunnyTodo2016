@@ -107,7 +107,7 @@ namespace SunnyTodo2016
                     });
                 }
             }
-            OutputHistory = OutputHistory.OrderBy(x => x.TimeStamp).ThenBy(x => x.Id).ToList();
+            OutputHistory = OutputHistory.OrderBy(x => x.Id).ThenBy(x => x.TimeStamp).ToList();
         }
 
         private void AssignFilledOutTotalEstimates()
