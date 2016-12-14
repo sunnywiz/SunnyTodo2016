@@ -33,14 +33,14 @@ namespace SunnyTodo2016.Tests
         [Test]
         public void LoadFileFromContents_loads_some_lines()
         {
-            TestTarget.LoadFromFileContents(SplitContents(SAMPLETESTS1));
+            TestTarget.LoadInputList(SplitContents(SAMPLETESTS1));
             Assert.AreEqual(4, TestTarget.InputList.Count(x => x.TodoTask != null), "Should find 4 filled out tasks");
         }
 
         [Test]
         public void Process_OutputItems_with_existing_ids_keep_their_ids()
         {
-            TestTarget.LoadFromFileContents(SplitContents(SAMPLETESTS1));
+            TestTarget.LoadInputList(SplitContents(SAMPLETESTS1));
             TestTarget.Process();
             Assert.AreEqual(1, TestTarget.OutputList[2].Id);
         }
@@ -48,7 +48,7 @@ namespace SunnyTodo2016.Tests
         [Test]
         public void Process_OutputItems_without_ids_get_new_ids()
         {
-            TestTarget.LoadFromFileContents(SplitContents(SAMPLETESTS1));
+            TestTarget.LoadInputList(SplitContents(SAMPLETESTS1));
 
             TestTarget.Process();
 
@@ -73,7 +73,7 @@ A1 id:1
         [TestCase("B4 though indented wierd gets A1", 6, 1)]
         public void Process_FilledOutList_gets_parental_assignment(string description, int id, int? parentid)
         {
-            TestTarget.LoadFromFileContents(
+            TestTarget.LoadInputList(
                 SplitContents(PARENTTEST));
 
             TestTarget.Process();
@@ -92,7 +92,7 @@ A1 id:1
         [Test]
         public void LoadFromFileContents_does_keep_track_of_blank_lines_and_comment_lines()
         {
-            TestTarget.LoadFromFileContents(SplitContents(IGNOREDLINETEST));
+            TestTarget.LoadInputList(SplitContents(IGNOREDLINETEST));
 
             TestTarget.Process();
 
@@ -122,7 +122,7 @@ x 2005-06-03 Task three id:3 est:2.5
         [TestCase("Decimal estimate is ok, and completed task has no remaining", 3, 2.5, 0.0)]
         public void Process_assings_estimates(string description, int id, double est, double rem)
         {
-            TestTarget.LoadFromFileContents(SplitContents(ESTTEST));
+            TestTarget.LoadInputList(SplitContents(ESTTEST));
             TestTarget.Process();
 
             var task = TestTarget.FilledOutList.FirstOrDefault(x => x.Id == id);
@@ -148,7 +148,7 @@ A id:1
         [TestCase("A has all including self", 1, 6.0, 4.0)]
         public void Process_calculates_tree_totals(string description, int id, double totalEstimate, double totalRemaining)
         {
-            TestTarget.LoadFromFileContents(SplitContents(TOTALTEST));
+            TestTarget.LoadInputList(SplitContents(TOTALTEST));
             TestTarget.Process();
 
             var task = TestTarget.FilledOutList.FirstOrDefault(x => x.Id == id);

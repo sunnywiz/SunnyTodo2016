@@ -1,8 +1,55 @@
-﻿x 2016-12-09 (B) 2016-09-27 Hello 
+x 2016-12-09 (B) 2016-09-27 Hello id:7
    1971-10-01 This is a hello:world test id:6
-   (A) higher priority item +popups est:5
+   (A) higher priority item +popups est:5 id:8
 
-Hierarchical Tasks Program
-  Switch engine to allow for 2 inputes and 2 outputs and a detail level
-  Write out the 1st output to a file
-  x 2016-12-11 Calculate est: x numbers (if not supplied, assume 1)
+Hierarchical Tasks Program id:10
+  Engine: id:11
+      x 2016-12-11 Switch engine to allow for inputs and outputs id:12
+      x 2016-12-12 Get the input, the output, and the filled out internal id:13
+      x 2016-12-11 Calculate est: x numbers (if not supplied, assume 1) id:14
+   deal with tabs vs spaces better id:15
+   Historical Stuff id:16
+     Get historical info from file id:17
+   Add to historical info if different id:18
+  Caller to Engine: id:19
+    Write out the 1st output to a file id:20
+    Save historical info to file id:21
+ Read historical info from file id:22
+
+
+# Test comment
+
+Confidence Monitoring id:27
+
+ x 2016-12-12 CM Window id:29
+   x 2016-12-12 structure - (grid, 2x2) id:30
+  x 2016-12-12 surface id:31
+  x 2016-12-12 list of choices id:32
+  x 2016-12-12 video id:33
+  x 2016-12-12 label (very ghetto) id:34
+
+ CM ViewModel id:36
+   x 2016-12-12 knowledge of parent and thus of parent recording system id:37
+   x 2016-12-12 list of output devices id:38
+   x 2016-12-12 label displayed or not id:39
+   x 2016-12-12 video displayed or not id:40
+   x 2016-12-12 Integration test id:41
+	
+ Arch id:43
+   x 2016-12-12 Bring in their ICreateMontor to our IPlaybackSystem id:44
+   x 2016-12-12 Bring in their PlaybackConfiguration into our IPlaybackSystem id:45
+   x 2016-12-12 Will have to write up a Mock Monitor id:46
+
+ Behavior id:48
+   x 2016-12-12 if not CMed let the CM pop out the CM window id:49
+   x 2016-12-12 on choose output, re-get confidence monitor id:50
+   x 2016-12-12 on close window close CM id:51
+  x 2016-12-12 partial - host id:52
+  x 2016-12-12 need to do in the popup as well id:53
+   x 2016-12-12 while out, CM is grayed out id:54
+
+ Manual walkthrough id:56
+   - Run it for real, checking WPF wiring id:57
+   - redo the CM so that it watches the file for changes and flags if no change for 5 seconds id:58
+  - at the end of CM, ask for the next file. id:59
+   - test without video id:60

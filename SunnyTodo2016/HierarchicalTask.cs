@@ -22,6 +22,7 @@ namespace SunnyTodo2016
 
         public List<HierarchicalTask> Children { get; private set; }
         public List<HierarchicalTask> DeepChildren { get; private set; }
+        public DateTime TimeStamp { get; set; }
 
         public HierarchicalTask(string originalLine)
         {

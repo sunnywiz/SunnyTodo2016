@@ -11,22 +11,37 @@ namespace SunnyTodo2016
         public List<HierarchicalTask> InputList { get; private set; }
         public List<HierarchicalTask> OutputList { get; private set; }
         public List<HierarchicalTask> FilledOutList { get; private set; }
-        // later: InputHistory and OutputHistory
+        public List<HierarchicalTask> InputHistory { get; private set; }
 
         public HierarchicalTaskEngine()
         {
             InputList = new List<HierarchicalTask>();
             OutputList = new List<HierarchicalTask>();
             FilledOutList = new List<HierarchicalTask>();
+            InputHistory = new List<HierarchicalTask>();
+
         }
 
-        public void LoadFromFileContents(string[] contents)
+        public void LoadInputList(string[] contents)
         {
             InputList.Clear();
             foreach (var line in contents)
             {
                 var hTask = new HierarchicalTask(line);
                 InputList.Add(hTask);
+            }
+        }
+
+        public void LoadInputHistory(IEnumerable<Tuple<DateTime, string>> contents)
+        {
+            InputHistory.Clear();
+            foreach (var input in contents)
+            {
+                var hTask = new HierarchicalTask(input.Item2)
+                {
+                    TimeStamp = input.Item1
+                };
+                InputHistory.Add(hTask);
             }
         }
 
@@ -158,6 +173,14 @@ namespace SunnyTodo2016
 
                 outer:
                 ;
+            }
+        }
+
+        public IEnumerable<string> GetOutputLines()
+        {
+            foreach (var task in OutputList)
+            {
+                yield return task.ToString();
             }
         }
     }
