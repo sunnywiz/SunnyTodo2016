@@ -12,6 +12,7 @@ namespace SunnyTodo2016
         public List<HierarchicalTask> OutputList { get; private set; }
         public List<HierarchicalTask> FilledOutList { get; private set; }
         public List<HierarchicalTask> InputHistory { get; private set; }
+        public List<HierarchicalTask> OutputHistory { get; private set; }
 
         public HierarchicalTaskEngine()
         {
@@ -19,7 +20,7 @@ namespace SunnyTodo2016
             OutputList = new List<HierarchicalTask>();
             FilledOutList = new List<HierarchicalTask>();
             InputHistory = new List<HierarchicalTask>();
-
+            OutputHistory = new List<HierarchicalTask>();
         }
 
         public void LoadInputList(string[] contents)
@@ -71,6 +72,23 @@ namespace SunnyTodo2016
             }
 
             AssignFilledOutTotalEstimates();
+
+            AddToHistory();
+        }
+
+        private void AddToHistory()
+        {
+            OutputHistory.Clear();
+            OutputHistory.AddRange(InputHistory);
+            DateTime timestamp = DateTime.Now;
+            foreach (var t in FilledOutList.Where(t => t.WasParsed))
+            {
+                OutputHistory.Add(new HierarchicalTask(t.ToString())
+                {
+                    TimeStamp = timestamp
+                });
+            }
+            OutputHistory = OutputHistory.OrderBy(x => x.TimeStamp).ThenBy(x => x.Id).ToList();
         }
 
         private void AssignFilledOutTotalEstimates()
@@ -181,6 +199,14 @@ namespace SunnyTodo2016
             foreach (var task in OutputList)
             {
                 yield return task.ToString();
+            }
+        }
+
+        public IEnumerable<Tuple<DateTime, string>> GetOutputHistory()
+        {
+            foreach (var task in OutputHistory.Where(t=>t.WasParsed))
+            {
+                yield return new Tuple<DateTime, string>(task.TimeStamp,task.TodoTask.ToString());
             }
         }
     }

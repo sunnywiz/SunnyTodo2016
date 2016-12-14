@@ -41,6 +41,8 @@ namespace SunnyTodo2016
             {
 
                 var fileName = args[1];
+                var historyFileName = fileName + ".history.txt";
+
                 if (!File.Exists(fileName))
                 {
                     Console.WriteLine("File could not be read?");
@@ -61,6 +63,14 @@ namespace SunnyTodo2016
                     }
                 }
 
+                using (var writer = File.CreateText(historyFileName))
+                {
+                    foreach (var item in logic.GetOutputHistory())
+                    {
+                        writer.WriteLine($"{item.Item1:s}|{item.Item2}");
+                    }
+                }
+
                 foreach (var task in logic.FilledOutList)
                 {
                     if (task.WasParsed && task.ParentId == null)
@@ -68,6 +78,8 @@ namespace SunnyTodo2016
                         Console.WriteLine(task.ToString());
                     }
                 }
+
+
             }
 
             Console.ReadLine();
