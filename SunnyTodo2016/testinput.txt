@@ -6,15 +6,17 @@
       x 2016-12-11 Calculate est: x numbers (if not supplied, assume 1) id:14
 
       - deal with tabs vs spaces better id:15
+   - only add est if leaf node id:44
+   - divvy up parent estimates across children id:45
 
   - Historical Stuff id:16
 
-     - Add to historical info 
+     - Add to historical info id:27
 
-	    x 2016-12-13 Always 
+     x 2016-12-13 Always id:29
 
-		- if different id:18
-		- prune / move dates if no changes?
+  - if different id:18
+  - prune / move dates if no changes? id:31
 
   - Caller to Engine: id:19
 
@@ -23,9 +25,9 @@
 
     - Read historical info from file id:22
 
-  - Caller option to create burndown report for one ID
+  - Caller option to create burndown report for one ID id:36
 
-	- initially just generate datetime / left / remaining numbers
-    - use highcharts or something
+ - initially just generate datetime / left / remaining numbers id:38
+    - use highcharts or something id:39
 	
-	- eventually, Do some complicated visualizations.	 
+ - eventually, Do some complicated visualizations. id:41

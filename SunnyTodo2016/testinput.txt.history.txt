@@ -1,45 +1,21 @@
-2016-12-13T23:23:29|1971-10-01 This is a hello:world test id:6 parentid:7 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-13T23:23:29|x 2016-12-09 (B) 2016-09-27 Hello id:7 est:1.00 rem:0.00 totalestimate:7.00 totalremaining:6.00
-2016-12-13T23:23:29|(A) higher priority item +popups est:5 id:8 parentid:7 rem:5.00 totalestimate:5.00 totalremaining:5.00
-2016-12-13T23:23:29|Hierarchical Tasks Program id:10 est:1.00 rem:1.00 totalestimate:13.00 totalremaining:10.00
-2016-12-13T23:23:29|Engine: id:11 parentid:10 est:1.00 rem:1.00 totalestimate:8.00 totalremaining:5.00
-2016-12-13T23:23:29|x 2016-12-11 Switch engine to allow for inputs and outputs id:12 parentid:11 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-13T23:23:29|x 2016-12-12 Get the input, the output, and the filled out internal id:13 parentid:11 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-13T23:23:29|x 2016-12-11 Calculate est: x numbers (if not supplied, assume 1) id:14 parentid:11 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-13T23:23:29|deal with tabs vs spaces better id:15 parentid:11 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-13T23:23:29|Historical Stuff id:16 parentid:11 est:1.00 rem:1.00 totalestimate:2.00 totalremaining:2.00
-2016-12-13T23:23:29|Get historical info from file id:17 parentid:16 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-13T23:23:29|Add to historical info if different id:18 parentid:11 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-13T23:23:29|Caller to Engine: id:19 parentid:10 est:1.00 rem:1.00 totalestimate:3.00 totalremaining:3.00
-2016-12-13T23:23:29|Write out the 1st output to a file id:20 parentid:19 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-13T23:23:29|Save historical info to file id:21 parentid:19 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-13T23:23:29|Read historical info from file id:22 parentid:10 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-13T23:23:29|Confidence Monitoring id:27 est:1.00 rem:1.00 totalestimate:29.00 totalremaining:9.00
-2016-12-13T23:23:29|x 2016-12-12 CM Window id:29 parentid:27 est:1.00 rem:0.00 totalestimate:6.00 totalremaining:0.00
-2016-12-13T23:23:29|x 2016-12-12 structure - (grid, 2x2) id:30 parentid:29 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-13T23:23:29|x 2016-12-12 surface id:31 parentid:29 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-13T23:23:29|x 2016-12-12 list of choices id:32 parentid:29 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-13T23:23:29|x 2016-12-12 video id:33 parentid:29 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-13T23:23:29|x 2016-12-12 label (very ghetto) id:34 parentid:29 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-13T23:23:29|CM ViewModel id:36 parentid:27 est:1.00 rem:1.00 totalestimate:6.00 totalremaining:1.00
-2016-12-13T23:23:29|x 2016-12-12 knowledge of parent and thus of parent recording system id:37 parentid:36 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-13T23:23:29|x 2016-12-12 list of output devices id:38 parentid:36 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-13T23:23:29|x 2016-12-12 label displayed or not id:39 parentid:36 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-13T23:23:29|x 2016-12-12 video displayed or not id:40 parentid:36 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-13T23:23:29|x 2016-12-12 Integration test id:41 parentid:36 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-13T23:23:29|Arch id:43 parentid:27 est:1.00 rem:1.00 totalestimate:4.00 totalremaining:1.00
-2016-12-13T23:23:29|x 2016-12-12 Bring in their ICreateMontor to our IPlaybackSystem id:44 parentid:43 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-13T23:23:29|x 2016-12-12 Bring in their PlaybackConfiguration into our IPlaybackSystem id:45 parentid:43 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-13T23:23:29|x 2016-12-12 Will have to write up a Mock Monitor id:46 parentid:43 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-13T23:23:29|Behavior id:48 parentid:27 est:1.00 rem:1.00 totalestimate:7.00 totalremaining:1.00
-2016-12-13T23:23:29|x 2016-12-12 if not CMed let the CM pop out the CM window id:49 parentid:48 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-13T23:23:29|x 2016-12-12 on choose output, re-get confidence monitor id:50 parentid:48 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-13T23:23:29|x 2016-12-12 on close window close CM id:51 parentid:48 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-13T23:23:29|x 2016-12-12 partial - host id:52 parentid:48 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-13T23:23:29|x 2016-12-12 need to do in the popup as well id:53 parentid:48 est:1.00 rem:0.00 totalestimate:2.00 totalremaining:0.00
-2016-12-13T23:23:29|x 2016-12-12 while out, CM is grayed out id:54 parentid:53 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-13T23:23:29|Manual walkthrough id:56 parentid:27 est:1.00 rem:1.00 totalestimate:5.00 totalremaining:5.00
-2016-12-13T23:23:29|- Run it for real, checking WPF wiring id:57 parentid:56 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-13T23:23:29|- redo the CM so that it watches the file for changes and flags if no change for 5 seconds id:58 parentid:56 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-13T23:23:29|- at the end of CM, ask for the next file. id:59 parentid:56 est:1.00 rem:1.00 totalestimate:2.00 totalremaining:2.00
-2016-12-13T23:23:29|- test without video id:60 parentid:59 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T23:36:19|Hierarchical Tasks Program id:10 est:1.00 rem:1.00 totalestimate:21.00 totalremaining:16.00
+2016-12-13T23:36:19|- Engine: id:11 parentid:10 est:1.00 rem:1.00 totalestimate:7.00 totalremaining:4.00
+2016-12-13T23:36:19|x 2016-12-11 Switch engine to allow for inputs and outputs id:12 parentid:11 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-13T23:36:19|x 2016-12-12 Get the input, the output, and the filled out internal id:13 parentid:11 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-13T23:36:19|x 2016-12-11 Calculate est: x numbers (if not supplied, assume 1) id:14 parentid:11 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-13T23:36:19|- deal with tabs vs spaces better id:15 parentid:11 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T23:36:19|- Historical Stuff id:16 parentid:10 est:1.00 rem:1.00 totalestimate:3.00 totalremaining:2.00
+2016-12-13T23:36:19|- if different id:18 parentid:10 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T23:36:19|- Caller to Engine: id:19 parentid:10 est:1.00 rem:1.00 totalestimate:4.00 totalremaining:3.00
+2016-12-13T23:36:19|x Write out the 1st output to a file id:20 parentid:19 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T23:36:19|x 2016-12-13 Save historical info to file id:21 parentid:19 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-13T23:36:19|- Read historical info from file id:22 parentid:19 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T23:36:19|- Add to historical info id:27 parentid:16 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T23:36:19|x 2016-12-13 Always id:29 parentid:16 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-13T23:36:19|- prune / move dates if no changes? id:31 parentid:10 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T23:36:19|- Caller option to create burndown report for one ID id:36 parentid:10 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T23:36:19|- initially just generate datetime / left / remaining numbers id:38 parentid:10 est:1.00 rem:1.00 totalestimate:2.00 totalremaining:2.00
+2016-12-13T23:36:19|- use highcharts or something id:39 parentid:38 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T23:36:19|- eventually, Do some complicated visualizations. id:41 parentid:10 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T23:36:19|- only add est if leaf node id:44 parentid:11 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T23:36:19|- divvy up parent estimates across children id:45 parentid:11 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
