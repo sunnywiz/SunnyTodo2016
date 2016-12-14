@@ -1,4 +1,4 @@
-﻿Hierarchical Tasks Program id:10
+Hierarchical Tasks Program id:10
 
   - Engine: id:11
       x 2016-12-11 Switch engine to allow for inputs and outputs id:12
