@@ -73,20 +73,39 @@ namespace SunnyTodo2016
 
             AssignFilledOutTotalEstimates();
 
-            AddToHistory();
+            MergeToHistory();
         }
 
-        private void AddToHistory()
+        private void MergeToHistory()
         {
             OutputHistory.Clear();
             OutputHistory.AddRange(InputHistory);
             DateTime timestamp = DateTime.Now;
-            foreach (var t in FilledOutList.Where(t => t.WasParsed))
+            foreach (var task in FilledOutList.Where(t => t.WasParsed))
             {
-                OutputHistory.Add(new HierarchicalTask(t.ToString())
+                var existingHistory = OutputHistory
+                    .Where(t => t.Id == task.Id)
+                    .OrderByDescending(t => t.TimeStamp)
+                    .Take(2)
+                    .ToList();
+
+                if (existingHistory.Count == 2 &&
+                    timestamp > existingHistory[0].TimeStamp &&
+                    existingHistory[0].TimeStamp < existingHistory[1].TimeStamp &&
+                    task.TodoTask.Equals(existingHistory[0].TodoTask) &&
+                    task.TodoTask.Equals(existingHistory[1].TodoTask))
                 {
-                    TimeStamp = timestamp
-                });
+                    // this one hasn't changed!  move the middle one up
+                    existingHistory[0].TimeStamp = timestamp;
+                }
+                else
+                {
+                    // something is different.  add it.
+                    OutputHistory.Add(new HierarchicalTask(task.ToString())
+                    {
+                        TimeStamp = timestamp
+                    });
+                }
             }
             OutputHistory = OutputHistory.OrderBy(x => x.TimeStamp).ThenBy(x => x.Id).ToList();
         }

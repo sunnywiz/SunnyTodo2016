@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 
@@ -53,6 +55,27 @@ namespace SunnyTodo2016
 
                 var logic = new HierarchicalTaskEngine();
                 logic.LoadInputList(lines);
+
+                if (File.Exists(historyFileName))
+                {
+                    List<Tuple<DateTime, string>> parsed = new List<Tuple<DateTime, string>>();
+                    var historyLines = File.ReadAllLines(historyFileName);
+                    foreach (var hl in historyLines)
+                    {
+                        var index = hl.IndexOf('|');
+                        if (index < 0) continue;
+                        DateTime timestamp;
+                        var k1 = hl.Substring(0, index);
+                        var k2 = hl.Substring(index + 1);
+                        if (DateTime.TryParse(k1, null, DateTimeStyles.AssumeUniversal, out timestamp))
+                        {
+                            parsed.Add(new Tuple<DateTime, string>(timestamp, k2));
+                        }
+                    }
+                    logic.LoadInputHistory(parsed);
+                }
+
+
                 logic.Process();
 
                 using (var writer = File.CreateText(fileName))

@@ -1,21 +1,42 @@
-2016-12-13T23:36:47|Hierarchical Tasks Program id:10 est:1.00 rem:1.00 totalestimate:21.00 totalremaining:16.00
-2016-12-13T23:36:47|- Engine: id:11 parentid:10 est:1.00 rem:1.00 totalestimate:7.00 totalremaining:4.00
-2016-12-13T23:36:47|x 2016-12-11 Switch engine to allow for inputs and outputs id:12 parentid:11 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-13T23:36:47|x 2016-12-12 Get the input, the output, and the filled out internal id:13 parentid:11 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-13T23:36:47|x 2016-12-11 Calculate est: x numbers (if not supplied, assume 1) id:14 parentid:11 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-13T23:36:47|- deal with tabs vs spaces better id:15 parentid:11 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-13T23:36:47|- Historical Stuff id:16 parentid:10 est:1.00 rem:1.00 totalestimate:3.00 totalremaining:2.00
-2016-12-13T23:36:47|- if different id:18 parentid:10 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-13T23:36:47|- Caller to Engine: id:19 parentid:10 est:1.00 rem:1.00 totalestimate:4.00 totalremaining:3.00
-2016-12-13T23:36:47|x Write out the 1st output to a file id:20 parentid:19 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-13T23:36:47|x 2016-12-13 Save historical info to file id:21 parentid:19 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-13T23:36:47|- Read historical info from file id:22 parentid:19 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-13T23:36:47|- Add to historical info id:27 parentid:16 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-13T23:36:47|x 2016-12-13 Always id:29 parentid:16 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-13T23:36:47|- prune / move dates if no changes? id:31 parentid:10 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-13T23:36:47|- Caller option to create burndown report for one ID id:36 parentid:10 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-13T23:36:47|- initially just generate datetime / left / remaining numbers id:38 parentid:10 est:1.00 rem:1.00 totalestimate:2.00 totalremaining:2.00
-2016-12-13T23:36:47|- use highcharts or something id:39 parentid:38 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-13T23:36:47|- eventually, Do some complicated visualizations. id:41 parentid:10 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-13T23:36:47|- only add est if leaf node id:44 parentid:11 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-13T23:36:47|- divvy up parent estimates across children id:45 parentid:11 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T18:36:47|Hierarchical Tasks Program id:10 est:1.00 rem:1.00 totalestimate:21.00 totalremaining:16.00
+2016-12-13T18:36:47|- Engine: id:11 parentid:10 est:1.00 rem:1.00 totalestimate:7.00 totalremaining:4.00
+2016-12-13T18:36:47|x 2016-12-11 Switch engine to allow for inputs and outputs id:12 parentid:11 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-13T18:36:47|x 2016-12-12 Get the input, the output, and the filled out internal id:13 parentid:11 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-13T18:36:47|x 2016-12-11 Calculate est: x numbers (if not supplied, assume 1) id:14 parentid:11 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-13T18:36:47|- deal with tabs vs spaces better id:15 parentid:11 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T18:36:47|- Historical Stuff id:16 parentid:10 est:1.00 rem:1.00 totalestimate:3.00 totalremaining:2.00
+2016-12-13T18:36:47|- if different id:18 parentid:10 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T18:36:47|- Caller to Engine: id:19 parentid:10 est:1.00 rem:1.00 totalestimate:4.00 totalremaining:3.00
+2016-12-13T18:36:47|x Write out the 1st output to a file id:20 parentid:19 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T18:36:47|x 2016-12-13 Save historical info to file id:21 parentid:19 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-13T18:36:47|- Read historical info from file id:22 parentid:19 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T18:36:47|- Add to historical info id:27 parentid:16 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T18:36:47|x 2016-12-13 Always id:29 parentid:16 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-13T18:36:47|- prune / move dates if no changes? id:31 parentid:10 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T18:36:47|- Caller option to create burndown report for one ID id:36 parentid:10 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T18:36:47|- initially just generate datetime / left / remaining numbers id:38 parentid:10 est:1.00 rem:1.00 totalestimate:2.00 totalremaining:2.00
+2016-12-13T18:36:47|- use highcharts or something id:39 parentid:38 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T18:36:47|- eventually, Do some complicated visualizations. id:41 parentid:10 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T18:36:47|- only add est if leaf node id:44 parentid:11 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T18:36:47|- divvy up parent estimates across children id:45 parentid:11 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T23:49:40|Hierarchical Tasks Program id:10 est:1.00 rem:1.00 totalestimate:21.00 totalremaining:16.00
+2016-12-13T23:49:40|- Engine: id:11 parentid:10 est:1.00 rem:1.00 totalestimate:7.00 totalremaining:4.00
+2016-12-13T23:49:40|x 2016-12-11 Switch engine to allow for inputs and outputs id:12 parentid:11 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-13T23:49:40|x 2016-12-12 Get the input, the output, and the filled out internal id:13 parentid:11 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-13T23:49:40|x 2016-12-11 Calculate est: x numbers (if not supplied, assume 1) id:14 parentid:11 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-13T23:49:40|- deal with tabs vs spaces better id:15 parentid:11 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T23:49:40|- Historical Stuff id:16 parentid:10 est:1.00 rem:1.00 totalestimate:3.00 totalremaining:2.00
+2016-12-13T23:49:40|- if different id:18 parentid:10 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T23:49:40|- Caller to Engine: id:19 parentid:10 est:1.00 rem:1.00 totalestimate:4.00 totalremaining:3.00
+2016-12-13T23:49:40|x Write out the 1st output to a file id:20 parentid:19 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T23:49:40|x 2016-12-13 Save historical info to file id:21 parentid:19 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-13T23:49:40|- Read historical info from file id:22 parentid:19 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T23:49:40|- Add to historical info id:27 parentid:16 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T23:49:40|x 2016-12-13 Always id:29 parentid:16 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-13T23:49:40|- prune / move dates if no changes? id:31 parentid:10 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T23:49:40|- Caller option to create burndown report for one ID id:36 parentid:10 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T23:49:40|- initially just generate datetime / left / remaining numbers id:38 parentid:10 est:1.00 rem:1.00 totalestimate:2.00 totalremaining:2.00
+2016-12-13T23:49:40|- use highcharts or something id:39 parentid:38 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T23:49:40|- eventually, Do some complicated visualizations. id:41 parentid:10 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T23:49:40|- only add est if leaf node id:44 parentid:11 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-13T23:49:40|- divvy up parent estimates across children id:45 parentid:11 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
