@@ -10,20 +10,15 @@ Hierarchical Tasks Program id:10
    - divvy up parent estimates across children id:45
 
   - Historical Stuff id:16
-
-     - Add to historical info id:27
-
+     x 2016-12-13 Add to historical info id:27
      x 2016-12-13 Always id:29
-
-  - if different id:18
-  - prune / move dates if no changes? id:31
+     x 2016-12-13 prune / move dates if no changes? id:31
 
   - Caller to Engine: id:19
 
-    x Write out the 1st output to a file id:20
+    x 2016-12-13 Write out the 1st output to a file id:20
     x 2016-12-13 Save historical info to file id:21
-
-    - Read historical info from file id:22
+    x 2016-12-13 Read historical info from file id:22
 
   - Caller option to create burndown report for one ID id:36
 

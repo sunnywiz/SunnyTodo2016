@@ -6,7 +6,7 @@ using NUnit.Framework.Interfaces;
 
 namespace SunnyTodo2016
 {
-    public class HierarchicalTaskEngine 
+    public class HierarchicalTaskEngine
     {
         public List<HierarchicalTask> InputList { get; private set; }
         public List<HierarchicalTask> OutputList { get; private set; }
@@ -51,14 +51,14 @@ namespace SunnyTodo2016
             OutputList.Clear();
 
             OutputList.AddRange(
-                InputList.Select(x=>new HierarchicalTask(x.ToString())));
+                InputList.Select(x => new HierarchicalTask(x.ToString())));
 
             AssignOutputListIds();
 
-            FilledOutList.Clear(); 
+            FilledOutList.Clear();
 
             FilledOutList.AddRange(
-                OutputList.Select(x=>new HierarchicalTask(x.ToString())));
+                OutputList.Select(x => new HierarchicalTask(x.ToString())));
 
             AssignFilledOutListParents();
 
@@ -66,9 +66,9 @@ namespace SunnyTodo2016
 
             foreach (var task in FilledOutList)
             {
-                if (!task.WasParsed) continue; 
-                if (task.Children.Count>0)
-                RecursiveAddToDeepChildren(task, task.Children);
+                if (!task.WasParsed) continue;
+                if (task.Children.Count > 0)
+                    RecursiveAddToDeepChildren(task, task.Children);
             }
 
             AssignFilledOutTotalEstimates();
@@ -91,9 +91,9 @@ namespace SunnyTodo2016
 
                 if (existingHistory.Count == 2 &&
                     timestamp > existingHistory[0].TimeStamp &&
-                    existingHistory[0].TimeStamp < existingHistory[1].TimeStamp &&
-                    task.TodoTask.Equals(existingHistory[0].TodoTask) &&
-                    task.TodoTask.Equals(existingHistory[1].TodoTask))
+                    existingHistory[0].TimeStamp > existingHistory[1].TimeStamp &&
+                    task.TodoTask.ToString() == existingHistory[0].TodoTask.ToString() &&
+                    task.TodoTask.ToString() == existingHistory[1].TodoTask.ToString())
                 {
                     // this one hasn't changed!  move the middle one up
                     existingHistory[0].TimeStamp = timestamp;
@@ -133,8 +133,8 @@ namespace SunnyTodo2016
             task.DeepChildren.AddRange(taskChildren);
             foreach (var childTask in taskChildren)
             {
-                if (childTask.Children.Count>0)
-                RecursiveAddToDeepChildren(task,childTask.Children);
+                if (childTask.Children.Count > 0)
+                    RecursiveAddToDeepChildren(task, childTask.Children);
             }
         }
 
@@ -146,7 +146,7 @@ namespace SunnyTodo2016
                 {
                     if (task.Estimate == null)
                     {
-                        task.Estimate = 1.0; 
+                        task.Estimate = 1.0;
                     }
                     if (task.Remaining == null)
                     {
@@ -156,10 +156,10 @@ namespace SunnyTodo2016
                         }
                         else
                         {
-                            task.Remaining = task.Estimate; 
+                            task.Remaining = task.Estimate;
                         }
                     }
-                 }
+                }
             }
         }
 
@@ -223,9 +223,9 @@ namespace SunnyTodo2016
 
         public IEnumerable<Tuple<DateTime, string>> GetOutputHistory()
         {
-            foreach (var task in OutputHistory.Where(t=>t.WasParsed))
+            foreach (var task in OutputHistory.Where(t => t.WasParsed))
             {
-                yield return new Tuple<DateTime, string>(task.TimeStamp,task.TodoTask.ToString());
+                yield return new Tuple<DateTime, string>(task.TimeStamp, task.TodoTask.ToString());
             }
         }
     }

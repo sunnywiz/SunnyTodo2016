@@ -67,7 +67,7 @@ namespace SunnyTodo2016
                         DateTime timestamp;
                         var k1 = hl.Substring(0, index);
                         var k2 = hl.Substring(index + 1);
-                        if (DateTime.TryParse(k1, null, DateTimeStyles.AssumeUniversal, out timestamp))
+                        if (DateTime.TryParse(k1, null, DateTimeStyles.RoundtripKind, out timestamp))
                         {
                             parsed.Add(new Tuple<DateTime, string>(timestamp, k2));
                         }
@@ -90,7 +90,7 @@ namespace SunnyTodo2016
                 {
                     foreach (var item in logic.GetOutputHistory())
                     {
-                        writer.WriteLine($"{item.Item1:s}|{item.Item2}");
+                        writer.WriteLine($"{item.Item1:o}|{item.Item2}");
                     }
                 }
 
