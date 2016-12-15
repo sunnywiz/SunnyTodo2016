@@ -1,4 +1,4 @@
-Hierarchical Tasks Program id:10
+﻿Hierarchical Tasks Program id:10
 
   - Engine: id:11
       x 2016-12-11 Switch engine to allow for inputs and outputs id:12
@@ -6,6 +6,7 @@ Hierarchical Tasks Program id:10
       x 2016-12-11 Calculate est: x numbers (if not supplied, assume 1) id:14
 
       - deal with tabs vs spaces better id:15
+
    - only add est if leaf node id:44
    - divvy up parent estimates across children id:45
 
