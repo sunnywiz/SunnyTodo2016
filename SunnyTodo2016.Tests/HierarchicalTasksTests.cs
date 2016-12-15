@@ -134,7 +134,7 @@ x 2005-06-03 Task three id:3 est:2.5
 
         private const string TOTALTEST = @"
 A id:1
-  B id:2 rem:1
+  B id:2 rem:0.5
   x 2012-12-12 C est:2 id:3
   D id:4
     E id:5
@@ -142,10 +142,13 @@ A id:1
 
         [Test]
         [TestCase("Leaf Node E only has self numbers",5,1.0, 1.0)]
-        [TestCase("D has both D and E numbers", 4, 2.0, 2.0)]
+        [TestCase("D has E numbers because child, but not self.", 4, 1.0, 1.0)]
         [TestCase("C only counts self but rem is modified due to x", 3, 2.0, 0.0)]
-        [TestCase("B only counts self", 2, 1.0, 1.0)]
-        [TestCase("A has all including self", 1, 6.0, 4.0)]
+        [TestCase("B only counts self, assumes 1", 2, 1.0, 0.5)]
+        [TestCase("A has all children but not self", 1, 4.0, 1.5)]
+
+        // TODO: make it so that a parent with a direct est: feeds ratios of that to all leaves without estimates. 
+
         public void Process_calculates_tree_totals(string description, int id, double totalEstimate, double totalRemaining)
         {
             TestTarget.LoadInputList(SplitContents(TOTALTEST));

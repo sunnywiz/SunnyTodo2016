@@ -62,14 +62,14 @@ namespace SunnyTodo2016
 
             AssignFilledOutListParents();
 
-            AssignFilledOutEstimatesIfMissing();
-
             foreach (var task in FilledOutList)
             {
                 if (!task.WasParsed) continue;
                 if (task.Children.Count > 0)
                     RecursiveAddToDeepChildren(task, task.Children);
             }
+
+            AssignFilledOutEstimatesIfMissing();
 
             AssignFilledOutTotalEstimates();
 
@@ -142,26 +142,24 @@ namespace SunnyTodo2016
         {
             foreach (var task in FilledOutList)
             {
-                if (task.TodoTask != null)
-                {
-                    if (task.Estimate == null)
-                    {
-                        task.Estimate = 1.0;
-                    }
-                    if (task.Remaining == null)
-                    {
-                        if (task.TodoTask.Completed)
-                        {
-                            task.Remaining = 0.0;
-                        }
-                        else
-                        {
-                            task.Remaining = task.Estimate;
-                        }
-                    }
-                }
+                if (task.TodoTask == null) continue;
+
+                if (task.Estimate == null && !task.Children.Any())
+                        task.Estimate = 1.0; 
+
+
+                if (task.Estimate == null)
+                    // parent, don't need to think about remaining. 
+                    continue;
+
+                if (task.Remaining != null)
+                    // remaining already specified, DO NOT override. 
+                    continue;
+
+                task.Remaining = task.TodoTask.Completed ? 0.0 : task.Estimate;
             }
         }
+        
 
         private void AssignOutputListIds()
         {
