@@ -6,8 +6,9 @@
       x 2016-12-11 Calculate est: x numbers (if not supplied, assume 1) id:14
 
       - deal with tabs vs spaces better id:15
+	  x Deal with completed tasks without dates better. 
 
-   - only add est if leaf node id:44
+   x only add est if leaf node id:44
    - divvy up parent estimates across children id:45
 
   - Historical Stuff id:16

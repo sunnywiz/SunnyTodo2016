@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text;
 using NUnit.Framework.Interfaces;
 
 namespace SunnyTodo2016
@@ -54,6 +55,8 @@ namespace SunnyTodo2016
                 InputList.Select(x => new HierarchicalTask(x.ToString())));
 
             AssignOutputListIds();
+
+            OutputScanAndDateCompletedThings();  
 
             FilledOutList.Clear();
 
@@ -175,6 +178,34 @@ namespace SunnyTodo2016
                 if (!val.HasValue)
                 {
                     task.Id = ++maxId;
+                }
+            }
+        }
+
+        public void OutputScanAndDateCompletedThings()
+        {
+            foreach (var task in OutputList)
+            {
+                if (!task.WasParsed) continue;
+                if (task.TodoTask.Completed) continue;
+
+                var task1 = task.TodoTask.ToString();
+                if (task1.StartsWith("x "))
+                {
+                    // so, by a miracle -- TodoTask should have parsed x YYYY-MM-DD to a completed task. 
+                    // if it starts with "x " but doesn't register as completd, it must be missing the yyyy-mm-dd
+                    // so add it
+
+                    var sb = new StringBuilder(task1);
+                    if (sb.Length > 2)
+                    {
+                        if (!String.IsNullOrWhiteSpace(task1.Substring(2, 1)))
+                        {
+                            sb.Insert(2, ' ');
+                        }
+                    }
+                    sb.Insert(2, DateTime.Now.ToString("yyyy-MM-dd"));
+                    task.TodoTask.Replace(sb.ToString());
                 }
             }
         }
