@@ -9,11 +9,12 @@ namespace SunnyTodo2016
 {
     public class HierarchicalTaskEngine
     {
-        public List<HierarchicalTask> InputList { get; private set; }
-        public List<HierarchicalTask> OutputList { get; private set; }
-        public List<HierarchicalTask> FilledOutList { get; private set; }
-        public List<HierarchicalTask> InputHistory { get; private set; }
+        public List<HierarchicalTask> InputList { get; }
+        public List<HierarchicalTask> OutputList { get; }
+        public List<HierarchicalTask> FilledOutList { get; }
+        public List<HierarchicalTask> InputHistory { get; }
         public List<HierarchicalTask> OutputHistory { get; private set; }
+        public List<HierarchicalTask> InterpolatedHistory { get; private set; }
 
         public HierarchicalTaskEngine()
         {
@@ -22,6 +23,7 @@ namespace SunnyTodo2016
             FilledOutList = new List<HierarchicalTask>();
             InputHistory = new List<HierarchicalTask>();
             OutputHistory = new List<HierarchicalTask>();
+            InterpolatedHistory = new List<HierarchicalTask>(); 
         }
 
         public void LoadInputList(string[] contents)
@@ -76,10 +78,43 @@ namespace SunnyTodo2016
 
             AssignFilledOutTotalEstimates();
 
-            MergeToHistory();
+            MergeFilledOutListAndInputHistoryToOutputHistory();
+
+            InterpolateHistory(); 
         }
 
-        private void MergeToHistory()
+        public void InterpolateHistory()
+        {
+            InterpolatedHistory.Clear();
+
+            var distinctTimes = OutputHistory.Select(x => x.TimeStamp).Distinct().OrderBy(x => x).ToList();
+            var distinctIds = OutputHistory.Select(x => x.Id).Distinct().OrderBy(x => x).ToList();
+
+            foreach (var id in distinctIds)
+            {
+                var recs = OutputHistory.Where(x => x.Id == id).OrderBy(x => x.TimeStamp).ToList();
+                foreach (var time in distinctTimes)
+                {
+                    var before =
+                        recs.Where(t => t.TimeStamp <= time).OrderBy(x => x.TimeStamp).LastOrDefault();
+
+                    var after =
+                        recs.Where(t => t.TimeStamp > time).OrderBy(x => x.TimeStamp).FirstOrDefault();
+
+                    if (before == null) continue;
+
+                    if (after == null) continue;
+
+                    var outrec = new HierarchicalTask(before.ToString())
+                    {
+                        TimeStamp = time
+                    };
+                    InterpolatedHistory.Add(outrec);
+                }
+            }
+        }
+
+        private void MergeFilledOutListAndInputHistoryToOutputHistory()
         {
             OutputHistory.Clear();
             OutputHistory.AddRange(InputHistory);
