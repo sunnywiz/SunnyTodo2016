@@ -1,0 +1,55 @@
+Upgrading to their latest interface & wiring up audioblock save: id:1
+
+    x 2016-12-15 Get to a known good point id:3
+        x 2016-12-15 Roll back work id:105
+        x 2016-12-15 test it by hand id:106
+        x 2016-12-15 merge to master as starting point. id:107
+
+    #Session File Stuff
+    
+    * Add SessionFileType to SessionFile id:6
+    
+        x 2016-12-15 Add Enum id:7
+        x 2016-12-15 Add Seed data id:8
+            x 2016-12-15 to cloud seed id:9
+            x 2016-12-15 to sqlite seed id:10
+        * Shared Entity update id:11
+        - merge to master id:12
+
+    During Record, note down the SessionFileType id:17
+
+        # no other changes, looks like. 
+    
+    During Playback id:21
+    
+        - Build up an IJavsSession id:30
+        - Construct using the different constructor based on SessionFile.HasVideo id:31
+            # (while still also calling Open)
+        - change the mock to use IJavsSession instead of Open id:33
+        - write some code to convert between their marker and our (indexfile, position) id:34
+        - rewire the Tick event to ask for where things are at id:35
+        - rewire the Seek event to use Play(location) id:36
+        - delete the code we had in favor of theirs, hopefully now unused id:37
+        - At this point, Play interfaces should be identical id:49
+    
+    # Audio Blocks Stuff
+    
+    Switching AudioBlocks: id:39
+    
+        - When setting up recording, also have the one SessionFile sitting off to the side of type AudioBlock id:54
+        - Modify code that reads in session files to ignore these AudioBlock files id:55
+        
+        update to their interface: id:80
+            - construct or initialize or whatever using IJavsSession as well as what we do now id:81
+            - switch the mock to use the stuff from IJavsSession Instead id:82
+        
+        On audio block generated, append to file: id:57
+            - File Format so that we can append straight. id:59
+            - actually get it to write (use an audioblockfilewritingservice) id:60
+            - test it during recording id:61
+            
+        On playback: id:63
+            - Read in the audio blocks from the file. id:65  est:1
+                - make sure that it survives there being no file, for backward compatibility. id:103
+            - pass in to audio block control id:85
+            - test it via record then playback. id:86
