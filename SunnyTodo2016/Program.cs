@@ -99,6 +99,14 @@ namespace SunnyTodo2016
                     if (task.WasParsed && task.ParentId == null)
                     {
                         Console.WriteLine(task.ToString());
+
+                        Console.WriteLine();
+                        Console.WriteLine("Timestamp,Estimated,Left");
+                        foreach (var ht in logic.OutputHistory.Where(t => t.Id == task.Id).OrderBy(t => t.TimeStamp))
+                        {
+                            Console.WriteLine($"{ht.TimeStamp:g},{ht.TotalEstimate},{ht.TotalRemaining}");
+                        }
+                        Console.WriteLine(); 
                     }
                 }
 

@@ -1,4 +1,4 @@
-﻿Hierarchical Tasks Program id:10
+Hierarchical Tasks Program id:10
 
   - Engine: id:11
       x 2016-12-11 Switch engine to allow for inputs and outputs id:12
@@ -15,6 +15,7 @@
      x 2016-12-13 Add to historical info id:27
      x 2016-12-13 Always id:29
      x 2016-12-13 prune / move dates if no changes? id:31
+  - for visualizations, populate intermediate points id:61
 
   - Caller to Engine: id:19
 
@@ -22,9 +23,8 @@
     x 2016-12-13 Save historical info to file id:21
     x 2016-12-13 Read historical info from file id:22
 
-  - Caller option to create burndown report for one ID id:36
-
- - initially just generate datetime / left / remaining numbers id:38
-    - use highcharts or something id:39
+  x 2016-12-15 Caller option to create burndown report for one ID id:36
+    x 2016-12-15 First attempt done - just CSV info for root nodes. id:56
+ - additional step to populate intermediate points that might be missing? id:65
 	
- - eventually, Do some complicated visualizations. id:41
+  - eventually, Do some complicated visualizations. id:41

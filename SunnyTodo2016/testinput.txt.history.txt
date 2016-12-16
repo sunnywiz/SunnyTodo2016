@@ -42,22 +42,41 @@
 2016-12-14T00:02:59.7630339-05:00|- only add est if leaf node id:44 parentid:11 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
 2016-12-15T14:05:28.8565177-05:00|Hierarchical Tasks Program id:10 totalestimate:16.00 totalremaining:5.00
 2016-12-15T14:05:28.8565177-05:00|- Engine: id:11 parentid:10 totalestimate:7.00 totalremaining:2.00
-2016-12-15T14:05:28.8565177-05:00|x 2016-12-11 Switch engine to allow for inputs and outputs id:12 parentid:11 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-15T14:05:28.8565177-05:00|x 2016-12-12 Get the input, the output, and the filled out internal id:13 parentid:11 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-15T14:05:28.8565177-05:00|x 2016-12-11 Calculate est: x numbers (if not supplied, assume 1) id:14 parentid:11 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-15T14:05:28.8565177-05:00|- deal with tabs vs spaces better id:15 parentid:11 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
 2016-12-15T14:05:28.8565177-05:00|- Historical Stuff id:16 parentid:10 totalestimate:3.00 totalremaining:0.00
 2016-12-15T14:05:28.8565177-05:00|- Caller to Engine: id:19 parentid:10 totalestimate:3.00 totalremaining:0.00
-2016-12-15T14:05:28.8565177-05:00|x 2016-12-13 Write out the 1st output to a file id:20 parentid:19 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-15T14:05:28.8565177-05:00|x 2016-12-13 Save historical info to file id:21 parentid:19 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-15T14:05:28.8565177-05:00|x 2016-12-13 Read historical info from file id:22 parentid:19 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-15T14:05:28.8565177-05:00|x 2016-12-13 Add to historical info id:27 parentid:16 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-15T14:05:28.8565177-05:00|x 2016-12-13 Always id:29 parentid:16 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-15T14:05:28.8565177-05:00|x 2016-12-13 prune / move dates if no changes? id:31 parentid:16 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-15T14:05:28.8565177-05:00|- Caller option to create burndown report for one ID id:36 parentid:10 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
 2016-12-15T14:05:28.8565177-05:00|- initially just generate datetime / left / remaining numbers id:38 parentid:10 totalestimate:1.00 totalremaining:1.00
-2016-12-15T14:05:28.8565177-05:00|- use highcharts or something id:39 parentid:38 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-15T14:05:28.8565177-05:00|- eventually, Do some complicated visualizations. id:41 parentid:10 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
 2016-12-15T14:05:28.8565177-05:00|x 2016-12-15 only add est if leaf node id:44 parentid:11 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-15T14:05:28.8565177-05:00|- divvy up parent estimates across children id:45 parentid:11 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
 2016-12-15T14:05:28.8565177-05:00|x 2016-12-15 Deal with completed tasks without dates better. id:48 parentid:11 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-15T23:33:57.3791315-05:00|Hierarchical Tasks Program id:10 totalestimate:16.00 totalremaining:5.00
+2016-12-15T23:33:57.3791315-05:00|- Caller option to create burndown report for one ID id:36 parentid:10 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-15T23:35:08.8124186-05:00|Hierarchical Tasks Program id:10 totalestimate:16.00 totalremaining:4.00
+2016-12-15T23:35:08.8124186-05:00|x 2016-12-15 Caller option to create burndown report for one ID id:36 parentid:10 totalestimate:1.00 totalremaining:0.00
+2016-12-15T23:35:08.8124186-05:00|- initially just generate datetime / left / remaining numbers id:38 parentid:10 totalestimate:1.00 totalremaining:1.00
+2016-12-15T23:35:08.8124186-05:00|- use highcharts or something id:39 parentid:38 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-15T23:35:08.8124186-05:00|- eventually, Do some complicated visualizations. id:41 parentid:10 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-15T23:35:08.8124186-05:00|x 2016-12-15 First attempt done - just CSV info for root nodes. id:56 parentid:36 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-15T23:36:30.7491135-05:00|- eventually, Do some complicated visualizations. id:41 parentid:65 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-15T23:36:30.7491135-05:00|- for visualizations, populate intermediate points id:61 parentid:10 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-15T23:36:30.7491135-05:00|- additional step to populate intermediate points that might be missing? id:65 parentid:10 totalestimate:1.00 totalremaining:1.00
+2016-12-15T23:36:44.3731383-05:00|Hierarchical Tasks Program id:10 totalestimate:16.00 totalremaining:4.00
+2016-12-15T23:36:44.3731383-05:00|- Engine: id:11 parentid:10 totalestimate:7.00 totalremaining:2.00
+2016-12-15T23:36:44.3731383-05:00|x 2016-12-11 Switch engine to allow for inputs and outputs id:12 parentid:11 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-15T23:36:44.3731383-05:00|x 2016-12-12 Get the input, the output, and the filled out internal id:13 parentid:11 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-15T23:36:44.3731383-05:00|x 2016-12-11 Calculate est: x numbers (if not supplied, assume 1) id:14 parentid:11 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-15T23:36:44.3731383-05:00|- deal with tabs vs spaces better id:15 parentid:11 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-15T23:36:44.3731383-05:00|- Historical Stuff id:16 parentid:10 totalestimate:3.00 totalremaining:0.00
+2016-12-15T23:36:44.3731383-05:00|- Caller to Engine: id:19 parentid:10 totalestimate:3.00 totalremaining:0.00
+2016-12-15T23:36:44.3731383-05:00|x 2016-12-13 Write out the 1st output to a file id:20 parentid:19 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-15T23:36:44.3731383-05:00|x 2016-12-13 Save historical info to file id:21 parentid:19 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-15T23:36:44.3731383-05:00|x 2016-12-13 Read historical info from file id:22 parentid:19 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-15T23:36:44.3731383-05:00|x 2016-12-13 Add to historical info id:27 parentid:16 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-15T23:36:44.3731383-05:00|x 2016-12-13 Always id:29 parentid:16 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-15T23:36:44.3731383-05:00|x 2016-12-13 prune / move dates if no changes? id:31 parentid:16 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-15T23:36:44.3731383-05:00|x 2016-12-15 Caller option to create burndown report for one ID id:36 parentid:10 totalestimate:1.00 totalremaining:0.00
+2016-12-15T23:36:44.3731383-05:00|- eventually, Do some complicated visualizations. id:41 parentid:65 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-15T23:36:44.3731383-05:00|x 2016-12-15 only add est if leaf node id:44 parentid:11 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-15T23:36:44.3731383-05:00|- divvy up parent estimates across children id:45 parentid:11 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-15T23:36:44.3731383-05:00|x 2016-12-15 Deal with completed tasks without dates better. id:48 parentid:11 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-15T23:36:44.3731383-05:00|x 2016-12-15 First attempt done - just CSV info for root nodes. id:56 parentid:36 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-15T23:36:44.3731383-05:00|- for visualizations, populate intermediate points id:61 parentid:10 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-15T23:36:44.3731383-05:00|- additional step to populate intermediate points that might be missing? id:65 parentid:10 totalestimate:1.00 totalremaining:1.00
