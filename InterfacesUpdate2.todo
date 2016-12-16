@@ -16,22 +16,21 @@ Upgrading to their latest interface & wiring up audioblock save: id:1
         x 2016-12-15 Shared Entity update id:11
         x 2016-12-15 merge to master id:12
 
-    During Record, note down the SessionFileType id:17
-
-        # no other changes, looks like. 
+    x 2016-12-16 During Record, note down the SessionFileType id:17 est:1
+        x 2016-12-16 Also save FileSize id:114
     
-    During Playback id:21
+    * During Playback id:21
     
-        - Build up an IJavsSession id:30
-        - Construct using the different constructor based on SessionFile.HasVideo id:31
+        x 2016-12-16 Build up an IJavsSession id:30
+        x 2016-12-16 Construct using the different constructor based on SessionFile.HasVideo id:31
             # (while still also calling Open)
-        - change the mock to use IJavsSession instead of Open id:33
+        x 2016-12-16 change the mock to use IJavsSession instead of Open id:33
         - write some code to convert between their marker and our (indexfile, position) id:34
         - rewire the Tick event to ask for where things are at id:35
         - rewire the Seek event to use Play(location) id:36
         - delete the code we had in favor of theirs, hopefully now unused id:37
         - At this point, Play interfaces should be identical id:49
-    
+
     # Audio Blocks Stuff
     
     Switching AudioBlocks: id:39

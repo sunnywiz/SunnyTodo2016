@@ -98,40 +98,53 @@
 2016-12-15T23:13:10.0047058-05:00|Upgrading to their latest interface & wiring up audioblock save: id:1 totalestimate:26.00 totalremaining:18.00
 2016-12-15T23:13:10.0047058-05:00|x 2016-12-15 Add SessionFileType to SessionFile id:6 parentid:1 totalestimate:5.00 totalremaining:0.00
 2016-12-15T23:13:10.0047058-05:00|x 2016-12-15 merge to master id:12 parentid:6 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-15T23:25:00.3170041-05:00|Upgrading to their latest interface & wiring up audioblock save: id:1 totalestimate:26.00 totalremaining:18.00
-2016-12-15T23:25:00.3170041-05:00|x 2016-12-15 Get to a known good point id:3 parentid:1 totalestimate:3.00 totalremaining:0.00
-2016-12-15T23:25:00.3170041-05:00|x 2016-12-15 Add SessionFileType to SessionFile id:6 parentid:1 totalestimate:5.00 totalremaining:0.00
-2016-12-15T23:25:00.3170041-05:00|x 2016-12-15 Add Enum id:7 parentid:6 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-15T23:25:00.3170041-05:00|x 2016-12-15 Add Seed data id:8 parentid:6 totalestimate:2.00 totalremaining:0.00
-2016-12-15T23:25:00.3170041-05:00|x 2016-12-15 to cloud seed id:9 parentid:8 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-15T23:25:00.3170041-05:00|x 2016-12-15 to sqlite seed id:10 parentid:8 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-15T23:25:00.3170041-05:00|x 2016-12-15 Shared Entity update id:11 parentid:6 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-15T23:25:00.3170041-05:00|x 2016-12-15 merge to master id:12 parentid:6 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
 2016-12-15T23:25:00.3170041-05:00|During Record, note down the SessionFileType id:17 parentid:1 totalestimate:0.00 totalremaining:0.00
-2016-12-15T23:25:00.3170041-05:00|During Playback id:21 parentid:1 totalestimate:7.00 totalremaining:7.00
-2016-12-15T23:25:00.3170041-05:00|- Build up an IJavsSession id:30 parentid:21 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-15T23:25:00.3170041-05:00|- Construct using the different constructor based on SessionFile.HasVideo id:31 parentid:21 totalestimate:0.00 totalremaining:0.00
-2016-12-15T23:25:00.3170041-05:00|- change the mock to use IJavsSession instead of Open id:33 parentid:21 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-15T23:25:00.3170041-05:00|- write some code to convert between their marker and our (indexfile, position) id:34 parentid:21 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-15T23:25:00.3170041-05:00|- rewire the Tick event to ask for where things are at id:35 parentid:21 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-15T23:25:00.3170041-05:00|- rewire the Seek event to use Play(location) id:36 parentid:21 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-15T23:25:00.3170041-05:00|- delete the code we had in favor of theirs, hopefully now unused id:37 parentid:21 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-15T23:25:00.3170041-05:00|Switching AudioBlocks: id:39 parentid:1 totalestimate:11.00 totalremaining:11.00
-2016-12-15T23:25:00.3170041-05:00|- At this point, Play interfaces should be identical id:49 parentid:21 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-15T23:25:00.3170041-05:00|- When setting up recording, also have the one SessionFile sitting off to the side of type AudioBlock id:54 parentid:39 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-15T23:25:00.3170041-05:00|- Modify code that reads in session files to ignore these AudioBlock files id:55 parentid:39 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-15T23:25:00.3170041-05:00|On audio block generated, append to file: id:57 parentid:39 totalestimate:3.00 totalremaining:3.00
-2016-12-15T23:25:00.3170041-05:00|- File Format so that we can append straight. id:59 parentid:57 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-15T23:25:00.3170041-05:00|- actually get it to write (use an audioblockfilewritingservice) id:60 parentid:57 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-15T23:25:00.3170041-05:00|- test it during recording id:61 parentid:57 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-15T23:25:00.3170041-05:00|On playback: id:63 parentid:39 totalestimate:4.00 totalremaining:4.00
-2016-12-15T23:25:00.3170041-05:00|- Read in the audio blocks from the file. id:65  est:1 parentid:63 rem:1.00 totalestimate:2.00 totalremaining:2.00
-2016-12-15T23:25:00.3170041-05:00|update to their interface: id:80 parentid:39 totalestimate:2.00 totalremaining:2.00
-2016-12-15T23:25:00.3170041-05:00|- construct or initialize or whatever using IJavsSession as well as what we do now id:81 parentid:80 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-15T23:25:00.3170041-05:00|- switch the mock to use the stuff from IJavsSession Instead id:82 parentid:80 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-15T23:25:00.3170041-05:00|- pass in to audio block control id:85 parentid:63 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-15T23:25:00.3170041-05:00|- test it via record then playback. id:86 parentid:63 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-15T23:25:00.3170041-05:00|- make sure that it survives there being no file, for backward compatibility. id:103 parentid:65 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-15T23:25:00.3170041-05:00|x 2016-12-15 Roll back work id:105 parentid:3 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-15T23:25:00.3170041-05:00|x 2016-12-15 test it by hand id:106 parentid:3 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-15T23:25:00.3170041-05:00|x 2016-12-15 merge to master as starting point. id:107 parentid:3 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-16T10:35:41.6660205-05:00|Upgrading to their latest interface & wiring up audioblock save: id:1 totalestimate:26.00 totalremaining:18.00
+2016-12-16T10:35:41.6660205-05:00|* During Record, note down the SessionFileType id:17 parentid:1 totalestimate:0.00 totalremaining:0.00
+2016-12-16T10:35:41.6660205-05:00|During Playback id:21 parentid:1 totalestimate:7.00 totalremaining:7.00
+2016-12-16T10:35:41.6660205-05:00|- Build up an IJavsSession id:30 parentid:21 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-16T11:26:34.7406349-05:00|Upgrading to their latest interface & wiring up audioblock save: id:1 totalestimate:28.00 totalremaining:18.00
+2016-12-16T11:26:34.7406349-05:00|x 2016-12-16 During Record, note down the SessionFileType id:17 est:1 parentid:1 rem:0.00 totalestimate:2.00 totalremaining:0.00
+2016-12-16T11:26:34.7406349-05:00|* During Playback id:21 parentid:1 totalestimate:7.00 totalremaining:7.00
+2016-12-16T11:26:34.7406349-05:00|* Build up an IJavsSession id:30 parentid:21 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-16T11:26:34.7406349-05:00|- Construct using the different constructor based on SessionFile.HasVideo id:31 parentid:21 totalestimate:0.00 totalremaining:0.00
+2016-12-16T11:26:34.7406349-05:00|- change the mock to use IJavsSession instead of Open id:33 parentid:21 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-16T11:26:34.7406349-05:00|x 2016-12-16 Also save FileSize id:114 parentid:17 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-16T16:28:03.8439523-05:00|Upgrading to their latest interface & wiring up audioblock save: id:1 totalestimate:28.00 totalremaining:16.00
+2016-12-16T16:28:03.8439523-05:00|x 2016-12-15 Get to a known good point id:3 parentid:1 totalestimate:3.00 totalremaining:0.00
+2016-12-16T16:28:03.8439523-05:00|x 2016-12-15 Add SessionFileType to SessionFile id:6 parentid:1 totalestimate:5.00 totalremaining:0.00
+2016-12-16T16:28:03.8439523-05:00|x 2016-12-15 Add Enum id:7 parentid:6 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-16T16:28:03.8439523-05:00|x 2016-12-15 Add Seed data id:8 parentid:6 totalestimate:2.00 totalremaining:0.00
+2016-12-16T16:28:03.8439523-05:00|x 2016-12-15 to cloud seed id:9 parentid:8 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-16T16:28:03.8439523-05:00|x 2016-12-15 to sqlite seed id:10 parentid:8 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-16T16:28:03.8439523-05:00|x 2016-12-15 Shared Entity update id:11 parentid:6 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-16T16:28:03.8439523-05:00|x 2016-12-15 merge to master id:12 parentid:6 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-16T16:28:03.8439523-05:00|x 2016-12-16 During Record, note down the SessionFileType id:17 est:1 parentid:1 rem:0.00 totalestimate:2.00 totalremaining:0.00
+2016-12-16T16:28:03.8439523-05:00|* During Playback id:21 parentid:1 totalestimate:7.00 totalremaining:5.00
+2016-12-16T16:28:03.8439523-05:00|x 2016-12-16 Build up an IJavsSession id:30 parentid:21 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-16T16:28:03.8439523-05:00|x 2016-12-16 Construct using the different constructor based on SessionFile.HasVideo id:31 parentid:21 totalestimate:0.00 totalremaining:0.00
+2016-12-16T16:28:03.8439523-05:00|x 2016-12-16 change the mock to use IJavsSession instead of Open id:33 parentid:21 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-16T16:28:03.8439523-05:00|- write some code to convert between their marker and our (indexfile, position) id:34 parentid:21 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-16T16:28:03.8439523-05:00|- rewire the Tick event to ask for where things are at id:35 parentid:21 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-16T16:28:03.8439523-05:00|- rewire the Seek event to use Play(location) id:36 parentid:21 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-16T16:28:03.8439523-05:00|- delete the code we had in favor of theirs, hopefully now unused id:37 parentid:21 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-16T16:28:03.8439523-05:00|Switching AudioBlocks: id:39 parentid:1 totalestimate:11.00 totalremaining:11.00
+2016-12-16T16:28:03.8439523-05:00|- At this point, Play interfaces should be identical id:49 parentid:21 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-16T16:28:03.8439523-05:00|- When setting up recording, also have the one SessionFile sitting off to the side of type AudioBlock id:54 parentid:39 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-16T16:28:03.8439523-05:00|- Modify code that reads in session files to ignore these AudioBlock files id:55 parentid:39 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-16T16:28:03.8439523-05:00|On audio block generated, append to file: id:57 parentid:39 totalestimate:3.00 totalremaining:3.00
+2016-12-16T16:28:03.8439523-05:00|- File Format so that we can append straight. id:59 parentid:57 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-16T16:28:03.8439523-05:00|- actually get it to write (use an audioblockfilewritingservice) id:60 parentid:57 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-16T16:28:03.8439523-05:00|- test it during recording id:61 parentid:57 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-16T16:28:03.8439523-05:00|On playback: id:63 parentid:39 totalestimate:4.00 totalremaining:4.00
+2016-12-16T16:28:03.8439523-05:00|- Read in the audio blocks from the file. id:65  est:1 parentid:63 rem:1.00 totalestimate:2.00 totalremaining:2.00
+2016-12-16T16:28:03.8439523-05:00|update to their interface: id:80 parentid:39 totalestimate:2.00 totalremaining:2.00
+2016-12-16T16:28:03.8439523-05:00|- construct or initialize or whatever using IJavsSession as well as what we do now id:81 parentid:80 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-16T16:28:03.8439523-05:00|- switch the mock to use the stuff from IJavsSession Instead id:82 parentid:80 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-16T16:28:03.8439523-05:00|- pass in to audio block control id:85 parentid:63 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-16T16:28:03.8439523-05:00|- test it via record then playback. id:86 parentid:63 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-16T16:28:03.8439523-05:00|- make sure that it survives there being no file, for backward compatibility. id:103 parentid:65 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-16T16:28:03.8439523-05:00|x 2016-12-15 Roll back work id:105 parentid:3 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-16T16:28:03.8439523-05:00|x 2016-12-15 test it by hand id:106 parentid:3 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-16T16:28:03.8439523-05:00|x 2016-12-15 merge to master as starting point. id:107 parentid:3 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-16T16:28:03.8439523-05:00|x 2016-12-16 Also save FileSize id:114 parentid:17 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
