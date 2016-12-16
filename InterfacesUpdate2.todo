@@ -13,8 +13,8 @@ Upgrading to their latest interface & wiring up audioblock save: id:1
         x 2016-12-15 Add Seed data id:8
             x 2016-12-15 to cloud seed id:9
             x 2016-12-15 to sqlite seed id:10
-        * Shared Entity update id:11
-        - merge to master id:12
+        x 2016-12-15 Shared Entity update id:11
+        * merge to master id:12
 
     During Record, note down the SessionFileType id:17
 
