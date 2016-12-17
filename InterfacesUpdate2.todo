@@ -19,36 +19,55 @@ Upgrading to their latest interface & wiring up audioblock save: id:1
     x 2016-12-16 During Record, note down the SessionFileType id:17 est:1
         x 2016-12-16 Also save FileSize id:114
     
-    * During Playback id:21
+    x 2016-12-17 During Playback id:21
     
         x 2016-12-16 Build up an IJavsSession id:30
         x 2016-12-16 Construct using the different constructor based on SessionFile.HasVideo id:31
             # (while still also calling Open)
         x 2016-12-16 change the mock to use IJavsSession instead of Open id:33
-        - write some code to convert between their marker and our (indexfile, position) id:34
-        - rewire the Tick event to ask for where things are at id:35
-        - rewire the Seek event to use Play(location) id:36
-        - delete the code we had in favor of theirs, hopefully now unused id:37
-        - At this point, Play interfaces should be identical id:49
+        x 2016-12-17 write some code to convert between their marker and our (indexfile, position) id:34
+        x 2016-12-17 rewire the Tick event to ask for where things are at id:35
+        x 2016-12-17 rewire the Seek event to use Play(location) id:36
+        x 2016-12-17 delete the code we had in favor of theirs, hopefully now unused id:37
+        x 2016-12-17 At this point, Play interfaces should be identical id:49
+        Manual Test. id:124
 
     # Audio Blocks Stuff
     
     Switching AudioBlocks: id:39
     
         - When setting up recording, also have the one SessionFile sitting off to the side of type AudioBlock id:54
-        - Modify code that reads in session files to ignore these AudioBlock files id:55
+           # Not part of RecordingSessionFiles or PlaybackSessionFiles
+        - Modify code that reads in session files for playback to ignore these AudioBlock files id:55
         
-        update to their interface: id:80
-            - construct or initialize or whatever using IJavsSession as well as what we do now id:81
-            - switch the mock to use the stuff from IJavsSession Instead id:82
+        update to their audiobar interface for recording: id:80
+            - Call their InitializeForRecording() method passing in the recorder id:131
+            - Do the wireup in the other direction id:132
         
         On audio block generated, append to file: id:57
-            - File Format so that we can append straight. id:59
-            - actually get it to write (use an audioblockfilewritingservice) id:60
+            - Filename is sessionID + "_audioblocks.csv" id:134
+            - File Format so that we can append straight. Just use CSV. id:59
+            - Also save the absolute time at which it happens id:135
+            - actually get it to write (use an audioblockfilewritingservice) id:60 est:1
+                - Make sure that its async id:136
+            - only writes it when recording, not when paused. id:137
             - test it during recording id:61
+            - Integration Test that the SessionFile (and the file) are saved. id:138
+            - On deck pause also save that SessionFile with latest size id:139
             
         On playback: id:63
-            - Read in the audio blocks from the file. id:65  est:1
+            - find the SessionFile that is AudioBlocks during load of SessionFiles id:141
+            - Read in the audio blocks from the file.  id:65  est:1
+                - make the call async so that during MSP it does not block recording id:142
                 - make sure that it survives there being no file, for backward compatibility. id:103
-            - pass in to audio block control id:85
-            - test it via record then playback. id:86
+                - limit to range that is within the PlaybackSessionFiles that we are playing back (for MidRecordPlayback) id:143
+                - Add to the IJavsAudioChannel construct id:144
+                - pass in to audio block control id via IJavsSession in IniitializeForPlayback call:85 id:145
+        
+        - can delete the old calls at this time. id:147
+        
+        - Manual test it via record then playback. id:86
+        - Manual test for Mid-record-playback as well id:149
+        - Add a line to the integration test that the id:150
+
+    Changing AudioBlocks Control for Templated stuff  est:8 id:152

@@ -45,14 +45,11 @@ namespace SunnyTodo2016
             {
                 var fileName = args[1];
                 DoTakeSnapshot(fileName);
-                return;
             } else if (args[0] == "report")
             {
                 var fileName = args[1];
                 DoReport(fileName);
             }
-
-            Console.ReadLine();
         }
 
         private static void DoReport(string fileName)
@@ -87,15 +84,19 @@ namespace SunnyTodo2016
             var distinctTimes = logic.InterpolatedHistory.Select(x => x.TimeStamp).Distinct().OrderBy(x => x).ToList();
             var distinctIds = logic.InterpolatedHistory.Select(x => x.Id).Distinct().OrderBy(x => x).ToList();
 
-            Console.Write("Timestamp");
+            Console.Write("Timestamp,Completed");
             foreach (var id in distinctIds)
             {
-                Console.Write(",C"+id);
+                Console.Write(",T"+id);
             }
             Console.WriteLine();
             foreach (var time in distinctTimes)
             {
                 Console.Write($"{time:g}");
+                var completed = logic.InterpolatedHistory
+                    .Where(x => x.TimeStamp == time && x.ParentId == null)
+                    .Sum(x => x.TotalEstimate - x.TotalRemaining);
+                Console.Write($",{completed:F}");
                 foreach (var id in distinctIds)
                 {
                     var rec = logic.InterpolatedHistory.FirstOrDefault(x => x.TimeStamp == time && x.Id == id);

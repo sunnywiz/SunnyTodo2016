@@ -103,7 +103,7 @@ namespace SunnyTodo2016
 
                     if (before == null) continue;
 
-                    if (after == null) continue;
+                    if (after == null && before.TimeStamp < time) continue;
 
                     var outrec = new HierarchicalTask(before.ToString())
                     {
