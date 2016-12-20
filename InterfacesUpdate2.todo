@@ -34,37 +34,38 @@ Upgrading to their latest interface & wiring up audioblock save: id:1
 
     # Audio Blocks Stuff
     
-    Switching AudioBlocks: id:39
+    Switching and Persisting AudioBlocks: id:39
     
-        - When setting up recording, also have the one SessionFile sitting off to the side of type AudioBlock id:54
+        x 2016-12-19 When setting up recording, also have the one SessionFile sitting off to the side of type AudioBlock id:54
            # Not part of RecordingSessionFiles or PlaybackSessionFiles
         - Modify code that reads in session files for playback to ignore these AudioBlock files id:55
-        
-        update to their audiobar interface for recording: id:80
-            - Call their InitializeForRecording() method passing in the recorder id:131
-            - Do the wireup in the other direction id:132
-        
+                
         On audio block generated, append to file: id:57
-            - Filename is sessionID + "_audioblocks.csv" id:134
-            - File Format so that we can append straight. Just use CSV. id:59
-            - Also save the absolute time at which it happens id:135
-            - actually get it to write (use an audioblockfilewritingservice) id:60 est:1
-                - Make sure that its async id:136
-            - only writes it when recording, not when paused. id:137
-            - test it during recording id:61
-            - Integration Test that the SessionFile (and the file) are saved. id:138
-            - On deck pause also save that SessionFile with latest size id:139
+            x 2016-12-19 Filename is sessionID + "_audioblocks.csv" id:134
+            x 2016-12-19 File Format so that we can append straight. Just use CSV. id:59
+            x 2016-12-19 Also save the absolute time at which it happens id:135
+            x 2016-12-19 actually get it to write (use an audioblockfilewritingservice) id:60
+                x 2016-12-19 Make sure that its async id:136
+                - still need to pull the code out to a service id:168
+            x 2016-12-20 only writes it when recording, not when paused. id:137
+            # skip: will cover in test below -- test it during recording id:61
+            x 2016-12-19 Integration Test that the SessionFile (and the file) are saved. id:138
+            x 2016-12-19 On deck pause also save that SessionFile with latest size id:139
             
         On playback: id:63
-            - find the SessionFile that is AudioBlocks during load of SessionFiles id:141
-            - Read in the audio blocks from the file.  id:65  est:1
-                - make the call async so that during MSP it does not block recording id:142
-                - make sure that it survives there being no file, for backward compatibility. id:103
-                - limit to range that is within the PlaybackSessionFiles that we are playing back (for MidRecordPlayback) id:143
-                - Add to the IJavsAudioChannel construct id:144
-                - pass in to audio block control id via IJavsSession in IniitializeForPlayback call:85 id:145
+            x 2016-12-20 find the SessionFile that is AudioBlocks during load of SessionFiles id:141
+            x 2016-12-20 Read in the audio blocks from the file.  id:65  est:1
+                x 2016-12-20 make the call async so that during MSP it does not block recording id:142
+                x 2016-12-20 make sure that it survives there being no file, for backward compatibility. id:103
+                x 2016-12-20 limit to range that is within the PlaybackSessionFiles that we are playing back (for MidRecordPlayback) id:143
         
-        - can delete the old calls at this time. id:147
+        update to their audiobar interface for recording and playback: id:80
+            - Call their InitializeForRecording() method passing in the recorder id:131
+            - Do the wireup in the other direction (audioblock initializes to recorder/player, instead of the other way) id:132
+            - For playback, Add to the IJavsAudioChannel construct id:144
+            - pass in to audio block control id via IJavsSession in IniitializeForPlayback call:85 id:145
+            - Change to use their event and their IJavsAudioBlock + add only one timestamp id:187
+            - can delete the old calls at this time. id:147
         
         - Manual test it via record then playback. id:86
         - Manual test for Mid-record-playback as well id:149
