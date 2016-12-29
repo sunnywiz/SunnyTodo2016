@@ -260,57 +260,136 @@
 2016-12-21T10:37:12.3670775-05:00|x 2016-12-21 Do the wireup in the other direction (audioblock initializes to recorder/player, instead of the other way) id:206 parentid:80 totalestimate:2.00 totalremaining:0.00
 2016-12-21T10:37:12.3670775-05:00|x 2016-12-21 for Playback id:207 parentid:206 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
 2016-12-21T13:23:06.7628399-05:00|Upgrading to their latest interface & wiring up audioblock save: id:1 totalestimate:48.00 totalremaining:11.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-15 Get to a known good point id:3 parentid:1 totalestimate:3.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-15 Add SessionFileType to SessionFile id:6 parentid:1 totalestimate:5.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-15 Add Enum id:7 parentid:6 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-15 Add Seed data id:8 parentid:6 totalestimate:2.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-15 to cloud seed id:9 parentid:8 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-15 to sqlite seed id:10 parentid:8 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-15 Shared Entity update id:11 parentid:6 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-15 merge to master id:12 parentid:6 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-16 During Record, note down the SessionFileType id:17 est:1 parentid:1 rem:0.00 totalestimate:2.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-17 During Playback id:21 parentid:1 totalestimate:7.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-16 Build up an IJavsSession id:30 parentid:21 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-16 Construct using the different constructor based on SessionFile.HasVideo id:31 parentid:21 totalestimate:0.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-16 change the mock to use IJavsSession instead of Open id:33 parentid:21 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-17 write some code to convert between their marker and our (indexfile, position) id:34 parentid:21 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-17 rewire the Tick event to ask for where things are at id:35 parentid:21 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-17 rewire the Seek event to use Play(location) id:36 parentid:21 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-17 delete the code we had in favor of theirs, hopefully now unused id:37 parentid:21 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
 2016-12-21T13:23:06.7628399-05:00|Switching and Persisting AudioBlocks: id:39 parentid:1 totalestimate:23.00 totalremaining:3.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-17 At this point, Play interfaces should be identical id:49 parentid:21 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-19 When setting up recording, also have the one SessionFile sitting off to the side of type AudioBlock id:54 parentid:39 totalestimate:0.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-21 Modify code that reads in session files for playback to ignore these AudioBlock files id:55 parentid:39 totalestimate:0.00 totalremaining:0.00
 2016-12-21T13:23:06.7628399-05:00|x 2016-12-21 On audio block generated, append to file: id:57 parentid:39 totalestimate:8.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-19 File Format so that we can append straight. Just use CSV. id:59 parentid:57 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
 2016-12-21T13:23:06.7628399-05:00|x 2016-12-19 actually get it to write (use an audioblockfilewritingservice) id:60 parentid:57 totalestimate:2.00 totalremaining:0.00
 2016-12-21T13:23:06.7628399-05:00|x 2016-12-21 On playback: id:63 parentid:39 totalestimate:5.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-20 Read in the audio blocks from the file.  id:65  est:1 parentid:63 rem:0.00 totalestimate:4.00 totalremaining:0.00
 2016-12-21T13:23:06.7628399-05:00|x 2016-12-21 update to their audiobar interface for recording and playback: id:80 parentid:39 totalestimate:7.00 totalremaining:0.00
 2016-12-21T13:23:06.7628399-05:00|* Manual test it via record then playback. id:86 parentid:39 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-20 make sure that it survives there being no file, for backward compatibility. id:103 parentid:65 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-15 Roll back work id:105 parentid:3 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-15 test it by hand id:106 parentid:3 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-15 merge to master as starting point. id:107 parentid:3 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-16 Also save FileSize id:114 parentid:17 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-21 Call their InitializeForRecording() method passing in the recorder id:131 parentid:80 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-21 for Record id:132 parentid:206 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-19 Filename is sessionID + "_audioblocks.csv" id:134 parentid:57 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-19 Also save the absolute time at which it happens id:135 parentid:57 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-19 Make sure that its async id:136 parentid:60 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-20 only writes it when recording, not when paused. id:137 parentid:57 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-19 Integration Test that the SessionFile (and the file) are saved. id:138 parentid:57 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-19 On deck pause also save that SessionFile with latest size id:139 parentid:57 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-20 find the SessionFile that is AudioBlocks during load of SessionFiles id:141 parentid:63 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-20 make the call async so that during MSP it does not block recording id:142 parentid:65 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-20 limit to range that is within the PlaybackSessionFiles that we are playing back (for MidRecordPlayback) id:143 parentid:65 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-21 For playback, Add to the IJavsAudioChannel construct id:144 parentid:80 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-21 pass in to audio block control id via IJavsSession in IniitializeForPlayback call:85 id:145 parentid:80 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-21 can delete the old calls at this time. id:147 parentid:80 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|- Manual test for Mid-record-playback as well id:149 parentid:39 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-21T13:23:06.7628399-05:00|- Add a line to the integration test that the id:150 parentid:39 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
-2016-12-21T13:23:06.7628399-05:00|Changing AudioBlocks Control for Templated stuff  est:8 id:152 parentid:1 rem:8.00 totalestimate:8.00 totalremaining:8.00
 2016-12-21T13:23:06.7628399-05:00|x 2016-12-21 still need to pull the code out to a service id:168 parentid:60 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
 2016-12-21T13:23:06.7628399-05:00|x 2016-12-20 Change to use their event and their IJavsAudioBlock and their Start/Stop doubles instead of our Time:187 id:187 parentid:80 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-21 Do the wireup in the other direction (audioblock initializes to recorder/player, instead of the other way) id:206 parentid:80 totalestimate:2.00 totalremaining:0.00
-2016-12-21T13:23:06.7628399-05:00|x 2016-12-21 for Playback id:207 parentid:206 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-21T13:28:55.3513279-05:00|Upgrading to their latest interface & wiring up audioblock save: id:1 totalestimate:53.00 totalremaining:16.00
+2016-12-21T13:28:55.3513279-05:00|Switching and Persisting AudioBlocks: id:39 parentid:1 totalestimate:28.00 totalremaining:8.00
+2016-12-21T13:28:55.3513279-05:00|x 2016-12-21 On audio block generated, append to file: id:57 parentid:39 totalestimate:13.00 totalremaining:5.00
+2016-12-21T13:28:55.3513279-05:00|x 2016-12-20 Change to use their event and their IJavsAudioBlock and their Start/Stop doubles instead of our Time id:187 parentid:80 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-21T13:28:55.3513279-05:00|- Update: save the ID that would be generated id:225 parentid:57 totalestimate:5.00 totalremaining:5.00
+2016-12-21T13:28:55.3513279-05:00|- add ID to my interface est: 0.25 id:226 parentid:225 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-21T13:28:55.3513279-05:00|- populate it during generation est: 0.25 id:227 parentid:225 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-21T13:28:55.3513279-05:00|- save it to the file: 0.25 id:228 parentid:225 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-21T13:28:55.3513279-05:00|- restore it from the file: 0.25 id:229 parentid:225 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-21T13:28:55.3513279-05:00|- update the test to verify that all that works: 0.25 id:230 parentid:225 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-21T13:29:57.1150879-05:00|x 2016-12-21 On audio block generated, append to file: id:57 parentid:39 totalestimate:8.00 totalremaining:0.00
+2016-12-21T13:29:57.1150879-05:00|- Update: save the ID that would be generated id:225 parentid:39 totalestimate:5.00 totalremaining:5.00
+2016-12-21T13:30:28.4740524-05:00|Upgrading to their latest interface & wiring up audioblock save: id:1 totalestimate:53.00 totalremaining:16.00
+2016-12-21T13:30:28.4740524-05:00|Switching and Persisting AudioBlocks: id:39 parentid:1 totalestimate:28.00 totalremaining:8.00
+2016-12-21T13:30:28.4740524-05:00|- Update: per discussion on 12/21, save the ID that would be generated id:225 parentid:39 totalestimate:5.00 totalremaining:5.00
+2016-12-21T13:30:28.4740524-05:00|- add ID to my interface est: 0.25 id:226 parentid:225 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-21T13:30:28.4740524-05:00|- populate it during generation est: 0.25 id:227 parentid:225 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-21T13:30:28.4740524-05:00|- save it to the file: 0.25 id:228 parentid:225 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-21T13:30:28.4740524-05:00|- restore it from the file: 0.25 id:229 parentid:225 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-21T13:30:28.4740524-05:00|- update the test to verify that all that works: 0.25 id:230 parentid:225 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-21T13:57:29.8664900-05:00|Upgrading to their latest interface & wiring up audioblock save: id:1 totalestimate:53.00 totalremaining:11.00
+2016-12-21T13:57:29.8664900-05:00|Switching and Persisting AudioBlocks: id:39 parentid:1 totalestimate:28.00 totalremaining:3.00
+2016-12-21T13:57:29.8664900-05:00|* Manual test it via record then playback. id:86 parentid:39 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-21T13:57:29.8664900-05:00|- Manual test for Mid-record-playback as well id:149 parentid:39 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-21T13:57:29.8664900-05:00|- Add a line to the integration test that the id:150 parentid:39 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-21T13:57:29.8664900-05:00|Changing AudioBlocks Control for Templated stuff  est:8 id:152 parentid:1 rem:8.00 totalestimate:8.00 totalremaining:8.00
+2016-12-21T13:57:29.8664900-05:00|x 2016-12-21 Update: per discussion on 12/21, save the ID that would be generated id:225 parentid:39 totalestimate:5.00 totalremaining:0.00
+2016-12-21T13:57:29.8664900-05:00|x 2016-12-21 add ID to my interface est: 0.25 id:226 parentid:225 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-21T13:57:29.8664900-05:00|x 2016-12-21 populate it during generation est: 0.25 id:227 parentid:225 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-21T13:57:29.8664900-05:00|x 2016-12-21 save it to the file: 0.25 id:228 parentid:225 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-21T13:57:29.8664900-05:00|x 2016-12-21 restore it from the file: 0.25 id:229 parentid:225 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-21T13:57:29.8664900-05:00|x 2016-12-21 update the test to verify that all that works: 0.25 id:230 parentid:225 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T10:35:57.1419790-05:00|Upgrading to their latest interface & wiring up audioblock save: id:1 totalestimate:52.00 totalremaining:5.00
+2016-12-29T10:35:57.1419790-05:00|Switching and Persisting AudioBlocks: id:39 parentid:1 totalestimate:27.00 totalremaining:0.00
+2016-12-29T10:35:57.1419790-05:00|x 2016-12-29 Manual test it via record then playback. id:86 parentid:39 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T10:35:57.1419790-05:00|x 2016-12-29 Manual test for Mid-record-playback as well id:149 parentid:39 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T10:35:57.1419790-05:00|* Changing AudioBlocks Control for Templated stuff  id:152 parentid:1 totalestimate:8.00 totalremaining:5.00
+2016-12-29T10:35:57.1419790-05:00|x 2016-12-29 Research into how to do it id:254 parentid:152 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T10:35:57.1419790-05:00|x 2016-12-29 Define the template property to set id:255 parentid:152 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T10:35:57.1419790-05:00|x 2016-12-29 have mock audio bar shove the thing in the datacontext of said thing id:256 parentid:152 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T10:35:57.1419790-05:00|* Modify what we pass in to be SessionChannel as well as IJavsAudioChannel id:257 parentid:152 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-29T10:35:57.1419790-05:00|- do a template that does volume as well to verify two way binding id:258 parentid:152 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-29T10:35:57.1419790-05:00|- Copy the whole template over -- should have two copies now id:259 parentid:152 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-29T10:35:57.1419790-05:00|- Get rid of the old one id:260 parentid:152 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-29T10:35:57.1419790-05:00|- Get the titles to auto-size id:261 parentid:152 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-29T10:38:22.1201111-05:00|Upgrading to their latest interface & wiring up audioblock save: id:1 totalestimate:54.00 totalremaining:7.00
+2016-12-29T10:38:22.1201111-05:00|* Changing AudioBlocks Control for Templated stuff  id:152 parentid:1 totalestimate:10.00 totalremaining:7.00
+2016-12-29T10:38:22.1201111-05:00|- clean up initialization of channels id:285 parentid:152 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-29T10:38:22.1201111-05:00|- verify path with Thao, start the email. id:286 parentid:152 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-29T10:54:32.0059035-05:00|Upgrading to their latest interface & wiring up audioblock save: id:1 totalestimate:54.00 totalremaining:6.00
+2016-12-29T10:54:32.0059035-05:00|* Changing AudioBlocks Control for Templated stuff  id:152 parentid:1 totalestimate:10.00 totalremaining:6.00
+2016-12-29T10:54:32.0059035-05:00|* Modify what we pass in to be SessionChannel as well as IJavsAudioChannel id:257 parentid:152 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-29T10:54:32.0059035-05:00|- do a template that does volume as well to verify two way binding id:258 parentid:152 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-29T10:54:32.0059035-05:00|- Copy the whole template over -- should have two copies now id:259 parentid:152 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-29T10:54:32.0059035-05:00|x 2016-12-29 clean up initialization of channels id:285 parentid:152 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|Upgrading to their latest interface & wiring up audioblock save: id:1 totalestimate:54.00 totalremaining:4.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-15 Get to a known good point id:3 parentid:1 totalestimate:3.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-15 Add SessionFileType to SessionFile id:6 parentid:1 totalestimate:5.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-15 Add Enum id:7 parentid:6 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-15 Add Seed data id:8 parentid:6 totalestimate:2.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-15 to cloud seed id:9 parentid:8 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-15 to sqlite seed id:10 parentid:8 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-15 Shared Entity update id:11 parentid:6 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-15 merge to master id:12 parentid:6 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-16 During Record, note down the SessionFileType id:17 est:1 parentid:1 rem:0.00 totalestimate:2.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-17 During Playback id:21 parentid:1 totalestimate:7.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-16 Build up an IJavsSession id:30 parentid:21 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-16 Construct using the different constructor based on SessionFile.HasVideo id:31 parentid:21 totalestimate:0.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-16 change the mock to use IJavsSession instead of Open id:33 parentid:21 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-17 write some code to convert between their marker and our (indexfile, position) id:34 parentid:21 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-17 rewire the Tick event to ask for where things are at id:35 parentid:21 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-17 rewire the Seek event to use Play(location) id:36 parentid:21 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-17 delete the code we had in favor of theirs, hopefully now unused id:37 parentid:21 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|Switching and Persisting AudioBlocks: id:39 parentid:1 totalestimate:27.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-17 At this point, Play interfaces should be identical id:49 parentid:21 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-19 When setting up recording, also have the one SessionFile sitting off to the side of type AudioBlock id:54 parentid:39 totalestimate:0.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-21 Modify code that reads in session files for playback to ignore these AudioBlock files id:55 parentid:39 totalestimate:0.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-21 On audio block generated, append to file: id:57 parentid:39 totalestimate:8.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-19 File Format so that we can append straight. Just use CSV. id:59 parentid:57 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-19 actually get it to write (use an audioblockfilewritingservice) id:60 parentid:57 totalestimate:2.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-21 On playback: id:63 parentid:39 totalestimate:5.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-20 Read in the audio blocks from the file.  id:65  est:1 parentid:63 rem:0.00 totalestimate:4.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-21 update to their audiobar interface for recording and playback: id:80 parentid:39 totalestimate:7.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-29 Manual test it via record then playback. id:86 parentid:39 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-20 make sure that it survives there being no file, for backward compatibility. id:103 parentid:65 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-15 Roll back work id:105 parentid:3 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-15 test it by hand id:106 parentid:3 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-15 merge to master as starting point. id:107 parentid:3 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-16 Also save FileSize id:114 parentid:17 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-21 Call their InitializeForRecording() method passing in the recorder id:131 parentid:80 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-21 for Record id:132 parentid:206 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-19 Filename is sessionID + "_audioblocks.csv" id:134 parentid:57 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-19 Also save the absolute time at which it happens id:135 parentid:57 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-19 Make sure that its async id:136 parentid:60 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-20 only writes it when recording, not when paused. id:137 parentid:57 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-19 Integration Test that the SessionFile (and the file) are saved. id:138 parentid:57 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-19 On deck pause also save that SessionFile with latest size id:139 parentid:57 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-20 find the SessionFile that is AudioBlocks during load of SessionFiles id:141 parentid:63 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-20 make the call async so that during MSP it does not block recording id:142 parentid:65 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-20 limit to range that is within the PlaybackSessionFiles that we are playing back (for MidRecordPlayback) id:143 parentid:65 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-21 For playback, Add to the IJavsAudioChannel construct id:144 parentid:80 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-21 pass in to audio block control id via IJavsSession in IniitializeForPlayback call:85 id:145 parentid:80 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-21 can delete the old calls at this time. id:147 parentid:80 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-29 Manual test for Mid-record-playback as well id:149 parentid:39 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|* Changing AudioBlocks Control for Templated stuff  id:152 parentid:1 totalestimate:10.00 totalremaining:4.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-21 still need to pull the code out to a service id:168 parentid:60 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-20 Change to use their event and their IJavsAudioBlock and their Start/Stop doubles instead of our Time id:187 parentid:80 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-21 Do the wireup in the other direction (audioblock initializes to recorder/player, instead of the other way) id:206 parentid:80 totalestimate:2.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-21 for Playback id:207 parentid:206 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-21 Update: per discussion on 12/21, save the ID that would be generated id:225 parentid:39 totalestimate:5.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-21 add ID to my interface est: 0.25 id:226 parentid:225 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-21 populate it during generation est: 0.25 id:227 parentid:225 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-21 save it to the file: 0.25 id:228 parentid:225 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-21 restore it from the file: 0.25 id:229 parentid:225 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-21 update the test to verify that all that works: 0.25 id:230 parentid:225 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-29 Research into how to do it id:254 parentid:152 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-29 Define the template property to set id:255 parentid:152 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-29 have mock audio bar shove the thing in the datacontext of said thing id:256 parentid:152 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-29 Modify what we pass in to be SessionChannel as well as IJavsAudioChannel id:257 parentid:152 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-29 do a template that does volume as well to verify two way binding id:258 parentid:152 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|* Copy the whole template over -- should have two copies now id:259 parentid:152 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-29T11:19:40.4118223-05:00|- Get rid of the old one id:260 parentid:152 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-29T11:19:40.4118223-05:00|- Get the titles to auto-size id:261 parentid:152 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+2016-12-29T11:19:40.4118223-05:00|x 2016-12-29 clean up initialization of channels id:285 parentid:152 est:1.00 rem:0.00 totalestimate:1.00 totalremaining:0.00
+2016-12-29T11:19:40.4118223-05:00|- verify path with Thao, start the email. id:286 parentid:152 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00

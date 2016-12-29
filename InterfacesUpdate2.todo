@@ -60,7 +60,7 @@ Upgrading to their latest interface & wiring up audioblock save: id:1
                 x 2016-12-20 limit to range that is within the PlaybackSessionFiles that we are playing back (for MidRecordPlayback) id:143
         
         x 2016-12-21 update to their audiobar interface for recording and playback: id:80
-            x 2016-12-20 Change to use their event and their IJavsAudioBlock and their Start/Stop doubles instead of our Time:187 id:187
+            x 2016-12-20 Change to use their event and their IJavsAudioBlock and their Start/Stop doubles instead of our Time id:187
             x 2016-12-21 Call their InitializeForRecording() method passing in the recorder id:131
             x 2016-12-21 Do the wireup in the other direction (audioblock initializes to recorder/player, instead of the other way) id:206
                 x 2016-12-21 for Record id:132
@@ -68,9 +68,27 @@ Upgrading to their latest interface & wiring up audioblock save: id:1
             x 2016-12-21 For playback, Add to the IJavsAudioChannel construct id:144
             x 2016-12-21 pass in to audio block control id via IJavsSession in IniitializeForPlayback call:85 id:145
             x 2016-12-21 can delete the old calls at this time. id:147
-        
-        * Manual test it via record then playback. id:86
-        - Manual test for Mid-record-playback as well id:149
-        - Add a line to the integration test that the id:150
 
-    Changing AudioBlocks Control for Templated stuff  est:8 id:152
+        x 2016-12-21 Update: per discussion on 12/21, save the ID that would be generated id:225
+            x 2016-12-21 add ID to my interface est: 0.25 id:226
+            x 2016-12-21 populate it during generation est: 0.25 id:227
+            x 2016-12-21 save it to the file: 0.25 id:228
+            x 2016-12-21 restore it from the file: 0.25 id:229
+            x 2016-12-21 update the test to verify that all that works: 0.25 id:230
+            
+        x 2016-12-29 Manual test it via record then playback. id:86
+        x 2016-12-29 Manual test for Mid-record-playback as well id:149
+        # skip  Add a line to the integration test that the id:150
+
+    * Changing AudioBlocks Control for Templated stuff  id:152
+        x 2016-12-29 Research into how to do it id:254
+        x 2016-12-29 Define the template property to set id:255
+        x 2016-12-29 have mock audio bar shove the thing in the datacontext of said thing id:256
+        x 2016-12-29 clean up initialization of channels id:285
+        x 2016-12-29 Modify what we pass in to be SessionChannel as well as IJavsAudioChannel id:257
+        x 2016-12-29 do a template that does volume as well to verify two way binding id:258
+        * Copy the whole template over -- should have two copies now id:259
+        - verify path with Thao, start the email. id:286
+        - Get rid of the old one id:260
+        - Get the titles to auto-size id:261
+        
