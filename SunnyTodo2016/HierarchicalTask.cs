@@ -53,19 +53,14 @@ namespace SunnyTodo2016
         // TODO: could modify IndentLevel to be tab-as-8-spaces aware.
         public int IndentLevel => _originalLine.Length - _trimmedAtStartLine.Length;
 
-        public int? Id
+        public string Id
         {
             get
             {
                 if (TodoTask == null) return null;
                 string id;
                 if (!TodoTask.Metadata.TryGetValue(KEY_ID, out id)) return null;
-                int numberid;
-                if (int.TryParse(id, out numberid))
-                {
-                    return numberid;
-                }
-                return null;
+                return id;
             }
             set
             {
@@ -73,19 +68,14 @@ namespace SunnyTodo2016
             }
         }
 
-        public int? ParentId
+        public string ParentId
         {
             get
             {
                 if (TodoTask == null) return null;
                 string id;
                 if (!TodoTask.Metadata.TryGetValue(KEY_PARENTID, out id)) return null;
-                int numberid;
-                if (int.TryParse(id, out numberid))
-                {
-                    return numberid;
-                }
-                return null;
+                return id;
             }
             set
             {

@@ -201,18 +201,29 @@ namespace SunnyTodo2016
 
         private void AssignOutputListIds()
         {
-            int maxId = 0;
             foreach (var task in OutputList)
             {
+                if (!task.WasParsed) continue; 
                 var val = task.Id;
-                if (val.HasValue && val.Value > maxId) maxId = val.Value;
-            }
-            foreach (var task in OutputList)
-            {
-                var val = task.Id;
-                if (!val.HasValue)
+                if (String.IsNullOrWhiteSpace(val))
                 {
-                    task.Id = ++maxId;
+                    var fullHashCode = Guid.NewGuid().ToString("n");
+                    string foundId = null; 
+                    for (int i = 1; i < fullHashCode.Length; i++)
+                    {
+                        var possible = fullHashCode.Substring(0, i);
+                        if (OutputList.Any(t => t.WasParsed && t.Id == possible)) continue;
+                        foundId = possible; 
+                        break;
+                    }
+                    if (foundId != null)
+                    {
+                        task.Id = foundId;
+                    }
+                    else
+                    {
+                        throw new NotSupportedException("Somehow, a GUID was not unique");
+                    }
                 }
             }
         }
@@ -257,12 +268,12 @@ namespace SunnyTodo2016
             for (int i = 0; i < FilledOutList.Count; i++)
             {
                 var task = FilledOutList[i];
-                if (task.ParentId.HasValue) continue;
+                if (task.ParentId != null) continue;
 
                 for (var j = i - 1; j >= 0; j--)
                 {
                     var ptask = FilledOutList[j];
-                    if (!ptask.Id.HasValue) continue;
+                    if (ptask.Id==null) continue;
                     if (ptask.IndentLevel >= task.IndentLevel) continue;
 
                     task.ParentId = ptask.Id;
