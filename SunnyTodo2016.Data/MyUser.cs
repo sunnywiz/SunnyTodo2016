@@ -5,7 +5,7 @@ namespace SunnyTodo2016.Data
 {
     public class MyUser
     {
-        public Guid AnonymousUserId = Guid.Empty; 
+        public static readonly Guid AnonymousUserId = Guid.Empty; 
 
         public Guid MyUserID { get; set; }
 
