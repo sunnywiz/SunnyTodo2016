@@ -10,5 +10,7 @@ namespace WebApplication1
         {
             ConfigureAuth(app);
         }
+        public const string APPNAME = "Burndown";
     }
+
 }
