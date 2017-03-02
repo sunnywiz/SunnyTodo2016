@@ -249,6 +249,10 @@
       <Project>{C577F691-C792-46F4-883E-E9077AFB71CA}</Project>
       <Name>SunnyTodo2016.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SunnyTodo2016\SunnyTodo2016.csproj">
+      <Project>{41598e69-c9a7-4d70-b08e-b2358994f6f4}</Project>
+      <Name>SunnyTodo2016</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

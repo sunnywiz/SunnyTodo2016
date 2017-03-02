@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using SunnyTodo2016;
 using SunnyTodo2016.Data;
 
 namespace WebApplication1.Controllers
@@ -19,7 +20,7 @@ namespace WebApplication1.Controllers
 
             var guid = Guid.NewGuid();
 
-            return RedirectToAction("Burndown", "Home", new { id = guid.ToString("n") });
+            return RedirectToAction("Burndown", "Home", new {id = guid.ToString("n")});
         }
 
         public ActionResult Burndown(Guid id)
@@ -64,13 +65,51 @@ This is another root task.",
                     OwnerUser = myuser
                 }
             };
-            return View(vm);
+            return View("Burndown",vm);
         }
 
         public class HomeBurndownViewModel
         {
             public MyUser User { get; set; }
             public Burndown Burndown { get; set; }
+        }
+
+        public ActionResult SaveChanges(Guid? id, HomeBurndownViewModel model)
+        {
+            if (String.IsNullOrEmpty(model.Burndown.Definition) ||
+                id == null ||
+                id == Guid.Empty)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var logic = new HierarchicalTaskEngine();
+            var lines = model.Burndown.Definition.Split(new char[] {'\r', '\n'});
+            logic.LoadInputList(lines);
+
+            // would load history from DB here
+            logic.LoadInputHistory(new List<Tuple<DateTime, string>>());
+            logic.Process();
+
+            // would actually save here
+
+            var myuser = new MyUser()
+            {
+                MyUserID = MyUser.AnonymousUserId
+            };
+            var vm = new HomeBurndownViewModel()
+            {
+                Burndown = new Burndown()
+                {
+                    BurndownID = id.Value,
+                    Definition = string.Join(Environment.NewLine, logic.GetOutputLines()),
+                    History = null,
+                    OwnerUser = myuser,
+                    OwnerUserID = myuser.MyUserID
+                },
+                User = myuser
+            };
+            return View("Burndown", vm);
         }
     }
 }
