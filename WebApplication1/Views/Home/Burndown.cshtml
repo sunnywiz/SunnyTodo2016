@@ -9,6 +9,7 @@
         <div class="col-md-6">
             @Html.TextAreaFor(m => m.Burndown.Definition, new { style = "width:100%; height:600px; max-width:none;" })
         </div>
+        <pre>@Model.Burndown.Definition</pre>
         <div class="col-md-6">
             <div class="row">
                 Link to this Burndown: <a href="@Url.Action("Burndown", "Home", new {id = Model.Burndown.BurndownID})">

@@ -84,7 +84,7 @@ This is another root task.",
             }
 
             var logic = new HierarchicalTaskEngine();
-            var lines = model.Burndown.Definition.Split(new char[] {'\r', '\n'});
+            var lines = model.Burndown.Definition.Split(new char[] {'\n'});
             logic.LoadInputList(lines);
 
             // would load history from DB here
@@ -109,6 +109,7 @@ This is another root task.",
                 },
                 User = myuser
             };
+            ModelState.Clear();
             return View("Burndown", vm);
         }
     }
