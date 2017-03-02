@@ -1,0 +1,21 @@
+﻿@model WebApplication1.Controllers.HomeController.HomeBurndownViewModel
+@{
+    ViewBag.Title = "Sunny's Burndown";
+}
+
+<div class="row" style="margin-top:10px">
+    <div class="col-md-6">
+        @Html.TextAreaFor(m => m.Burndown.Definition, new { style = "width:100%; height:600px; max-width:none;" })
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            Link to this Burndown: <a href="@Url.Action("Burndown", "Home", new {id = Model.Burndown.BurndownID})">
+                @Url.Action("Burndown", "Home", new {id = Model.Burndown.BurndownID})
+            </a>           
+        </div>
+        <div class="row"><button>Save And Process</button></div>
+        <div class="row">
+            Task Chooser and details go here
+        </div>
+    </div>
+</div>
