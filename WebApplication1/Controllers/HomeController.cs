@@ -29,17 +29,9 @@ namespace WebApplication1.Controllers
             // if not, create a new one (doesn't get saved till we save changes)
             // if it does, retrieve it and process it and return that one. 
 
-            var myuser = new MyUser()
-            {
-                MyUserID = MyUser.AnonymousUserId
-            };
-
             var vm = new HomeBurndownViewModel()
             {
-                User = myuser,
-                Burndown = new Burndown()
-                {
-                    BurndownID = id,
+                    BurndownId = id,
                     Definition = @"# Welcome to Sunny's Burndown tracker
 
 This is a root task.  
@@ -61,22 +53,21 @@ This is a root task.
      - If you want a specific ID, you can specify it like this (string):  id:007
 
 This is another root task.",
-                    History = string.Empty,
-                    OwnerUser = myuser
-                }
             };
             return View("Burndown",vm);
         }
 
         public class HomeBurndownViewModel
         {
-            public MyUser User { get; set; }
-            public Burndown Burndown { get; set; }
+            public Guid BurndownId { get; set; }
+            public string Definition { get; set; }
         }
 
         public ActionResult SaveChanges(Guid? id, HomeBurndownViewModel model)
         {
-            if (String.IsNullOrEmpty(model.Burndown.Definition) ||
+            // dont forget to check if this user can access this burndown or not
+
+            if (String.IsNullOrEmpty(model.Definition) ||
                 id == null ||
                 id == Guid.Empty)
             {
@@ -85,9 +76,9 @@ This is another root task.",
 
             var logic = new HierarchicalTaskEngine();
             //  http://stackoverflow.com/questions/14217101/what-character-represents-a-new-line-in-a-text-area  says its \r\n
-            var lines = model.Burndown.Definition.Split(new string[] {"\r\n"},StringSplitOptions.None);
+            var lines = model.Definition.Split(new string[] {"\r\n"}, StringSplitOptions.None);
 
-        logic.LoadInputList(lines);
+            logic.LoadInputList(lines);
 
             // would load history from DB here
             logic.LoadInputHistory(new List<Tuple<DateTime, string>>());
@@ -95,21 +86,10 @@ This is another root task.",
 
             // would actually save here
 
-            var myuser = new MyUser()
-            {
-                MyUserID = MyUser.AnonymousUserId
-            };
             var vm = new HomeBurndownViewModel()
             {
-                Burndown = new Burndown()
-                {
-                    BurndownID = id.Value,
-                    Definition = string.Join("\r\n", logic.GetOutputLines()),
-                    History = null,
-                    OwnerUser = myuser,
-                    OwnerUserID = myuser.MyUserID
-                },
-                User = myuser
+                BurndownId = id.Value,
+                Definition = string.Join("\r\n", logic.GetOutputLines()),
             };
             ModelState.Clear();
             return View("Burndown", vm);
