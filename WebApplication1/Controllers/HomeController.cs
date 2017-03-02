@@ -84,8 +84,10 @@ This is another root task.",
             }
 
             var logic = new HierarchicalTaskEngine();
-            var lines = model.Burndown.Definition.Split(new char[] {'\n'});
-            logic.LoadInputList(lines);
+            //  http://stackoverflow.com/questions/14217101/what-character-represents-a-new-line-in-a-text-area  says its \r\n
+            var lines = model.Burndown.Definition.Split(new string[] {"\r\n"},StringSplitOptions.None);
+
+        logic.LoadInputList(lines);
 
             // would load history from DB here
             logic.LoadInputHistory(new List<Tuple<DateTime, string>>());
@@ -102,7 +104,7 @@ This is another root task.",
                 Burndown = new Burndown()
                 {
                     BurndownID = id.Value,
-                    Definition = string.Join(Environment.NewLine, logic.GetOutputLines()),
+                    Definition = string.Join("\r\n", logic.GetOutputLines()),
                     History = null,
                     OwnerUser = myuser,
                     OwnerUserID = myuser.MyUserID
