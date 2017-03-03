@@ -245,10 +245,6 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SunnyTodo2016.Data\SunnyTodo2016.Data.csproj">
-      <Project>{C577F691-C792-46F4-883E-E9077AFB71CA}</Project>
-      <Name>SunnyTodo2016.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SunnyTodo2016\SunnyTodo2016.csproj">
       <Project>{41598e69-c9a7-4d70-b08e-b2358994f6f4}</Project>
       <Name>SunnyTodo2016</Name>

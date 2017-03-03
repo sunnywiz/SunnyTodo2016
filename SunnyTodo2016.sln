@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunnyTodo2016", "SunnyTodo2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunnyTodo2016.Tests", "SunnyTodo2016.Tests\SunnyTodo2016.Tests.csproj", "{E908EA07-0D6F-4B75-B936-6F1381980A80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunnyTodo2016.Data", "SunnyTodo2016.Data\SunnyTodo2016.Data.csproj", "{C577F691-C792-46F4-883E-E9077AFB71CA}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{2D3F8B5D-1512-4F48-8C22-55DE595EDC24}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "websitelogic", "websitelogic\websitelogic.csproj", "{D59B7DE2-998C-4023-996A-8760D053502D}"
@@ -27,10 +25,6 @@ Global
 		{E908EA07-0D6F-4B75-B936-6F1381980A80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E908EA07-0D6F-4B75-B936-6F1381980A80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E908EA07-0D6F-4B75-B936-6F1381980A80}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C577F691-C792-46F4-883E-E9077AFB71CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C577F691-C792-46F4-883E-E9077AFB71CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C577F691-C792-46F4-883E-E9077AFB71CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C577F691-C792-46F4-883E-E9077AFB71CA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2D3F8B5D-1512-4F48-8C22-55DE595EDC24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2D3F8B5D-1512-4F48-8C22-55DE595EDC24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D3F8B5D-1512-4F48-8C22-55DE595EDC24}.Release|Any CPU.ActiveCfg = Release|Any CPU
