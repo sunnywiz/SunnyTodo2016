@@ -40,14 +40,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseViewModel.cs" />
-    <Compile Include="BurndownViewModel.cs" />
-    <Compile Include="ListOfBurndownsViewModel.cs" />
-    <Compile Include="LogicalUser.cs" />
-    <Compile Include="LogicalBurndown.cs" />
+    <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\BurndownViewModel.cs" />
+    <Compile Include="ViewModels\ListOfBurndownsViewModel.cs" />
+    <Compile Include="Entities\LogicalUser.cs" />
+    <Compile Include="Entities\LogicalBurndown.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RedirectToBurndownViewModel.cs" />
+    <Compile Include="ViewModels\RedirectToBurndownViewModel.cs" />
     <Compile Include="WebsiteLogic.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SunnyTodo2016\SunnyTodo2016.csproj">
+      <Project>{41598E69-C9A7-4D70-B08E-B2358994F6F4}</Project>
+      <Name>SunnyTodo2016</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

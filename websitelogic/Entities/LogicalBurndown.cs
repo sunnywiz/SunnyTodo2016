@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace websitelogic
+namespace websitelogic.Entities
 {
     public class LogicalBurndown
     {

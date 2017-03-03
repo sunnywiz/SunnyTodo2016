@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace websitelogic
+namespace websitelogic.ViewModels
 {
     public class RedirectToBurndownViewModel : BaseViewModel
     {
-        public Guid BurndownID { get; set; }
+        public Guid BurndownId { get; set; }
     }
 }

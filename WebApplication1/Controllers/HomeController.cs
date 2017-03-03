@@ -7,6 +7,7 @@ using System.Web.Routing;
 using SunnyTodo2016;
 using SunnyTodo2016.Data;
 using websitelogic;
+using websitelogic.ViewModels;
 
 namespace WebApplication1.Controllers
 {
@@ -19,91 +20,46 @@ namespace WebApplication1.Controllers
             // load it up with stuff... 
         }
 
+        #region Actions
+
         public ActionResult Index()
         {
             return ActOnResult(_logic.HomePage());
         }
 
+        public ActionResult Burndown(Guid id)
+        {
+            return ActOnResult(_logic.BurndownById(id));
+        }
+
+
+        public ActionResult SaveChanges(Guid? id, BurndownViewModel model)
+        {
+            if (id==null) return Index();
+            model.BurndownId = id.Value; 
+            return ActOnResult(_logic.SaveBurndownChanges(model));
+        }
+
+        #endregion
+
+        #region Results
+
         private ActionResult ActOnResult(BaseViewModel result)
         {
             var m1 = result as RedirectToBurndownViewModel;
             if (m1 != null)
+                return RedirectToAction("Burndown", "Home", new {id = m1.BurndownId});
+
+            var m2 = result as BurndownViewModel;
+            if (m2 != null)
             {
-                return RedirectToAction("Burndown", "Home", new {id = m1.BurndownID});
+                ModelState.Clear();
+                return View("Burndown", m2);
             }
+
             throw new NotSupportedException("Don't know how to interpret type " + result.GetType().FullName);
         }
 
-        public ActionResult Burndown(Guid id)
-        {
-            // see if id exists
-            // if not, create a new one (doesn't get saved till we save changes)
-            // if it does, retrieve it and process it and return that one. 
-
-            var vm = new HomeBurndownViewModel()
-            {
-                    BurndownId = id,
-                    Definition = @"# Welcome to Sunny's Burndown tracker
-
-This is a root task.  
-   This is a subtask
-      This is a sub-sub-task
-
-   Leaf tasks default estimate of 1
-   Tasks that are parents of other tasks have a default estimate of 0.
-   You can specify a leaf with a different estimate like this  est:3
-
-   * Mark tasks that are in progress with a '* '   
-   x Mark tasks as complete by starting them with 'x '
-
-   If you have a large task that is in process, you can mark remaining like this  est:5 rem:3
-
-   Click save changes to re-parse your task list and create a new snapshot in time. 
-     - all tasks are given Id's 
-     - A burndown is automatically created for you.
-     - If you want a specific ID, you can specify it like this (string):  id:007
-
-This is another root task.",
-            };
-            return View("Burndown",vm);
-        }
-
-        public class HomeBurndownViewModel
-        {
-            public Guid BurndownId { get; set; }
-            public string Definition { get; set; }
-        }
-
-        public ActionResult SaveChanges(Guid? id, HomeBurndownViewModel model)
-        {
-            // dont forget to check if this user can access this burndown or not
-
-            if (String.IsNullOrEmpty(model.Definition) ||
-                id == null ||
-                id == Guid.Empty)
-            {
-                return RedirectToAction("Index");
-            }
-
-            var logic = new HierarchicalTaskEngine();
-            //  http://stackoverflow.com/questions/14217101/what-character-represents-a-new-line-in-a-text-area  says its \r\n
-            var lines = model.Definition.Split(new string[] {"\r\n"}, StringSplitOptions.None);
-
-            logic.LoadInputList(lines);
-
-            // would load history from DB here
-            logic.LoadInputHistory(new List<Tuple<DateTime, string>>());
-            logic.Process();
-
-            // would actually save here
-
-            var vm = new HomeBurndownViewModel()
-            {
-                BurndownId = id.Value,
-                Definition = string.Join("\r\n", logic.GetOutputLines()),
-            };
-            ModelState.Clear();
-            return View("Burndown", vm);
-        }
+        #endregion
     }
 }
