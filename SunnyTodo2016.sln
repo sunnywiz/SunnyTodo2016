@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunnyTodo2016.Data", "Sunny
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{2D3F8B5D-1512-4F48-8C22-55DE595EDC24}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "websitelogic", "websitelogic\websitelogic.csproj", "{D59B7DE2-998C-4023-996A-8760D053502D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{2D3F8B5D-1512-4F48-8C22-55DE595EDC24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D3F8B5D-1512-4F48-8C22-55DE595EDC24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D3F8B5D-1512-4F48-8C22-55DE595EDC24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D59B7DE2-998C-4023-996A-8760D053502D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D59B7DE2-998C-4023-996A-8760D053502D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D59B7DE2-998C-4023-996A-8760D053502D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D59B7DE2-998C-4023-996A-8760D053502D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

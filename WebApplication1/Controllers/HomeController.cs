@@ -6,21 +6,32 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using SunnyTodo2016;
 using SunnyTodo2016.Data;
+using websitelogic;
 
 namespace WebApplication1.Controllers
 {
     public class HomeController : Controller
     {
+        private WebsiteLogic _logic; 
+        public HomeController()
+        {
+            _logic = new WebsiteLogic();
+            // load it up with stuff... 
+        }
+
         public ActionResult Index()
         {
-            // TODO: check to see if we have a previously-edited id
-            // try to retrieve it
-            // if we can, redirect there
-            // else, redirect to a new one
+            return ActOnResult(_logic.HomePage());
+        }
 
-            var guid = Guid.NewGuid();
-
-            return RedirectToAction("Burndown", "Home", new {id = guid.ToString("n")});
+        private ActionResult ActOnResult(BaseViewModel result)
+        {
+            var m1 = result as RedirectToBurndownViewModel;
+            if (m1 != null)
+            {
+                return RedirectToAction("Burndown", "Home", new {id = m1.BurndownID});
+            }
+            throw new NotSupportedException("Don't know how to interpret type " + result.GetType().FullName);
         }
 
         public ActionResult Burndown(Guid id)
