@@ -106,10 +106,9 @@ This is another root task."
             });
 
             // and this would become a RedirectToBurndownViewModel instead.
-            var vm = new BurndownViewModel()
+            var vm = new RedirectToBurndownViewModel()
             {
                 BurndownId = model.BurndownId,
-                Definition = logic.GetOutputLines().ToList(),
             };
             return vm;
         }
