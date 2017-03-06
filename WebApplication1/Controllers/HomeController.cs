@@ -12,7 +12,7 @@ namespace WebApplication1.Controllers
         private WebsiteLogic _logic; 
         public HomeController()
         {
-            _logic = new WebsiteLogic();
+            _logic = new WebsiteLogic(new BurndownDbCommandsAndQueries());
             // load it up with stuff... 
         }
 

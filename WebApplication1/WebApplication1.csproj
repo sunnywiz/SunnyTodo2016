@@ -174,6 +174,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ApplicationDbContext.cs" />
+    <Compile Include="Models\BurndownDbCommandsAndQueries.cs" />
+    <Compile Include="Models\BurndownDbContext.cs" />
     <Compile Include="Models\HtmlSpecificBurndownViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />

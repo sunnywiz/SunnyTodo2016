@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SunnyTodo2016;
+using websitelogic.Entities;
 using websitelogic.ViewModels;
 
 namespace websitelogic
@@ -11,9 +12,11 @@ namespace websitelogic
     /// </summary>
     public class WebsiteLogic
     {
+        private readonly ICommandsAndQueries _commandsAndQueries;
 
-        public WebsiteLogic()
+        public WebsiteLogic(ICommandsAndQueries commandsAndQueries)
         {
+            _commandsAndQueries = commandsAndQueries;
         }
 
         public BaseViewModel HomePage()
@@ -32,6 +35,18 @@ namespace websitelogic
         public BaseViewModel BurndownById(Guid burndownId)
         {
             // see if id exists
+            LogicalBurndown existingBurndown = _commandsAndQueries.GetBurndownById(burndownId);
+
+            if (existingBurndown != null)
+            {
+                var vm2 = new BurndownViewModel()
+                {
+                    Definition = existingBurndown.Definition,
+                    BurndownId = existingBurndown.BurndownID
+                };
+                return vm2; 
+            }
+
             // if not, create a new one (doesn't get saved till we save changes)
             // if it does, retrieve it and process it and return that one. 
 
@@ -59,8 +74,8 @@ This is a root task.
      - If you want a specific ID, you can specify it like this (string):  id:007
 
 This is another root task."
-.Split(new string[] { Environment.NewLine }, StringSplitOptions.None)
-.ToList(),
+                    .Split(new string[] {Environment.NewLine}, StringSplitOptions.None)
+                    .ToList(),
             };
             return vm;
         }
@@ -68,6 +83,7 @@ This is another root task."
         public BaseViewModel SaveBurndownChanges(BurndownViewModel model)
         {
             // dont forget to check if this user can access this burndown or not
+            if (model.BurndownId == Guid.Empty) throw new NotSupportedException();
 
             var logic = new HierarchicalTaskEngine();
 
@@ -81,6 +97,13 @@ This is another root task."
             logic.Process();
 
             // would actually save here
+            _commandsAndQueries.SaveBurndown(new LogicalBurndown()
+            {
+                BurndownID = model.BurndownId,
+                Definition = logic.GetOutputLines().ToList(),
+                History = null,
+                OwnerUserId = Guid.Empty
+            });
 
             // and this would become a RedirectToBurndownViewModel instead.
             var vm = new BurndownViewModel()
