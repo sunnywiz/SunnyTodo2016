@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using SunnyTodo2016;
 using websitelogic.ViewModels;
 
@@ -17,14 +18,14 @@ namespace websitelogic
 
         public BaseViewModel HomePage()
         {
-             // when visiting home page: 
-             //   should see list of burndowns + new button 
-             //   if not logged in, this should be any publicly visible burndowns that you have visited (via cookie)
-             //   if logged in, should include any burndowns that you own
-             //   later might include burndowns you are invited to
-             // if no burndowns, go immediately to a new burndown
+            // when visiting home page: 
+            //   should see list of burndowns + new button 
+            //   if not logged in, this should be any publicly visible burndowns that you have visited (via cookie)
+            //   if logged in, should include any burndowns that you own
+            //   later might include burndowns you are invited to
+            // if no burndowns, go immediately to a new burndown
 
-            return new RedirectToBurndownViewModel() {BurndownId = Guid.NewGuid()};
+            return new RedirectToBurndownViewModel() { BurndownId = Guid.NewGuid() };
 
         }
 
@@ -57,7 +58,9 @@ This is a root task.
      - A burndown is automatically created for you.
      - If you want a specific ID, you can specify it like this (string):  id:007
 
-This is another root task.",
+This is another root task."
+.Split(new string[] { Environment.NewLine }, StringSplitOptions.None)
+.ToList(),
             };
             return vm;
         }
@@ -70,10 +73,8 @@ This is another root task.",
 
             // this splitting and joining needs to move back out to the MVC layer, I think. 
 
-            //  http://stackoverflow.com/questions/14217101/what-character-represents-a-new-line-in-a-text-area  says its \r\n
-            var lines = model.Definition.Split(new string[] { "\r\n" }, StringSplitOptions.None);
 
-            logic.LoadInputList(lines);
+            logic.LoadInputList(model.Definition.ToArray());
 
             // would load history from DB here
             logic.LoadInputHistory(new List<Tuple<DateTime, string>>());
@@ -85,14 +86,14 @@ This is another root task.",
             var vm = new BurndownViewModel()
             {
                 BurndownId = model.BurndownId,
-                Definition = string.Join("\r\n", logic.GetOutputLines()),
+                Definition = logic.GetOutputLines().ToList(),
             };
-            return vm; 
+            return vm;
         }
 
         public BaseViewModel ListOfBurndowns()
         {
-            return null; 
-        }       
+            return null;
+        }
     }
 }
