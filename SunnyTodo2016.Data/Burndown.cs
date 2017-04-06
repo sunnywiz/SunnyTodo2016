@@ -9,6 +9,8 @@ namespace SunnyTodo2016.Data
     {
         public Guid BurndownID { get; set; }
 
+        public string Title { get; set; }
+
         public string Definition { get; set; }
 
         public Guid OwnerUserID { get; set; }

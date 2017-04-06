@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using SunnyTodo2016;
 using SunnyTodo2016.Data;
+using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
@@ -13,14 +14,15 @@ namespace WebApplication1.Controllers
     {
         public ActionResult Index()
         {
-            // TODO: check to see if we have a previously-edited id
-            // try to retrieve it
-            // if we can, redirect there
-            // else, redirect to a new one
-
-            var guid = Guid.NewGuid();
-
-            return RedirectToAction("Burndown", "Home", new {id = (Guid?)guid});
+            using (var context = new BurndownContext())
+            {
+                var vm = new HomeIndexViewModel()
+                {
+                    Burndowns = context.Burndowns.ToList(),
+                    NewBurndownUrl = Url.Action("Burndown", "Home", new { id= (Guid?) Guid.NewGuid() }, Request?.Url?.Scheme ?? "http")
+                };
+                return View(vm);
+            }
         }
 
         public ActionResult Burndown(Guid? id)
@@ -37,6 +39,7 @@ namespace WebApplication1.Controllers
                 var dbBurndown = context.Burndowns.FirstOrDefault(b => b.BurndownID == id);
                 if (dbBurndown == null)
                 {
+                    vm.Title = "Sample Burndown";
                     vm.Definition = @"# Welcome to Sunny's Burndown tracker
 
 This is a root task.  
@@ -61,19 +64,13 @@ This is another root task.";
                 }
                 else
                 {
+                    vm.Title = dbBurndown.Title ?? "No title given";
                     vm.Definition = dbBurndown.Definition;
                     // also want to load history and other stuff here. 
                 }
             }
 
             return View("Burndown",vm);
-        }
-
-        public class HomeBurndownViewModel
-        {
-            public Guid BurndownId { get; set; }
-            public string Definition { get; set; }
-            public string AbsoluteUrl { get; set; }
         }
 
         public ActionResult SaveChanges(Guid? id, HomeBurndownViewModel model)
@@ -110,6 +107,7 @@ This is another root task.";
                     };
                     context.Burndowns.Add(dbBurndown);
                 }
+                dbBurndown.Title = model.Title;
                 dbBurndown.Definition = String.Join(Environment.NewLine, logic.GetOutputLines());
                 context.SaveChanges();
             }

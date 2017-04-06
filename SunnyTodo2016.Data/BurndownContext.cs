@@ -9,7 +9,6 @@ namespace SunnyTodo2016.Data
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<BurndownContext>());
         }
 
-        public virtual DbSet<MyUser> MyUsers { get; set; }
         public virtual DbSet<Burndown> Burndowns { get; set; }
     }
 }
