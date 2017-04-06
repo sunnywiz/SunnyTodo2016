@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
@@ -66,9 +67,29 @@ This is another root task.";
                 }
                 else
                 {
+                    var logic = new HierarchicalTaskEngine();
+
                     vm.Title = dbBurndown.Title ?? "No title given";
                     vm.Definition = dbBurndown.Definition;
                     // also want to load history and other stuff here. 
+
+                    var dbHistory = context.History.Where(h => h.BurndownId == id.Value).ToList();
+                    logic.LoadInputHistory(dbHistory.Select(h => new Tuple<DateTime, string>(h.DateTime, h.TaskLine)));
+
+                    var parentIds = logic.InputHistory.Where(x=>x.ParentId == null).Select(x => x.Id).Distinct().OrderBy(x => x).ToList();
+
+                    StringBuilder report = new StringBuilder();
+                    foreach (var parentId in parentIds)
+                    {
+                        report.AppendLine();
+                        foreach (var ht in logic.InputHistory.Where(x => x.Id == parentId).OrderBy(x => x.TimeStamp))
+                        {
+                            report.AppendFormat("{0}: {1} {2}",ht.TimeStamp.ToShortDateString(),ht.TotalEstimate,ht.TotalRemaining);
+                            report.AppendLine(); 
+                        }
+                    }
+                    vm.HistorySummary = report.ToString();
+
                 }
             }
 
