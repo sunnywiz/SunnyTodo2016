@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Transactions;
 using System.Web;
@@ -116,10 +117,22 @@ This is another root task.";
                 dbBurndown.Definition = String.Join(Environment.NewLine, logic.GetOutputLines());
 
                 // save new histories, if they weren't already there.
-                var historyToSave = logic.GetOutputHistory();
+                var historyToSave = logic.GetOutputHistory().ToList();
                 foreach (var oldHistory in dbHistory)
                 {
-                    context.History.Remove(oldHistory);
+                    var isInNew =
+                        historyToSave.FindIndex(h => h.Item1 == oldHistory.DateTime && h.Item2 == oldHistory.TaskLine);
+                    if (isInNew >= 0)
+                    {
+                        // this one survives as is -- no change -- don't remove it. 
+                        // don't save it either. 
+                        historyToSave.RemoveAt(isInNew);
+                    }
+                    else
+                    {
+                        // not in the new scheme of things -- get rid of it. 
+                        context.History.Remove(oldHistory);
+                    }
                 }
                 foreach (var newHistory in historyToSave)
                 {
@@ -132,6 +145,7 @@ This is another root task.";
                     });
                 }
 
+                context.Database.Log = x => Trace.WriteLine(x);
                 context.SaveChanges();
                 scope.Complete();
             }
