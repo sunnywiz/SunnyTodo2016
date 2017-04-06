@@ -24,9 +24,27 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Burndown", new { id = (Guid?)item.BurndownId })
+                @Html.ActionLink("Edit", "Burndown", new {id = (Guid?) item.BurndownId})
             </td>
         </tr>
     }
 
 </table>
+
+<pre>
+TODO: 
+
+Private users vs anonymous users: 
+* save burndown as private under a logged in user
+* don't show owned burndowns in anonymous list
+* use a cookie to remember previous burndown id's to have a "list" for anonymous users
+* private user logged in list, includes any anonymous burndowns user has visited.  can "save a copy" on these
+
+Editing: 
+* bring in some kind of better editor, and have the tab work inside the editor, not going to the save thing. 
+
+Reporting: 
+* Change to have a list of id's to select from 
+* when selected, queries back and gets history of that node. 
+
+</pre>
