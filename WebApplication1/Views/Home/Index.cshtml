@@ -31,22 +31,47 @@
 
 </table>
 
-<pre>
-TODO: 
+<h2>TODO</h2> 
 
-* Move ALL the things right now to only-private users, before adding back anonymous users.
+<p><b>Private users</b></p>
+<ul>
+<li>Move ALL the things right now to only-private users
+<li> save burndown as private under a logged in user
+<li> only see your own burndowns (initially)
+</ul>
 
-Private users vs anonymous users: 
-* save burndown as private under a logged in user
-* don't show owned burndowns in anonymous list
-* use a cookie to remember previous burndown id's to have a "list" for anonymous users
-* private user logged in list, includes any anonymous burndowns user has visited.  can "save a copy" on these
+<p>Anonymous users</p>
+<ul>
+<li> Anonymous users are allowed to save burndowns to the anonymous user id 
+<li> However, for a list, they see the stuff from a cookie of visited burndowns
+<li> Once logged in, same list is still visible -- but user can "copy to own version"
+</ul>
 
-Editing: 
-* bring in some kind of better editor, and have the tab work inside the editor, not going to the save thing. 
+<p>Better Editing</p> 
+<ul>
+<li> bring in some kind of better editor .. i'm thinking ACE.io ... python mode, syntax highlighting, soft tabs, etc
+</ul>
 
-Reporting: 
-* Change to have a list of id's to select from 
-* when selected, queries back and gets history of that node. 
+<p>Better Reporting</p> 
+<ul>
+<li> Either via the editor currently selected line, or something, have a way to choose a task 
+<li> have a way to get the history of that task .. how it has changed over time, and the burndown graph associated with
+<li> make this an async call, no postback. 
+</ul>
 
-</pre>
+<p>Better experience</p>
+<ul> 
+<li>Change the editor save experience to be async. 
+</ul>
+
+<p>More features</p>
+<ul>
+<li>Do something with @@projects and #hashtags that the task library supports. 
+<li>Probably tag onto the reporting thing -- if a project or hashtag is chosen, shows the list of those still active + a burndown of them
+<li>Upload existing .todo and .todo.history to new;   download as .todo and .todo.history
+</ul>
+
+<p>Group stuff </p>
+<ul>
+<li>Research if there's any multiple-users-editing-text things out there? 
+</ul>
