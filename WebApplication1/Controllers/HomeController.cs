@@ -20,12 +20,18 @@ namespace WebApplication1.Controllers
 
             var guid = Guid.NewGuid();
 
-            return RedirectToAction("Burndown", "Home", new {id = guid.ToString("n")});
+            return RedirectToAction("Burndown", "Home", new {id = (Guid?)guid});
         }
 
-        public ActionResult Burndown(Guid id)
+        public ActionResult Burndown(Guid? id)
         {
-            var vm = new HomeBurndownViewModel() {BurndownId = id};
+            if (!id.HasValue) return Index(); 
+
+            var vm = new HomeBurndownViewModel()
+            {
+                BurndownId = id.Value, 
+                AbsoluteUrl = Url.Action("Burndown", "Home", new {id}, Request?.Url?.Scheme??"http")
+            };
             using (var context = new BurndownContext())
             {
                 var dbBurndown = context.Burndowns.FirstOrDefault(b => b.BurndownID == id);
@@ -67,6 +73,7 @@ This is another root task.";
         {
             public Guid BurndownId { get; set; }
             public string Definition { get; set; }
+            public string AbsoluteUrl { get; set; }
         }
 
         public ActionResult SaveChanges(Guid? id, HomeBurndownViewModel model)

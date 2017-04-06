@@ -11,8 +11,8 @@
         </div>
         <div class="col-md-6">
             <div class="row">
-                Link to this Burndown: <a href="@Url.Action("Burndown", "Home", new {id = Model.BurndownId})">
-                    @Url.Action("Burndown", "Home", new { id = Model.BurndownId })
+                Link to this Burndown: <a href="@Model.AbsoluteUrl">
+                    @Model.AbsoluteUrl
                 </a>
             </div>
             <div class="row">
