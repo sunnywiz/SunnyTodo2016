@@ -205,25 +205,16 @@ namespace SunnyTodo2016
             {
                 if (!task.WasParsed) continue; 
                 var val = task.Id;
-                if (String.IsNullOrWhiteSpace(val))
+                if (!String.IsNullOrWhiteSpace(val)) continue;
+
+                // parent Id's not assigned yet so this doesn't work. 
+
+                for (int i = 1;; i++)
                 {
-                    var fullHashCode = Guid.NewGuid().ToString("n");
-                    string foundId = null; 
-                    for (int i = 1; i < fullHashCode.Length; i++)
-                    {
-                        var possible = fullHashCode.Substring(0, i);
-                        if (OutputList.Any(t => t.WasParsed && t.Id == possible)) continue;
-                        foundId = possible; 
-                        break;
-                    }
-                    if (foundId != null)
-                    {
-                        task.Id = foundId;
-                    }
-                    else
-                    {
-                        throw new NotSupportedException("Somehow, a GUID was not unique");
-                    }
+                    var proposed = i.ToString();
+                    if (OutputList.Any(t => t.WasParsed && t.Id == proposed)) continue;
+                    task.Id = proposed;
+                    break; 
                 }
             }
         }
