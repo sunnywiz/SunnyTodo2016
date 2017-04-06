@@ -10,5 +10,6 @@ namespace SunnyTodo2016.Data
         }
 
         public virtual DbSet<Burndown> Burndowns { get; set; }
+        public virtual DbSet<HistoryLine> History { get; set; }
     }
 }

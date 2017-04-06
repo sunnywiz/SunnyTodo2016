@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -36,7 +37,7 @@ namespace WebApplication1.Controllers
             };
             using (var context = new BurndownContext())
             {
-                var dbBurndown = context.Burndowns.FirstOrDefault(b => b.BurndownID == id);
+                var dbBurndown = context.Burndowns.FirstOrDefault(b => b.BurndownId == id);
                 if (dbBurndown == null)
                 {
                     vm.Title = "Sample Burndown";
@@ -90,26 +91,49 @@ This is another root task.";
 
             logic.LoadInputList(lines);
 
-            // would load history from DB here
-            logic.LoadInputHistory(new List<Tuple<DateTime, string>>());
-            logic.Process();
 
             // would actually save here
+            using (var scope = new TransactionScope())
             using (var context = new BurndownContext())
             {
-                var dbBurndown = context.Burndowns.FirstOrDefault(b => b.BurndownID == id);
+                // would load history from DB here
+                var dbHistory = context.History.Where(h => h.BurndownId == id.Value).ToList();
+                logic.LoadInputHistory(dbHistory.Select(h=>new Tuple<DateTime, string>(h.DateTime,h.TaskLine)));
+
+                logic.Process();
+
+                var dbBurndown = context.Burndowns.FirstOrDefault(b => b.BurndownId == id);
                 if (dbBurndown == null)
                 {
                     dbBurndown = new Burndown()
                     {
-                        BurndownID = id.Value,
-                        OwnerUserID = MyUser.AnonymousUserId
+                        BurndownId = id.Value,
+                        OwnerUserId = MyUser.AnonymousUserId
                     };
                     context.Burndowns.Add(dbBurndown);
                 }
                 dbBurndown.Title = model.Title;
                 dbBurndown.Definition = String.Join(Environment.NewLine, logic.GetOutputLines());
+
+                // save new histories, if they weren't already there.
+                var historyToSave = logic.GetOutputHistory();
+                foreach (var oldHistory in dbHistory)
+                {
+                    context.History.Remove(oldHistory);
+                }
+                foreach (var newHistory in historyToSave)
+                {
+                    context.History.Add(new HistoryLine()
+                    {
+                        BurndownId = id.Value,
+                        HistoryLineId = Guid.NewGuid(),
+                        DateTime = newHistory.Item1,
+                        TaskLine = newHistory.Item2
+                    });
+                }
+
                 context.SaveChanges();
+                scope.Complete();
             }
 
             return RedirectToAction("Burndown", "Home", new {id});
