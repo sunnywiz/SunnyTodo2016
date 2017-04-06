@@ -11,9 +11,6 @@ namespace SunnyTodo2016.Data
 
         public string Definition { get; set; }
 
-        public string History { get; set; }
-
         public Guid OwnerUserID { get; set; }
-        public virtual MyUser OwnerUser { get; set; }
     }
 }

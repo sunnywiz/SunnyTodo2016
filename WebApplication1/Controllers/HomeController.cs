@@ -25,14 +25,13 @@ namespace WebApplication1.Controllers
 
         public ActionResult Burndown(Guid id)
         {
-            // see if id exists
-            // if not, create a new one (doesn't get saved till we save changes)
-            // if it does, retrieve it and process it and return that one. 
-
-            var vm = new HomeBurndownViewModel()
+            var vm = new HomeBurndownViewModel() {BurndownId = id};
+            using (var context = new BurndownContext())
             {
-                    BurndownId = id,
-                    Definition = @"# Welcome to Sunny's Burndown tracker
+                var dbBurndown = context.Burndowns.FirstOrDefault(b => b.BurndownID == id);
+                if (dbBurndown == null)
+                {
+                    vm.Definition = @"# Welcome to Sunny's Burndown tracker
 
 This is a root task.  
    This is a subtask
@@ -52,8 +51,15 @@ This is a root task.
      - A burndown is automatically created for you.
      - If you want a specific ID, you can specify it like this (string):  id:007
 
-This is another root task.",
-            };
+This is another root task.";
+                }
+                else
+                {
+                    vm.Definition = dbBurndown.Definition;
+                    // also want to load history and other stuff here. 
+                }
+            }
+
             return View("Burndown",vm);
         }
 
@@ -85,14 +91,23 @@ This is another root task.",
             logic.Process();
 
             // would actually save here
-
-            var vm = new HomeBurndownViewModel()
+            using (var context = new BurndownContext())
             {
-                BurndownId = id.Value,
-                Definition = string.Join("\r\n", logic.GetOutputLines()),
-            };
-            ModelState.Clear();
-            return View("Burndown", vm);
+                var dbBurndown = context.Burndowns.FirstOrDefault(b => b.BurndownID == id);
+                if (dbBurndown == null)
+                {
+                    dbBurndown = new Burndown()
+                    {
+                        BurndownID = id.Value,
+                        OwnerUserID = MyUser.AnonymousUserId
+                    };
+                    context.Burndowns.Add(dbBurndown);
+                }
+                dbBurndown.Definition = String.Join(Environment.NewLine, logic.GetOutputLines());
+                context.SaveChanges();
+            }
+
+            return RedirectToAction("Burndown", "Home", new {id});
         }
     }
 }
