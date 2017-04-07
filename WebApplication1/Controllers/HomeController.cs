@@ -7,6 +7,7 @@ using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Microsoft.AspNet.Identity;
 using SunnyTodo2016;
 using SunnyTodo2016.Data;
 using WebApplication1.Models;
@@ -15,14 +16,48 @@ namespace WebApplication1.Controllers
 {
     public class HomeController : Controller
     {
+        private Guid UserId
+        {
+            get
+            {
+                var userIdAsString = User.Identity.GetUserId();
+                Guid g;
+                if (string.IsNullOrEmpty(userIdAsString))
+                {
+                    return MyUser.AnonymousUserId;
+                }
+                else
+                {
+                    if (!Guid.TryParse(userIdAsString, out g))
+                    {
+                        return MyUser.AnonymousUserId;
+                    }
+                    return g;
+                }
+
+            }
+        }
+
         public ActionResult Index()
         {
             using (var context = new BurndownContext())
             {
+                List<Burndown> burndowns;
+                var queryable = context.Burndowns
+                    .Where(b => b.OwnerUserId == UserId);
+                if (UserId == MyUser.AnonymousUserId)
+                {
+                    // Future -- save this as a persistent cookie, don't ask db.
+                    queryable = queryable.OrderByDescending(b => b.LastModifiedDate).Take(10);
+                }
+                burndowns =
+                        queryable
+                        .OrderBy(b => b.LastModifiedDate)
+                        .ToList();
                 var vm = new HomeIndexViewModel()
                 {
-                    Burndowns = context.Burndowns.ToList(),
-                    NewBurndownUrl = Url.Action("Burndown", "Home", new { id= (Guid?) Guid.NewGuid() }, Request?.Url?.Scheme ?? "http")
+                    Burndowns = burndowns,
+                    NewBurndownUrl = Url.Action("Burndown", "Home", new { id = (Guid?)Guid.NewGuid() }, Request?.Url?.Scheme ?? "http")
                 };
                 return View(vm);
             }
@@ -30,12 +65,12 @@ namespace WebApplication1.Controllers
 
         public ActionResult Burndown(Guid? id)
         {
-            if (!id.HasValue) return Index(); 
+            if (!id.HasValue) return Index();
 
             var vm = new HomeBurndownViewModel()
             {
-                BurndownId = id.Value, 
-                AbsoluteUrl = Url.Action("Burndown", "Home", new {id}, Request?.Url?.Scheme??"http")
+                BurndownId = id.Value,
+                AbsoluteUrl = Url.Action("Burndown", "Home", new { id }, Request?.Url?.Scheme ?? "http")
             };
             using (var context = new BurndownContext())
             {
@@ -76,7 +111,7 @@ This is another root task.";
                     var dbHistory = context.History.Where(h => h.BurndownId == id.Value).ToList();
                     logic.LoadInputHistory(dbHistory.Select(h => new Tuple<DateTime, string>(h.DateTime, h.TaskLine)));
 
-                    var parentIds = logic.InputHistory.Where(x=>x.ParentId == null).Select(x => x.Id).Distinct().OrderBy(x => x).ToList();
+                    var parentIds = logic.InputHistory.Where(x => x.ParentId == null).Select(x => x.Id).Distinct().OrderBy(x => x).ToList();
 
                     StringBuilder report = new StringBuilder();
                     foreach (var parentId in parentIds)
@@ -84,8 +119,8 @@ This is another root task.";
                         report.AppendLine();
                         foreach (var ht in logic.InputHistory.Where(x => x.Id == parentId).OrderBy(x => x.TimeStamp))
                         {
-                            report.AppendFormat("{0}: {1} {2}",ht.TimeStamp.ToShortDateString(),ht.TotalEstimate,ht.TotalRemaining);
-                            report.AppendLine(); 
+                            report.AppendFormat("{0}: {1} {2}", ht.TimeStamp.ToShortDateString(), ht.TotalEstimate, ht.TotalRemaining);
+                            report.AppendLine();
                         }
                     }
                     vm.HistorySummary = report.ToString();
@@ -93,7 +128,7 @@ This is another root task.";
                 }
             }
 
-            return View("Burndown",vm);
+            return View("Burndown", vm);
         }
 
         public ActionResult SaveChanges(Guid? id, HomeBurndownViewModel model)
@@ -109,7 +144,7 @@ This is another root task.";
 
             var logic = new HierarchicalTaskEngine();
             //  http://stackoverflow.com/questions/14217101/what-character-represents-a-new-line-in-a-text-area  says its \r\n
-            var lines = model.Definition.Split(new string[] {"\r\n"}, StringSplitOptions.None);
+            var lines = model.Definition.Split(new string[] { "\r\n" }, StringSplitOptions.None);
 
             logic.LoadInputList(lines);
 
@@ -120,7 +155,7 @@ This is another root task.";
             {
                 // would load history from DB here
                 var dbHistory = context.History.Where(h => h.BurndownId == id.Value).ToList();
-                logic.LoadInputHistory(dbHistory.Select(h=>new Tuple<DateTime, string>(h.DateTime,h.TaskLine)));
+                logic.LoadInputHistory(dbHistory.Select(h => new Tuple<DateTime, string>(h.DateTime, h.TaskLine)));
 
                 logic.Process();
 
@@ -130,12 +165,14 @@ This is another root task.";
                     dbBurndown = new Burndown()
                     {
                         BurndownId = id.Value,
-                        OwnerUserId = MyUser.AnonymousUserId
+                        OwnerUserId = UserId,
+                        CreatedDate = DateTime.UtcNow
                     };
                     context.Burndowns.Add(dbBurndown);
                 }
                 dbBurndown.Title = model.Title;
                 dbBurndown.Definition = String.Join(Environment.NewLine, logic.GetOutputLines());
+                dbBurndown.LastModifiedDate = DateTime.UtcNow;
 
                 // save new histories, if they weren't already there.
                 var historyToSave = logic.GetOutputHistory().ToList();
@@ -171,7 +208,7 @@ This is another root task.";
                 scope.Complete();
             }
 
-            return RedirectToAction("Burndown", "Home", new {id});
+            return RedirectToAction("Burndown", "Home", new { id });
         }
     }
 }
