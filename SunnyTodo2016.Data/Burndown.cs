@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace SunnyTodo2016.Data
         public string Title { get; set; }
         public string Definition { get; set; }
         public Guid OwnerUserId { get; set; }
-        public virtual DbSet<HistoryLine> History { get; set; }
+        public virtual ICollection<HistoryLine> History { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
     }

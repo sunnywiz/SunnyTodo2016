@@ -1,0 +1,28 @@
+﻿@model object
+
+@{
+    ViewBag.Title = "Upload";
+}
+
+<h2>Upload</h2>
+
+<p>
+    Upload a Burndown from disk. This assumes you were using the console app version of this program, and you have both a
+    text file and a .history.txt file. The history.txt file looks like this:
+</p>
+<pre>2017-04-03T10:45:50.9471598-04:00|Reproduce: id:1 parentid:1316 totalestimate:3.00 totalremaining:3.00
+2017-04-03T10:45:50.9471598-04:00|Invoice Details Screen id:1316 totalestimate:16.00 totalremaining:16.00
+2017-04-03T10:45:50.9471598-04:00|Find an invoice in Data Entry Complete status id:2 parentid:1 est:1.00 rem:1.00 totalestimate:1.00 totalremaining:1.00
+</pre>
+
+@* http://haacked.com/archive/2010/07/16/uploading-files-with-aspnetmvc.aspx/ *@
+
+<form action="@Url.Action("Upload","Home")" method="post" enctype="multipart/form-data">
+    <label for="todo">Todo File:</label>
+    <input type="file" name="files" id="todo" />
+
+    <label for="history">History File:</label>
+    <input type="file" name="files" id="history" />
+
+    <input type="submit" />
+</form>

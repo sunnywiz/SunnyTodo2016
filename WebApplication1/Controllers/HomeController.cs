@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Transactions;
@@ -209,6 +210,70 @@ This is another root task.";
             }
 
             return RedirectToAction("Burndown", "Home", new { id });
+        }
+
+        [HttpGet]
+        public ActionResult Upload()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Upload(IEnumerable<HttpPostedFileBase> files)
+        {
+            List<string> historyLines = null;
+            List<string> todoLines = null;
+            var fileName = "uploaded file";
+            foreach (var file in files)
+            {
+                List<string> lines = new List<string>();
+                using (var sr = new StreamReader(file.InputStream))
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        lines.Add(line);
+                    }
+                }
+                if (file.FileName.EndsWith(".history.txt"))
+                {
+                    historyLines = lines;
+                }
+                else
+                {
+                    todoLines = lines;
+                    fileName = file.FileName;
+                }
+            }
+            var burndownId = Guid.NewGuid();
+
+            var historyTuples =
+                historyLines.Select(HistoryFileHelper.PipeSeperatedLineToHistoryTuple).Where(t => t != null).ToList();
+
+            var dbHistoryLines = historyTuples.Select(t => new HistoryLine()
+            {
+                DateTime = t.Item1,
+                BurndownId = burndownId,
+                HistoryLineId = Guid.NewGuid(),
+                TaskLine = t.Item2
+            }).ToList(); 
+
+            using (var context = new BurndownContext())
+            {
+                var dbBurndown = new Burndown()
+                {
+                    BurndownId = burndownId,
+                    CreatedDate = DateTime.UtcNow,
+                    Definition = String.Join(Environment.NewLine, todoLines),
+                    History = dbHistoryLines,
+                    LastModifiedDate = DateTime.UtcNow,
+                    OwnerUserId = UserId,
+                    Title = fileName
+                };
+                context.Burndowns.Add(dbBurndown);
+                context.SaveChanges(); 
+            }
+            return RedirectToAction("Burndown", "Home", new {id = burndownId});
         }
     }
 }
