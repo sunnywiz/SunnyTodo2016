@@ -2,14 +2,16 @@
 @{
     ViewBag.Title = "Sunny's Burndown";
 }
+<style type="text/css" media="screen">
+ </style>
 
 <div class="row" style="margin-top: 10px">
-    @using (var form = @Html.BeginForm("SaveChanges", "Home", new { id = Model.BurndownId }))
+    @using (var form = @Html.BeginForm("SaveChanges", "Home", new {id = Model.BurndownId}))
     {
         <div class="col-md-6">
-            Title: @Html.TextBoxFor(m=>m.Title);
+            Title: @Html.TextBoxFor(m => m.Title)
             <br/>
-            @Html.TextAreaFor(m => m.Definition, new {style = "width:100%; height:600px; max-width:none;"})
+            <div id="editor" style="height:600px">@Model.Definition</div>
         </div>
         <div class="col-md-6">
             <div class="row">
@@ -26,3 +28,12 @@
         </div>
     }
 </div>
+
+<script src="/Scripts/ace/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/python");
+    editor.getSession().setTabSize(4);
+    editor.getSession().setUseSoftTabs(true);
+</script>

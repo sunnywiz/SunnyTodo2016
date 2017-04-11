@@ -81,23 +81,23 @@ namespace WebApplication1.Controllers
                     vm.Title = "Sample Burndown";
                     vm.Definition = @"# Welcome to Sunny's Burndown tracker
 
-This is a root task.  
-   This is a subtask
-      This is a sub-sub-task
+This is a root task.  <
+    This is a subtask  >
+       This is a sub-sub-task ""
 
-   Leaf tasks default estimate of 1
-   Tasks that are parents of other tasks have a default estimate of 0.
-   You can specify a leaf with a different estimate like this  est:3
+    Leaf tasks default estimate of 1
+    Tasks that are parents of other tasks have a default estimate of 0.
+    You can specify a leaf with a different estimate like this  est:3
 
-   * Mark tasks that are in progress with a '* '   
-   x Mark tasks as complete by starting them with 'x '
+    * Mark tasks that are in progress with a '* '   
+    x Mark tasks as complete by starting them with 'x '
 
-   If you have a large task that is in process, you can mark remaining like this  est:5 rem:3
+    If you have a large task that is in process, you can mark remaining like this  est:5 rem:3
 
-   Click save changes to re-parse your task list and create a new snapshot in time. 
-     - all tasks are given Id's 
-     - A burndown is automatically created for you.
-     - If you want a specific ID, you can specify it like this (string):  id:007
+    Click save changes to re-parse your task list and create a new snapshot in time. 
+        - all tasks are given Id's 
+        - A burndown is automatically created for you.
+        - If you want a specific ID, you can specify it like this (string):  id:007
 
 This is another root task.";
                 }
