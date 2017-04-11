@@ -6,10 +6,8 @@
  </style>
 
 <div class="row" style="margin-top: 10px">
-    @using (var form = @Html.BeginForm("SaveChanges", "Home", new {id = Model.BurndownId}))
-    {
         <div class="col-md-6">
-            Title: @Html.TextBoxFor(m => m.Title)
+            Title: @Html.TextBox("Title",Model.Title)
             <br/>
             <div id="editor" style="height:600px">@Model.Definition</div>
         </div>
@@ -20,20 +18,26 @@
                 </a>
             </div>
             <div class="row">
-                <input type="submit" value="Save"/>
+                <input type="submit" value="Save" id="SubmitButton"/>
             </div>
             <div class="row">
                 <pre>@Model.HistorySummary</pre>
             </div>
         </div>
-    }
 </div>
 
-<script src="/Scripts/ace/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-<script>
-    var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/monokai");
-    editor.getSession().setMode("ace/mode/python");
-    editor.getSession().setTabSize(4);
-    editor.getSession().setUseSoftTabs(true);
-</script>
+@section scripts {
+    <script src="/Scripts/ace/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/monokai");
+        editor.getSession().setMode("ace/mode/python");
+        editor.getSession().setTabSize(4);
+        editor.getSession().setUseSoftTabs(true);
+
+        var submitButton = $("#SubmitButton");
+        submitButton.click(function() {
+            alert("do something");
+        });
+    </script>
+}
