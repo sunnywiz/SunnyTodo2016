@@ -132,13 +132,12 @@ This is another root task.";
             return View("Burndown", vm);
         }
 
-        public ActionResult SaveChanges(Guid? id, HomeBurndownViewModel model)
+        public ActionResult SaveChanges(HomeBurndownViewModel model)
         {
             // dont forget to check if this user can access this burndown or not
 
-            if (String.IsNullOrEmpty(model.Definition) ||
-                id == null ||
-                id == Guid.Empty)
+            if (model == null || 
+                model.BurndownId == Guid.Empty)
             {
                 return RedirectToAction("Index");
             }
@@ -155,17 +154,17 @@ This is another root task.";
             using (var context = new BurndownContext())
             {
                 // would load history from DB here
-                var dbHistory = context.History.Where(h => h.BurndownId == id.Value).ToList();
+                var dbHistory = context.History.Where(h => h.BurndownId == model.BurndownId).ToList();
                 logic.LoadInputHistory(dbHistory.Select(h => new Tuple<DateTime, string>(h.DateTime, h.TaskLine)));
 
                 logic.Process();
 
-                var dbBurndown = context.Burndowns.FirstOrDefault(b => b.BurndownId == id);
+                var dbBurndown = context.Burndowns.FirstOrDefault(b => b.BurndownId == model.BurndownId);
                 if (dbBurndown == null)
                 {
                     dbBurndown = new Burndown()
                     {
-                        BurndownId = id.Value,
+                        BurndownId = model.BurndownId,
                         OwnerUserId = UserId,
                         CreatedDate = DateTime.UtcNow
                     };
@@ -197,7 +196,7 @@ This is another root task.";
                 {
                     context.History.Add(new HistoryLine()
                     {
-                        BurndownId = id.Value,
+                        BurndownId = model.BurndownId,
                         HistoryLineId = Guid.NewGuid(),
                         DateTime = newHistory.Item1,
                         TaskLine = newHistory.Item2
@@ -209,7 +208,7 @@ This is another root task.";
                 scope.Complete();
             }
 
-            return RedirectToAction("Burndown", "Home", new { id });
+            return RedirectToAction("Burndown", "Home", new { id=model.BurndownId });
         }
 
         [HttpGet]
