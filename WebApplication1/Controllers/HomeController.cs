@@ -103,6 +103,25 @@ This is another root task.";
                 }
                 else
                 {
+                    // burndown exists.  Do we have access to it? 
+                    if (dbBurndown.OwnerUserId == MyUser.AnonymousUserId)
+                    {
+                        // everybody can access stuff owned by anonymous
+                        // fall through
+                    } else if (dbBurndown.OwnerUserId == UserId)
+                    {
+                        // you can access your own stuff
+                        // fall through 
+                    }
+                    else
+                    {
+                        // and here is where we have to get trickier
+                        // TODO: if item marked as "publicly read or write" then anybody can access it
+
+                        // you're not supposed to see this. 
+                        return RedirectToAction("Index","Home");
+                    }
+
                     var logic = new HierarchicalTaskEngine();
 
                     vm.Title = dbBurndown.Title ?? "No title given";
