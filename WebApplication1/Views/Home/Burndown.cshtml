@@ -1,0 +1,56 @@
+﻿@model WebApplication1.Models.HomeBurndownViewModel
+@{
+    ViewBag.Title = "Sunny's Burndown";
+}
+<style type="text/css" media="screen">
+</style>
+
+<div class="row" style="margin-top: 10px">
+    @using (var form = Html.BeginForm("SaveChanges", "Home", new {@class="MyFormClass"}))
+    {
+        <div class="col-md-9">
+            <div class="well well-sm">
+                @Html.TextBoxFor(m=>m.Title, new { style="width:100%"})
+            </div>
+            <div id="editor" style="height: 80vh">@Model.Definition</div>
+        </div>
+        <div class="col-md-3">
+            <div class="row">
+                <div class="well well-sm">
+                    <button id="SubmitButton" value="Save Changes">Save</button>
+                    |
+                    <a href="@Model.AbsoluteUrl">
+                        Permalink
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <pre>@Model.HistorySummary</pre>
+            </div>
+        </div>
+        @Html.HiddenFor(m=>m.BurndownId)
+        @Html.HiddenFor(m => m.Definition,new { id="HiddenDefinition"})
+    }
+</div>
+
+@section scripts {
+    <script src="/Scripts/ace/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/monokai");
+        editor.getSession().setMode("ace/mode/python");
+        editor.getSession().setTabSize(4);
+        editor.getSession().setUseSoftTabs(true);
+        editor.setShowPrintMargin(false);
+
+        var submitButton = $("#SubmitButton");
+
+        // TODO: switch this out for a real ajax type of call when we have more time.  And maybe a spinner
+
+        submitButton.click(function () {
+            var contents = editor.getValue();
+            $("#HiddenDefinition").val(contents);
+            $(".MyFormClass").submit();
+        });
+    </script>
+}

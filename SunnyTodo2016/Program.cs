@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
@@ -62,21 +61,10 @@ namespace SunnyTodo2016
             }
 
             var logic = new HierarchicalTaskEngine();
-            List<Tuple<DateTime, string>> parsed = new List<Tuple<DateTime, string>>();
             var historyLines = File.ReadAllLines(historyFileName);
-            foreach (var hl in historyLines)
-            {
-                var index = hl.IndexOf('|');
-                if (index < 0) continue;
-                DateTime timestamp;
-                var k1 = hl.Substring(0, index);
-                var k2 = hl.Substring(index + 1);
-                if (DateTime.TryParse(k1, null, DateTimeStyles.RoundtripKind, out timestamp))
-                {
-                    parsed.Add(new Tuple<DateTime, string>(timestamp, k2));
-                }
-            }
-            logic.LoadInputHistory(parsed);
+
+            logic.LoadInputHistory(historyLines.Select(HistoryFileHelper.PipeSeperatedLineToHistoryTuple).Where(t=>t !=null));
+
             logic.OutputHistory.Clear(); 
             logic.OutputHistory.AddRange(logic.InputHistory);
             logic.InterpolateHistory();
@@ -137,21 +125,9 @@ namespace SunnyTodo2016
 
             if (File.Exists(historyFileName))
             {
-                List<Tuple<DateTime, string>> parsed = new List<Tuple<DateTime, string>>();
                 var historyLines = File.ReadAllLines(historyFileName);
-                foreach (var hl in historyLines)
-                {
-                    var index = hl.IndexOf('|');
-                    if (index < 0) continue;
-                    DateTime timestamp;
-                    var k1 = hl.Substring(0, index);
-                    var k2 = hl.Substring(index + 1);
-                    if (DateTime.TryParse(k1, null, DateTimeStyles.RoundtripKind, out timestamp))
-                    {
-                        parsed.Add(new Tuple<DateTime, string>(timestamp, k2));
-                    }
-                }
-                logic.LoadInputHistory(parsed);
+
+                logic.LoadInputHistory(historyLines.Select(HistoryFileHelper.PipeSeperatedLineToHistoryTuple).Where(t=>t!=null));
             }
 
 
@@ -169,7 +145,7 @@ namespace SunnyTodo2016
             {
                 foreach (var item in logic.GetOutputHistory())
                 {
-                    writer.WriteLine($"{item.Item1:o}|{item.Item2}");
+                    writer.WriteLine(HistoryFileHelper.TupleToPipeSeperatedLine(item));
                 }
             }
 

@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="HierarchicalTaskEngine.cs" />
     <Compile Include="HierarchicalTask.cs" />
+    <Compile Include="HistoryFileHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
