@@ -103,22 +103,9 @@ This is another root task.";
                 }
                 else
                 {
-                    // burndown exists.  Do we have access to it? 
-                    if (dbBurndown.OwnerUserId == MyUser.AnonymousUserId)
+                    var hasAccess = CheckIfUserHasAccessToBurndown(MyUser.AnonymousUserId, dbBurndown);
+                    if (!hasAccess)
                     {
-                        // everybody can access stuff owned by anonymous
-                        // fall through
-                    } else if (dbBurndown.OwnerUserId == UserId)
-                    {
-                        // you can access your own stuff
-                        // fall through 
-                    }
-                    else
-                    {
-                        // and here is where we have to get trickier
-                        // TODO: if item marked as "publicly read or write" then anybody can access it
-
-                        // you're not supposed to see this. 
                         return RedirectToAction("Index","Home");
                     }
 
@@ -149,6 +136,31 @@ This is another root task.";
             }
 
             return View("Burndown", vm);
+        }
+
+        private bool CheckIfUserHasAccessToBurndown(Guid userId, Burndown dbBurndown)
+        {
+            bool hasAccess = true;
+            // burndown exists.  Do we have access to it? 
+            if (dbBurndown.OwnerUserId == userId)
+            {
+                // everybody can access stuff owned by anonymous
+                // fall through
+            }
+            else if (dbBurndown.OwnerUserId == UserId)
+            {
+                // you can access your own stuff
+                // fall through 
+            }
+            else
+            {
+                // and here is where we have to get trickier
+                // TODO: if item marked as "publicly read or write" then anybody can access it
+
+                // you're not supposed to see this. 
+                hasAccess = false;
+            }
+            return hasAccess;
         }
 
         public ActionResult SaveChanges(HomeBurndownViewModel model)
@@ -189,6 +201,12 @@ This is another root task.";
                     };
                     context.Burndowns.Add(dbBurndown);
                 }
+
+                if (!CheckIfUserHasAccessToBurndown(UserId, dbBurndown))
+                {
+                    return RedirectToAction("Index","Home");
+                }
+
                 dbBurndown.Title = model.Title;
                 dbBurndown.Definition = String.Join(Environment.NewLine, logic.GetOutputLines());
                 dbBurndown.LastModifiedDate = DateTime.UtcNow;
