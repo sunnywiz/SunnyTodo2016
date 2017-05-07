@@ -115,8 +115,6 @@ This is another root task.";
                         return RedirectToAction("Index", "Home");
                     }
 
-                    var logic = new HierarchicalTaskEngine();
-
                     vm.Title = dbBurndown.Title ?? "No title given";
                     vm.Definition = dbBurndown.Definition;
                     vm.IsPublicEditable = dbBurndown.IsPublicEditable;
@@ -127,26 +125,6 @@ This is another root task.";
                     vm.CanUserEditBurndown = accessChecks.CanEdit;
                     vm.CanUserEditBurndownAccess = accessChecks.CanEditAccessibility;
 
-                    // also want to load history and other stuff here. 
-
-                    var dbHistory = context.History.Where(h => h.BurndownId == id.Value).ToList();
-                    logic.LoadInputHistory(dbHistory.Select(h => new Tuple<DateTime, string>(h.DateTime, h.TaskLine)));
-
-                    /*
-                    var parentIds = logic.InputHistory.Where(x => x.ParentId == null).Select(x => x.Id).Distinct().OrderBy(x => x).ToList();
-
-                    StringBuilder report = new StringBuilder();
-                    foreach (var parentId in parentIds)
-                    {
-                        report.AppendLine();
-                        foreach (var ht in logic.InputHistory.Where(x => x.Id == parentId).OrderBy(x => x.TimeStamp))
-                        {
-                            report.AppendFormat("{0}: {1} {2}", ht.TimeStamp.ToShortDateString(), ht.TotalEstimate, ht.TotalRemaining);
-                            report.AppendLine();
-                        }
-                    }
-                    vm.HistorySummary = report.ToString();
-                    */
                 }
             }
 
@@ -333,13 +311,47 @@ This is another root task.";
             return RedirectToAction("Burndown", "Home", new { id = burndownId });
         }
 
+        [HttpPost]
         public JsonResult GetHistory(Guid id)
         {
-            return new JsonResult()
+            using (var context = new BurndownContext())
             {
-                Data = "history for " + id.ToString("n"),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
+                var dbBurndown = context.Burndowns.FirstOrDefault(b => b.BurndownId == id);
+                if (dbBurndown == null)
+                {
+                    return new JsonResult()
+                    {
+                        Data = null
+                    };
+                }
+                var accessCheck = new AccessChecks(dbBurndown, UserId);
+                if (!accessCheck.CanView)
+                {
+                    return new JsonResult()
+                    {
+                        Data = null
+                    };
+                }
+                // return something meaningful here
+                var dbHistory = context.History.Where(h => h.BurndownId == id).ToList();
+                var logic = new HierarchicalTaskEngine();
+                logic.LoadInputHistory(dbHistory.Select(h => new Tuple<DateTime, string>(h.DateTime, h.TaskLine)));
+
+                var parentIds = logic.InputHistory.Where(x => x.ParentId == null).Select(x => x.Id).Distinct().OrderBy(x => x).ToList();
+
+                StringBuilder report = new StringBuilder();
+                foreach (var parentId in parentIds)
+                {
+                    report.AppendLine();
+                    foreach (var ht in logic.InputHistory.Where(x => x.Id == parentId).OrderBy(x => x.TimeStamp))
+                    {
+                        report.AppendFormat("{0}: {1} {2}", ht.TimeStamp.ToShortDateString(), ht.TotalEstimate, ht.TotalRemaining);
+                        report.AppendLine();
+                    }
+                }
+
+                return new JsonResult() { Data = report.ToString()};
+            }
         }
     }
 }

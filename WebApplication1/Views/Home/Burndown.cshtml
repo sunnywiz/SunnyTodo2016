@@ -87,6 +87,7 @@
             .ready(function () {
                 $.ajax({
                     url: '@Url.Action("GetHistory", "Home")'+'/'+$("#HiddenBurndownId").val(),
+                    method: 'POST',
                     success: function (data) {
                         // your data could be a View or Json or what ever you returned in your action method 
                         // parse your data here
