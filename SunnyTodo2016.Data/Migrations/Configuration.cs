@@ -10,6 +10,7 @@ namespace SunnyTodo2016.Data.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true; 
         }
 
         protected override void Seed(SunnyTodo2016.Data.BurndownContext context)
