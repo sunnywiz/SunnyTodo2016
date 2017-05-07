@@ -17,8 +17,20 @@
         <div class="col-md-3">
             <div class="row">
                 <div class="well well-sm">
-                    <button id="SubmitButton" value="Save Changes">Save</button>
-                    |
+                    @if (Model.CanUserEditBurndownAccess)
+                    {
+                        <span>Anyone can view: </span>
+                        @Html.CheckBox(nameof(Model.IsPublicViewable),Model.IsPublicViewable ?? false)
+                        <br/>
+                        <span>Anyone can edit: </span>
+                        @Html.CheckBox(nameof(Model.IsPublicEditable),Model.IsPublicEditable ?? false)
+                        <br />
+                    }
+                    @if (Model.CanUserEditBurndown)
+                    {
+                        <button id="SubmitButton" value="Save Changes">Save</button>
+                        <br/>
+                    }
                     <a href="@Model.AbsoluteUrl">
                         Permalink
                     </a>

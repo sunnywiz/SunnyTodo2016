@@ -17,6 +17,28 @@ namespace WebApplication1.Controllers
 {
     public class HomeController : Controller
     {
+        private const string SampleBurndownDefinition = @"# Welcome to Sunny's Burndown tracker
+
+This is a root task.  <
+    This is a subtask  >
+       This is a sub-sub-task ""
+
+    Leaf tasks default estimate of 1
+    Tasks that are parents of other tasks have a default estimate of 0.
+    You can specify a leaf with a different estimate like this  est:3
+
+    * Mark tasks that are in progress with a '* '   
+    x Mark tasks as complete by starting them with 'x '
+
+    If you have a large task that is in process, you can mark remaining like this  est:5 rem:3
+
+    Click save changes to re-parse your task list and create a new snapshot in time. 
+        - all tasks are given Id's 
+        - A burndown is automatically created for you.
+        - If you want a specific ID, you can specify it like this (string):  id:007
+
+This is another root task.";
+
         private Guid UserId
         {
             get
@@ -79,31 +101,15 @@ namespace WebApplication1.Controllers
                 if (dbBurndown == null)
                 {
                     vm.Title = "Sample Burndown";
-                    vm.Definition = @"# Welcome to Sunny's Burndown tracker
-
-This is a root task.  <
-    This is a subtask  >
-       This is a sub-sub-task ""
-
-    Leaf tasks default estimate of 1
-    Tasks that are parents of other tasks have a default estimate of 0.
-    You can specify a leaf with a different estimate like this  est:3
-
-    * Mark tasks that are in progress with a '* '   
-    x Mark tasks as complete by starting them with 'x '
-
-    If you have a large task that is in process, you can mark remaining like this  est:5 rem:3
-
-    Click save changes to re-parse your task list and create a new snapshot in time. 
-        - all tasks are given Id's 
-        - A burndown is automatically created for you.
-        - If you want a specific ID, you can specify it like this (string):  id:007
-
-This is another root task.";
+                    vm.Definition = SampleBurndownDefinition;
+                    vm.CanUserEditBurndown = true;
+                    vm.CanUserEditBurndownAccess = (UserId != MyUser.AnonymousUserId);
+                    vm.IsPublicEditable = (UserId == MyUser.AnonymousUserId);
+                    vm.IsPublicViewable = (UserId == MyUser.AnonymousUserId);
                 }
                 else
                 {
-                    var hasAccess = CheckIfUserHasAccessToBurndown(MyUser.AnonymousUserId, dbBurndown);
+                    var hasAccess = CheckIfUserHasAccessToBurndown(MyUser.AnonymousUserId, dbBurndown, "view");
                     if (!hasAccess)
                     {
                         return RedirectToAction("Index","Home");
@@ -113,6 +119,31 @@ This is another root task.";
 
                     vm.Title = dbBurndown.Title ?? "No title given";
                     vm.Definition = dbBurndown.Definition;
+                    vm.IsPublicEditable = dbBurndown.IsPublicEditable;
+                    vm.IsPublicViewable = dbBurndown.IsPublicViewable;
+
+                    if (UserId == MyUser.AnonymousUserId)
+                    {
+                        // anonymous
+                        vm.CanUserEditBurndown = dbBurndown.IsPublicEditable;
+                        vm.CanUserEditBurndownAccess = false; 
+                    }
+                    else
+                    {
+                        if (UserId == dbBurndown.OwnerUserId)
+                        {
+                            // owner
+                            vm.CanUserEditBurndown = true; 
+                            vm.CanUserEditBurndownAccess = true; 
+                        }
+                        else
+                        {
+                            // well known user, but not the owner
+                            vm.CanUserEditBurndown = dbBurndown.IsPublicEditable;
+                            vm.CanUserEditBurndownAccess = false; 
+                        }
+                    }
+
                     // also want to load history and other stuff here. 
 
                     var dbHistory = context.History.Where(h => h.BurndownId == id.Value).ToList();
@@ -138,7 +169,7 @@ This is another root task.";
             return View("Burndown", vm);
         }
 
-        private bool CheckIfUserHasAccessToBurndown(Guid userId, Burndown dbBurndown)
+        private bool CheckIfUserHasAccessToBurndown(Guid userId, Burndown dbBurndown, string intent)
         {
             bool hasAccess = true;
             // burndown exists.  Do we have access to it? 
@@ -197,12 +228,14 @@ This is another root task.";
                     {
                         BurndownId = model.BurndownId,
                         OwnerUserId = UserId,
-                        CreatedDate = DateTime.UtcNow
+                        CreatedDate = DateTime.UtcNow,
+                        IsPublicEditable = false,
+                        IsPublicViewable = false
                     };
                     context.Burndowns.Add(dbBurndown);
                 }
 
-                if (!CheckIfUserHasAccessToBurndown(UserId, dbBurndown))
+                if (!CheckIfUserHasAccessToBurndown(UserId, dbBurndown,"edit"))
                 {
                     return RedirectToAction("Index","Home");
                 }
@@ -210,6 +243,31 @@ This is another root task.";
                 dbBurndown.Title = model.Title;
                 dbBurndown.Definition = String.Join(Environment.NewLine, logic.GetOutputLines());
                 dbBurndown.LastModifiedDate = DateTime.UtcNow;
+
+                if (UserId == MyUser.AnonymousUserId && dbBurndown.OwnerUserId == MyUser.AnonymousUserId)
+                {
+                    dbBurndown.IsPublicEditable = true;
+                    dbBurndown.IsPublicViewable = true;
+                }
+                else 
+                {
+                    // clean this up later
+                    if (model.IsPublicEditable.HasValue)
+                    {
+                        if (UserId != MyUser.AnonymousUserId && UserId == dbBurndown.OwnerUserId)
+                        {
+                            dbBurndown.IsPublicEditable = model.IsPublicEditable.Value; 
+                        }
+                    }
+
+                    if (model.IsPublicViewable.HasValue)
+                    {
+                        if (UserId != MyUser.AnonymousUserId && UserId == dbBurndown.OwnerUserId)
+                        {
+                            dbBurndown.IsPublicViewable = model.IsPublicViewable.Value;
+                        }
+                    }
+                }
 
                 // save new histories, if they weren't already there.
                 var historyToSave = logic.GetOutputHistory().ToList();
