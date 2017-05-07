@@ -109,10 +109,10 @@ This is another root task.";
                 }
                 else
                 {
-                    var hasAccess = CheckIfUserHasAccessToBurndown(MyUser.AnonymousUserId, dbBurndown, "view");
-                    if (!hasAccess)
+                    var accessCheck = new AccessChecks(dbBurndown, UserId);
+                    if (!accessCheck.CanView)
                     {
-                        return RedirectToAction("Index","Home");
+                        return RedirectToAction("Index", "Home");
                     }
 
                     var logic = new HierarchicalTaskEngine();
@@ -122,27 +122,10 @@ This is another root task.";
                     vm.IsPublicEditable = dbBurndown.IsPublicEditable;
                     vm.IsPublicViewable = dbBurndown.IsPublicViewable;
 
-                    if (UserId == MyUser.AnonymousUserId)
-                    {
-                        // anonymous
-                        vm.CanUserEditBurndown = dbBurndown.IsPublicEditable;
-                        vm.CanUserEditBurndownAccess = false; 
-                    }
-                    else
-                    {
-                        if (UserId == dbBurndown.OwnerUserId)
-                        {
-                            // owner
-                            vm.CanUserEditBurndown = true; 
-                            vm.CanUserEditBurndownAccess = true; 
-                        }
-                        else
-                        {
-                            // well known user, but not the owner
-                            vm.CanUserEditBurndown = dbBurndown.IsPublicEditable;
-                            vm.CanUserEditBurndownAccess = false; 
-                        }
-                    }
+                    var accessChecks = new AccessChecks(dbBurndown, UserId);
+
+                    vm.CanUserEditBurndown = accessChecks.CanEdit;
+                    vm.CanUserEditBurndownAccess = accessChecks.CanEditAccessibility;
 
                     // also want to load history and other stuff here. 
 
@@ -169,36 +152,11 @@ This is another root task.";
             return View("Burndown", vm);
         }
 
-        private bool CheckIfUserHasAccessToBurndown(Guid userId, Burndown dbBurndown, string intent)
-        {
-            bool hasAccess = true;
-            // burndown exists.  Do we have access to it? 
-            if (dbBurndown.OwnerUserId == userId)
-            {
-                // everybody can access stuff owned by anonymous
-                // fall through
-            }
-            else if (dbBurndown.OwnerUserId == UserId)
-            {
-                // you can access your own stuff
-                // fall through 
-            }
-            else
-            {
-                // and here is where we have to get trickier
-                // TODO: if item marked as "publicly read or write" then anybody can access it
-
-                // you're not supposed to see this. 
-                hasAccess = false;
-            }
-            return hasAccess;
-        }
-
         public ActionResult SaveChanges(HomeBurndownViewModel model)
         {
             // dont forget to check if this user can access this burndown or not
 
-            if (model == null || 
+            if (model == null ||
                 model.BurndownId == Guid.Empty)
             {
                 return RedirectToAction("Index");
@@ -235,38 +193,29 @@ This is another root task.";
                     context.Burndowns.Add(dbBurndown);
                 }
 
-                if (!CheckIfUserHasAccessToBurndown(UserId, dbBurndown,"edit"))
+                var accessCheck = new AccessChecks(dbBurndown, UserId);
+                if (!accessCheck.CanEdit)
                 {
-                    return RedirectToAction("Index","Home");
+                    return RedirectToAction("Index", "Home");
                 }
 
                 dbBurndown.Title = model.Title;
                 dbBurndown.Definition = String.Join(Environment.NewLine, logic.GetOutputLines());
                 dbBurndown.LastModifiedDate = DateTime.UtcNow;
 
-                if (UserId == MyUser.AnonymousUserId && dbBurndown.OwnerUserId == MyUser.AnonymousUserId)
+                if (accessCheck.IfAnonymouslyOwnedMustBePubliclyEditable)
                 {
                     dbBurndown.IsPublicEditable = true;
                     dbBurndown.IsPublicViewable = true;
                 }
-                else 
+                else if (accessCheck.CanEditAccessibility)
                 {
                     // clean this up later
                     if (model.IsPublicEditable.HasValue)
-                    {
-                        if (UserId != MyUser.AnonymousUserId && UserId == dbBurndown.OwnerUserId)
-                        {
-                            dbBurndown.IsPublicEditable = model.IsPublicEditable.Value; 
-                        }
-                    }
+                        dbBurndown.IsPublicEditable = model.IsPublicEditable.Value;
 
                     if (model.IsPublicViewable.HasValue)
-                    {
-                        if (UserId != MyUser.AnonymousUserId && UserId == dbBurndown.OwnerUserId)
-                        {
-                            dbBurndown.IsPublicViewable = model.IsPublicViewable.Value;
-                        }
-                    }
+                        dbBurndown.IsPublicViewable = model.IsPublicViewable.Value;
                 }
 
                 // save new histories, if they weren't already there.
@@ -303,7 +252,7 @@ This is another root task.";
                 scope.Complete();
             }
 
-            return RedirectToAction("Burndown", "Home", new { id=model.BurndownId });
+            return RedirectToAction("Burndown", "Home", new { id = model.BurndownId });
         }
 
         [HttpGet]
@@ -350,7 +299,7 @@ This is another root task.";
                 BurndownId = burndownId,
                 HistoryLineId = Guid.NewGuid(),
                 TaskLine = t.Item2
-            }).ToList(); 
+            }).ToList();
 
             using (var context = new BurndownContext())
             {
@@ -362,12 +311,25 @@ This is another root task.";
                     History = dbHistoryLines,
                     LastModifiedDate = DateTime.UtcNow,
                     OwnerUserId = UserId,
-                    Title = fileName
+                    Title = fileName,
                 };
                 context.Burndowns.Add(dbBurndown);
-                context.SaveChanges(); 
+
+                var accessCheck = new AccessChecks(dbBurndown, UserId);
+                if (accessCheck.IfAnonymouslyOwnedMustBePubliclyEditable)
+                {
+                    dbBurndown.IsPublicEditable = true;
+                    dbBurndown.IsPublicViewable = true;
+                }
+                else
+                {
+                    dbBurndown.IsPublicEditable = false;
+                    dbBurndown.IsPublicViewable = false;
+                }
+
+                context.SaveChanges();
             }
-            return RedirectToAction("Burndown", "Home", new {id = burndownId});
+            return RedirectToAction("Burndown", "Home", new { id = burndownId });
         }
     }
 }

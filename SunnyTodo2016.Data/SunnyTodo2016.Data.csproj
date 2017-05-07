@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessChecks.cs" />
     <Compile Include="BurndownContext.cs" />
     <Compile Include="Burndown.cs" />
     <Compile Include="Migrations\201705070155339_Initial.cs" />
