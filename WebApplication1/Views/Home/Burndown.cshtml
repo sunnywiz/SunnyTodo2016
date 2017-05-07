@@ -36,11 +36,8 @@
                     </a>
                 </div>
             </div>
-            <div class="row">
-                <pre>@Model.HistorySummary</pre>
-            </div>
         </div>
-        @Html.HiddenFor(m=>m.BurndownId)
+        @Html.HiddenFor(m=>m.BurndownId, new {id="HiddenBurndownId"})
         @Html.HiddenFor(m => m.Definition,new { id="HiddenDefinition"})
     }
 </div>
@@ -85,5 +82,17 @@
             });
             </text>
         }
+
+        $(document)
+            .ready(function () {
+                $.ajax({
+                    url: '@Url.Action("GetHistory", "Home")'+'/'+$("#HiddenBurndownId").val(),
+                    success: function (data) {
+                        // your data could be a View or Json or what ever you returned in your action method 
+                        // parse your data here
+                        alert(data);
+                    }
+                });
+            });
     </script>
 }

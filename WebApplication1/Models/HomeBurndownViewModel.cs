@@ -9,7 +9,6 @@ namespace WebApplication1.Models
         public string Definition { get; set; }
         public string Title { get; set; }
         public string AbsoluteUrl { get; set; }
-        public string HistorySummary { get; set; }
         public bool CanUserEditBurndownAccess { get; set; }
         public bool CanUserEditBurndown { get; set; }
         public bool? IsPublicViewable { get; set; }

@@ -132,6 +132,7 @@ This is another root task.";
                     var dbHistory = context.History.Where(h => h.BurndownId == id.Value).ToList();
                     logic.LoadInputHistory(dbHistory.Select(h => new Tuple<DateTime, string>(h.DateTime, h.TaskLine)));
 
+                    /*
                     var parentIds = logic.InputHistory.Where(x => x.ParentId == null).Select(x => x.Id).Distinct().OrderBy(x => x).ToList();
 
                     StringBuilder report = new StringBuilder();
@@ -145,7 +146,7 @@ This is another root task.";
                         }
                     }
                     vm.HistorySummary = report.ToString();
-
+                    */
                 }
             }
 
@@ -330,6 +331,15 @@ This is another root task.";
                 context.SaveChanges();
             }
             return RedirectToAction("Burndown", "Home", new { id = burndownId });
+        }
+
+        public JsonResult GetHistory(Guid id)
+        {
+            return new JsonResult()
+            {
+                Data = "history for " + id.ToString("n"),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
         }
     }
 }
