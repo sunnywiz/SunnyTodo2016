@@ -350,8 +350,32 @@ This is another root task.";
                     }
                 }
 
-                return new JsonResult() { Data = report.ToString()};
+
+
+                /*   [{
+                                        x: -10,
+                                        y: 0
+                                    }, {
+                                        x: 0,
+                                        y: 10
+                                    }, {
+                                        x: 10,
+                                        y: 5
+                                    }]
+                                    */
+                return new JsonResult() { Data = new List<ChartXY>()
+                {
+                    new ChartXY() { x=DateTime.Now.AddDays(-1),y=0 },
+                    new ChartXY() { x=DateTime.Now.AddHours(-4), y=10 },
+                    new ChartXY() { x=DateTime.Now,y=5 }
+                } };
             }
+        }
+
+        private class ChartXY
+        {
+            public object x { get; set; }
+            public object y { get; set; }
         }
     }
 }
