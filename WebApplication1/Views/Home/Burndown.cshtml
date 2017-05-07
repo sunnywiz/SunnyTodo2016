@@ -48,21 +48,42 @@
 @section scripts {
     <script src="/Scripts/ace/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
     <script>
+
         var editor = ace.edit("editor");
-        editor.setTheme("ace/theme/monokai");
-        editor.getSession().setMode("ace/mode/python");
-        editor.getSession().setTabSize(4);
-        editor.getSession().setUseSoftTabs(true);
-        editor.setShowPrintMargin(false);
 
-        var submitButton = $("#SubmitButton");
-
-        // TODO: switch this out for a real ajax type of call when we have more time.  And maybe a spinner
-
-        submitButton.click(function () {
+        function doSave() {
             var contents = editor.getValue();
             $("#HiddenDefinition").val(contents);
             $(".MyFormClass").submit();
-        });
+        }
+
+        editor.setTheme("ace/theme/tomorrow");
+        editor.getSession().setMode("ace/mode/yaml");
+        editor.getSession().setTabSize(4);
+        editor.getSession().setUseSoftTabs(true);
+        @if (!Model.CanUserEditBurndown)
+        {
+            <text>editor.setReadOnly(true);</text>
+        }
+        editor.setShowPrintMargin(false);
+
+        // TODO: switch this out for a real ajax type of call when we have more time.  And maybe a spinner
+        @if (Model.CanUserEditBurndown)
+        {
+            <text>
+            var submitButton = $("#SubmitButton");
+            submitButton.click(doSave);
+            $(window).bind('keydown', function (event) {
+                if (event.ctrlKey || event.metaKey) {
+                    switch (String.fromCharCode(event.which).toLowerCase()) {
+                        case 's':
+                            event.preventDefault();
+                            submitButton.click();
+                            break;
+                    }
+                }
+            });
+            </text>
+        }
     </script>
 }
