@@ -20,11 +20,11 @@
                     @if (Model.CanUserEditBurndownAccess)
                     {
                         <span>Anyone can view: </span>
-                        @Html.CheckBox(nameof(Model.IsPublicViewable),Model.IsPublicViewable ?? false)
+                        @Html.CheckBox(nameof(Model.IsPublicViewable), Model.IsPublicViewable ?? false)
                         <br/>
                         <span>Anyone can edit: </span>
-                        @Html.CheckBox(nameof(Model.IsPublicEditable),Model.IsPublicEditable ?? false)
-                        <br />
+                        @Html.CheckBox(nameof(Model.IsPublicEditable), Model.IsPublicEditable ?? false)
+                        <br/>
                     }
                     @if (Model.CanUserEditBurndown)
                     {
@@ -36,6 +36,7 @@
                     </a>
                 </div>
             </div>
+            <canvas id="chartCanvas"></canvas>
         </div>
         @Html.HiddenFor(m=>m.BurndownId, new {id="HiddenBurndownId"})
         @Html.HiddenFor(m => m.Definition,new { id="HiddenDefinition"})
@@ -44,6 +45,8 @@
 
 @section scripts {
     <script src="/Scripts/ace/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js" type="text/javascript"></script>
+    <script src="/Scripts/moment.min.js"></script>
     <script>
 
         var editor = ace.edit("editor");
@@ -68,30 +71,58 @@
         @if (Model.CanUserEditBurndown)
         {
             <text>
-            var submitButton = $("#SubmitButton");
-            submitButton.click(doSave);
-            $(window).bind('keydown', function (event) {
-                if (event.ctrlKey || event.metaKey) {
-                    switch (String.fromCharCode(event.which).toLowerCase()) {
+        var submitButton = $("#SubmitButton");
+        submitButton.click(doSave);
+        $(window)
+            .bind('keydown',
+                function(event) {
+                    if (event.ctrlKey || event.metaKey) {
+                        switch (String.fromCharCode(event.which).toLowerCase()) {
                         case 's':
                             event.preventDefault();
                             submitButton.click();
                             break;
+                        }
                     }
-                }
-            });
-            </text>
+                });
+        </text>
         }
 
         $(document)
-            .ready(function () {
+            .ready(function() {
+                var chartCanvas = $("#chartCanvas");
                 $.ajax({
-                    url: '@Url.Action("GetHistory", "Home")'+'/'+$("#HiddenBurndownId").val(),
+                    url: '@Url.Action("GetHistory", "Home")' + '/' + $("#HiddenBurndownId").val(),
                     method: 'POST',
-                    success: function (data) {
+                    success: function(data) {
                         // your data could be a View or Json or what ever you returned in your action method 
                         // parse your data here
-                        alert(data);
+                        var scatterChart = new Chart(chartCanvas, {
+                            type: 'line',
+                            data: {
+                                datasets: [{
+                                    label: 'Scatter Dataset',
+                                    data: [{
+                                        x: -10,
+                                        y: 0
+                                    }, {
+                                        x: 0,
+                                        y: 10
+                                    }, {
+                                        x: 10,
+                                        y: 5
+                                    }]
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    xAxes: [{
+                                        type: 'linear',
+                                        position: 'bottom'
+                                    }]
+                                }
+                            }
+                        });
                     }
                 });
             });
