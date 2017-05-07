@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="BurndownContext.cs" />
     <Compile Include="Burndown.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MyUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
