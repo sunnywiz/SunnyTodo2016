@@ -16,6 +16,8 @@ namespace SunnyTodo2016.Data
         public virtual ICollection<HistoryLine> History { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
+        public bool IsPublicViewable { get; set; }
+        public bool IsPublicEditable { get; set; }
     }
 
     public class HistoryLine

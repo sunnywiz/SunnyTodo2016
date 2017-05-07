@@ -6,8 +6,6 @@ namespace SunnyTodo2016.Data
     {
         public BurndownContext() : base("SunnyTodo2016")
         {
-            // If in release mode, use schema compare to update production database. 
-            // Not using migrations. 
         }
 
         public virtual DbSet<Burndown> Burndowns { get; set; }
