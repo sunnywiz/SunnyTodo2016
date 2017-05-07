@@ -8,13 +8,13 @@
 <div class="row" style="margin-top: 10px">
     @using (var form = Html.BeginForm("SaveChanges", "Home", new {@class="MyFormClass"}))
     {
-        <div class="col-md-9">
+        <div class="col-md-6">
             <div class="well well-sm">
                 @Html.TextBoxFor(m=>m.Title, new { style="width:100%"})
             </div>
             <div id="editor" style="height: 80vh">@Model.Definition</div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-6">
             <div class="row">
                 <div class="well well-sm">
                     @if (Model.CanUserEditBurndownAccess)
@@ -95,23 +95,11 @@
                     url: '@Url.Action("GetHistory", "Home")' + '/' + $("#HiddenBurndownId").val(),
                     method: 'POST',
                     success: function(yeebdy) {
-                        // your data could be a View or Json or what ever you returned in your action method 
-                        // parse your data here
-                        for (var i = 0; i < yeebdy.length; i++) {
-                            if (yeebdy[i].x) {
-                                yeebdy[i].x = moment(yeebdy[i].x);
-                            }
-                        }
                         var scatterChart = new Chart(chartCanvas,
                         {
                             type: 'line',
                             data: {
-                                datasets: [
-                                    {
-                                        label: 'Burndown',
-                                        data: yeebdy
-                                    }
-                                ]
+                                datasets: yeebdy
                             },
                             options: {
                                 scales: {

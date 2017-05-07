@@ -337,38 +337,42 @@ This is another root task.";
                 var logic = new HierarchicalTaskEngine();
                 logic.LoadInputHistory(dbHistory.Select(h => new Tuple<DateTime, string>(h.DateTime, h.TaskLine)));
 
-                var parentIds = logic.InputHistory.Where(x => x.ParentId == null).Select(x => x.Id).Distinct().OrderBy(x => x).ToList();
+                var totalListXy = new List<ChartXY>();
+                var remainingListXy = new List<ChartXY>();
 
-                StringBuilder report = new StringBuilder();
-                foreach (var parentId in parentIds)
+                var timeGroups = logic.InputHistory.GroupBy(g => g.TimeStamp);
+                foreach (var timeGroup in timeGroups.OrderBy(x=>x.Key))
                 {
-                    report.AppendLine();
-                    foreach (var ht in logic.InputHistory.Where(x => x.Id == parentId).OrderBy(x => x.TimeStamp))
+                    double totalEst =0.0;
+                    double totalRem = 0.0;
+                    foreach (var pk in timeGroup.Where(x => x.ParentId == null))
                     {
-                        report.AppendFormat("{0}: {1} {2}", ht.TimeStamp.ToShortDateString(), ht.TotalEstimate, ht.TotalRemaining);
-                        report.AppendLine();
+                        totalEst += pk.TotalEstimate ?? 0.0;
+                        totalRem += pk.TotalRemaining ?? 0.0; 
                     }
+                    totalListXy.Add(new ChartXY() { x=timeGroup.Key, y=totalEst});
+                    remainingListXy.Add(new ChartXY() { x = timeGroup.Key, y = totalRem });
                 }
-
-
-
-                /*   [{
-                                        x: -10,
-                                        y: 0
-                                    }, {
-                                        x: 0,
-                                        y: 10
-                                    }, {
-                                        x: 10,
-                                        y: 5
-                                    }]
-                                    */
-                return new JsonResult() { Data = new List<ChartXY>()
+                return new JsonResult()
                 {
-                    new ChartXY() { x=DateTime.Now.AddDays(-1),y=0 },
-                    new ChartXY() { x=DateTime.Now.AddHours(-4), y=10 },
-                    new ChartXY() { x=DateTime.Now,y=5 }
-                } };
+                    Data = new List<ChartDataset>()
+                    {
+                        new ChartDataset()
+                        {
+                            label = "Total",
+                            fill = false,
+                            borderColor = "green",
+                            data = totalListXy
+                        },
+                        new ChartDataset()
+                        {
+                            label = "Remaining",
+                            fill = false, 
+                            borderColor = "blue",
+                            data = remainingListXy
+                        }
+                    }
+                };
             }
         }
 
@@ -376,6 +380,14 @@ This is another root task.";
         {
             public object x { get; set; }
             public object y { get; set; }
+        }
+
+        private class ChartDataset
+        {
+            public string label { get; set; }
+            public bool fill { get; set; }
+            public string borderColor { get; set; }
+            public List<ChartXY> data { get; set; }
         }
     }
 }
